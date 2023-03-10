@@ -6,6 +6,8 @@ import Information from './components/aboutUS';
 import MenuSec from './components/menuSec';
 import Clients from './components/clients';
 import Footer from './components/footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SuperUser from './components/superUser/superUser';
 
 class App extends Component {
   animation = () => {
@@ -26,7 +28,7 @@ class App extends Component {
   }
   render() {
     return (
-      <>
+      <Router>
         <main>
           <Navbar/>
           <Landing/>
@@ -35,7 +37,10 @@ class App extends Component {
           <Clients/>
           <Footer/>
         </main>
-      </>
+        <Routes>
+          <Route path="/superUser" element={<SuperUser/>} />
+        </Routes>
+      </Router>
     )
   }
 }

@@ -1,14 +1,5 @@
 @import '../variables/colors' ;
 header  {
-  @include breakpoint (mobile) {
-    width: max-content;
-    background-color:#0000005c;
-    flex-direction: column;
-    padding: 15px 5px;
-    position: sticky;
-    top: 20%;
-    left: 0;
-  }
   direction: rtl;
   width: 100%;
   background-color:$Dark_color;
@@ -19,6 +10,15 @@ header  {
   position: fixed ;
   top: 0;
   z-index:9;
+  @include breakpoint (mobile) {
+    width: max-content;
+    background-color:#0000005c;
+    flex-direction: column;
+    padding: 15px 5px;
+    position: sticky;
+    top: 20%;
+    
+  }
   .logo {
     .mobile-screens{
       @include breakpoint(mobile){

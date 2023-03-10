@@ -1,6 +1,8 @@
 import React ,{Component , Fragment} from 'react';
+import { NavLink } from 'react-router-dom';
 import smallLogo from '../NEW QC/لوجو qc 2-01.png';
 import logo from '../NEW QC/لوجو qc-12.png';
+
 class Navbar extends Component {
   render() {
     return (
@@ -41,6 +43,9 @@ class Navbar extends Component {
               </li>
               <li>
                 <a href="#contact" className="header_link">تواصل معنا</a>
+              </li>
+              <li>
+                <NavLink href="/superUser" className="header_link">Super user</NavLink>
               </li>
               <li>
                 <a href="#ShoppingCart" className="header_link"><img alt ="ph"src="https://img.icons8.com/fluency/48/null/fast-cart.png"/></a>

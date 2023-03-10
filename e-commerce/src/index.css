@@ -31,7 +31,6 @@ header {
     padding: 15px 5px;
     position: sticky;
     top: 20%;
-    left: 0;
   }
 }
 @media (max-width: 767px) {
