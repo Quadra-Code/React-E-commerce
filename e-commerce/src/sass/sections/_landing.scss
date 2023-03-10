@@ -1,0 +1,64 @@
+$landing-before:30px ;
+.landing-container {
+  position: relative;
+  width: 100%;
+  perspective: 200px;
+  img {
+    transform: translate3d(0, 0, 0);
+    transition: .3s all ease-in-out;
+    // filter: blur(2px);
+    background-size: cover;
+    width: 100%;
+    &.reveal {
+      transform: translate3d(0, 0, 10px);
+    }
+  }
+  .landing-content {
+    background-color: rgba(0, 0, 0, 0.484);
+    padding: 0 20px;
+    border-radius: 8px;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    color: $White_color;
+    direction: rtl;
+    span {
+      @include breakpoint(mobile){
+        font-size: 18px;
+        font-weight :800;
+      }
+      font-size:$landing-before;
+      font-weight: 700;
+      &:first-child {
+        position: relative;
+        right: 60px;
+        &::before {
+          @include breakpoint(mobile){
+            right: -55px;
+            width: 48px;
+            top: 15px ;
+            }    
+          content: "";
+          position: absolute;
+          right: -52px;
+          width: 48px;
+          top: $landing-before ;
+          height: 3px;
+          background-color: $yellow_color;
+        }
+      }
+    }
+    h2 {
+      @include breakpoint(mobile){
+        font-size: 15px;
+        font-weight :800;
+      }
+      font-size: 60px;
+      font-weight :800;
+    }
+  }
+}

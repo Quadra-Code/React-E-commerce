@@ -1,0 +1,101 @@
+.services-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 80px 20px;
+  margin-top: 0px;
+  @include breakpoint(mobile){
+    height: max-content;
+  } 
+  // line-height: 5;
+  h2{
+    @include breakpoint(mobile){
+      font-size: 30px;
+    }
+    font-size: 35px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-left: -50px;
+    color: $Dark_color;
+    position: relative;
+    &::before{
+      @include breakpoint(mobile){
+        bottom: -5%;
+        width: 10px;
+      }  
+      content: "";
+      position: absolute;
+      bottom: -5%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: $yellow_color;
+      animation-name: move-bubble;
+      animation-duration: 3.5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+    &::after {
+      @include breakpoint(mobile){
+        bottom: 0;
+        left: 14%;
+        width:120px;
+      } 
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform:translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: $yellow_color;
+    }
+  }
+  .servicer-content {
+    @include breakpoint(mobile){
+      flex-direction: column;
+      align-items: center;
+    } 
+    margin: 40px 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+    width: 100%;
+    direction: rtl;
+    .col {
+      @include breakpoint(mobile){
+        margin-bottom: 25px;
+      } 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      perspective: 20px;
+      .i-cont {
+        text-align: center;
+        border: 1px solid $yellow_color;
+        border-radius: 10%;
+        padding: 15px;
+        margin-bottom: 20px;
+        transition: .3s all ease-in-out;
+        &:hover {
+          transform: translate3d(0, 0, 1px);
+        }  
+        i {
+          font-size: 50px;
+          color: $yellow_color;
+        }
+      }
+      h3 {
+        font-size: 22px;
+        color: $yellow_color;
+      }
+      span {
+        max-width: 300px;
+        text-align: center;
+        color:$Dark_color;
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+.footer{
+  padding:40px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #0f1824;
+  border-radius: 50px 50px 0px 0px;
+  .col-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 150px;
+    @include breakpoint(medium) {
+      width: 80%;
+      gap: 0px;
+    }
+    @include breakpoint(mobile) {
+      flex-direction: column;
+    }
+    .col{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .elements{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 18px;
+        margin-top: 100px;
+        width: 400px;
+        h2{
+          color: $White_color;
+        }
+        span{
+          margin-bottom: 10px;
+          position: relative;
+          width:fit-content ;
+          color: $Darkgray_color;
+          &::after{
+            content: "";
+            position: absolute;
+            background-color: aliceblue;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 100%;
+            transform: scale(0,1);
+            transition:  0.3s linear;
+          }
+          &:hover{
+            &::after{
+              transform: scale(1,1);
+            }
+            color: $White_color;
+            >a:hover {
+              color: $White_color;
+            }
+          }
+        }
+        a{
+          text-decoration: none;
+          color: $Darkgray_color;
+        }
+      }
+    }
+    .logo-col{
+      @include breakpoint(mobile) {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      display: flex;
+      gap: 100px;
+      flex-direction: column;
+      .social-i{
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        i{
+          font-size: 28px;
+          color: $purple_color;
+        }
+      }
+    }
+  }
+}
+.Copyright-cont{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  a{
+    color: $purple_color;
+  }
+}
