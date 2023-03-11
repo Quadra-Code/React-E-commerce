@@ -1028,11 +1028,12 @@ header {
   width: 15%;
   display: flex;
   justify-content: center;
-  background-color: #222831;
+  background-color: #655DBB;
   position: fixed;
   right: 0;
   top: 0;
   transition: all 0.5s ease;
+  border-radius: 40px 0px 0px 40px;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
   .nav-container {
@@ -1066,14 +1067,13 @@ header {
   width: 100%;
 }
 .nav-container .side-nav .side-nav-main ul li {
+  position: relative;
   list-style: none;
-  color: rgba(255, 255, 255, 0.295);
   cursor: pointer;
   transition: 0.5s;
   margin: 10px 0 20px 0;
-  padding: 0px 20px 0px 0px;
-  text-align: left;
-  border-right: 3px solid rgba(0, 0, 0, 0);
+  padding: 5px 20px 5px 5px;
+  border-radius: 8px;
 }
 .nav-container .side-nav .side-nav-main ul li a {
   text-decoration: none;
@@ -1090,11 +1090,21 @@ header {
 .nav-container .side-nav .side-nav-main ul li a span i {
   color: rgb(189, 189, 189);
 }
-.nav-container .side-nav .side-nav-main ul li:hover {
-  border-color: #ffbe33;
+.nav-container .side-nav .side-nav-main ul li::before {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 28px;
+  background-color: #5443c3;
 }
-.nav-container .side-nav .side-nav-main ul li:hover > a {
-  color: #ffbe33;
+.nav-container .side-nav .side-nav-main ul li.active, .nav-container .side-nav .side-nav-main ul li:hover {
+  background-color: #766ad0;
+}
+.nav-container .side-nav .side-nav-main ul li.active > a, .nav-container .side-nav .side-nav-main ul li:hover > a {
+  color: #ffffff;
 }
 
 .menu-container {
@@ -1109,46 +1119,88 @@ header {
     width: 82%;
   }
 }
-.menu-container .content {
+.menu-container .mainContent {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   gap: 30px;
 }
-.menu-container .content .searchBar {
+.menu-container .mainContent .searchBar {
   box-shadow: 0 0 5px 2px rgba(183, 183, 183, 0.49);
   background-color: #f1f2f3;
   border-radius: 8px;
   padding: 10px;
   margin-top: 10px;
 }
-.menu-container .content .searchBar .content {
+.menu-container .mainContent .searchBar .content {
   display: flex;
   align-items: center;
   flex-direction: row;
 }
-.menu-container .content .searchBar .content input {
+.menu-container .mainContent .searchBar .content input {
   outline: none;
   border: none;
   padding: 3px;
   font-size: 20px;
   background-color: transparent;
 }
-.menu-container .content .searchBar .content i {
+.menu-container .mainContent .searchBar .content i {
   color: #ffbe33;
   padding: 10px;
   font-size: 25px;
   border-left: 2px solid #9c9c9c;
 }
-.menu-container .content .products-container {
+.menu-container .mainContent nav {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+.menu-container .mainContent nav .navLinks {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.menu-container .mainContent nav .navLinks .iconsCont .bellCont {
+  position: relative;
+}
+.menu-container .mainContent nav .navLinks .iconsCont .bellCont i {
+  color: #5443c3;
+  font-size: 25px;
+  padding: 5px;
+}
+.menu-container .mainContent nav .navLinks .iconsCont .bellCont span {
+  font-size: 15px;
+  font-weight: bold;
+  position: absolute;
+  top: -8px;
+  right: -5px;
+  color: #fff;
+  background-color: red;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-container .mainContent nav .navLinks .User span i {
+  color: #5443c3;
+  font-size: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px solid #5443c3;
+}
+.menu-container .mainContent .products-container {
   width: 100%;
 }
-.menu-container .content .products-container .swiper {
+.menu-container .mainContent .products-container .swiper {
   width: 100%;
   height: 100%;
 }
-.menu-container .content .products-container .swiper .swiper-slide {
+.menu-container .mainContent .products-container .swiper .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
@@ -1156,7 +1208,7 @@ header {
   justify-content: center;
   align-items: center;
 }
-.menu-container .content .products-container .swiper-pagination-bullet {
+.menu-container .mainContent .products-container .swiper-pagination-bullet {
   width: 20px;
   height: 20px;
   text-align: center;
@@ -1166,11 +1218,11 @@ header {
   opacity: 1;
   background: rgba(0, 0, 0, 0.2);
 }
-.menu-container .content .products-container .swiper-pagination-bullet.active {
+.menu-container .mainContent .products-container .swiper-pagination-bullet.active {
   color: #fff;
   background: #007aff;
 }
-.menu-container .content .products-container .products {
+.menu-container .mainContent .products-container .products {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1178,7 +1230,7 @@ header {
   gap: 30px;
   width: 100%;
 }
-.menu-container .content .products-container .products .features {
+.menu-container .mainContent .products-container .products .features {
   position: relative;
   background-color: #f1f2f3;
   padding: 40px 0px 0px 0px;
@@ -1190,16 +1242,16 @@ header {
   box-shadow: 0 0 5px 2px rgba(183, 183, 183, 0.49);
 }
 @media (min-width: 992px) and (max-width: 1599px) {
-  .menu-container .content .products-container .products .features {
+  .menu-container .mainContent .products-container .products .features {
     padding: 30px 0px 0px 0px;
   }
 }
 @media (max-width: 767px) {
-  .menu-container .content .products-container .products .features {
+  .menu-container .mainContent .products-container .products .features {
     margin-bottom: 25px;
   }
 }
-.menu-container .content .products-container .products .features::after {
+.menu-container .mainContent .products-container .products .features::after {
   content: "";
   position: absolute;
   top: 0;
@@ -1208,7 +1260,7 @@ header {
   height: 5px;
   background-color: #ffbe33;
 }
-.menu-container .content .products-container .products .features img {
+.menu-container .mainContent .products-container .products .features img {
   border-radius: 50%;
   width: 180px;
   height: 180px;
@@ -1216,12 +1268,12 @@ header {
   border: 4px solid #ffbe33;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
-  .menu-container .content .products-container .products .features img {
+  .menu-container .mainContent .products-container .products .features img {
     width: 150px;
     height: 150px;
   }
 }
-.menu-container .content .products-container .products .features .feat {
+.menu-container .mainContent .products-container .products .features .feat {
   border-radius: 30px 30px 8px 8px;
   padding: 10px;
   display: flex;
@@ -1230,35 +1282,336 @@ header {
   flex-direction: column;
   background-color: #222831;
 }
-.menu-container .content .products-container .products .features .feat span {
+.menu-container .mainContent .products-container .products .features .feat span {
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
   margin-bottom: 10px;
 }
-.menu-container .content .products-container .products .features .feat .description {
+.menu-container .mainContent .products-container .products .features .feat .description {
   max-width: 300px;
   font-size: 14px;
 }
-.menu-container .content .products-container .products .features .feat .bestSeller {
+.menu-container .mainContent .products-container .products .features .feat .bestSeller {
   color: #ffbe33;
 }
-.menu-container .content .products-container .products .features .feat .links-container {
+.menu-container .mainContent .products-container .products .features .feat .links-container {
   display: flex;
   justify-content: space-between;
   width: 70%;
   margin-top: 20px;
 }
-.menu-container .content .products-container .products .features .feat .links-container a {
+.menu-container .mainContent .products-container .products .features .feat .links-container a {
   text-decoration: none;
 }
-.menu-container .content .products-container .products .features .feat .links-container a i {
+.menu-container .mainContent .products-container .products .features .feat .links-container a i {
   font-size: 20px;
   color: #ffbe33;
 }
 
 /* full side nav */
 /* end full side nav */
+main {
+  height: 100vh;
+  direction: rtl;
+}
+main .container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+main .container .sideNav {
+  height: 100%;
+  width: 15%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 20px;
+  background-color: #5443c3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  border-radius: 40px 0px 0px 40px;
+}
+@media (min-width: 992px) and (max-width: 1599px) {
+  main .container .sideNav {
+    width: 18%;
+  }
+}
+main .container .sideNav .navLinks {
+  width: 100%;
+}
+main .container .sideNav .navLinks ul {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+main .container .sideNav .navLinks ul li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  color: #ffffff;
+  padding: 10px;
+  padding-right: 20px;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+  border-radius: 12px;
+}
+main .container .sideNav .navLinks ul li.active, main .container .sideNav .navLinks ul li:hover {
+  background-color: #766ad0;
+  border-radius: 12px;
+}
+main .container .sideNav .navLinks ul li::before {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 28px;
+  background-color: #5443c3;
+}
+main .container .mainContent {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  height: 100vh;
+  width: 85%;
+  gap: 30px;
+  padding-left: 10px;
+}
+@media (min-width: 992px) and (max-width: 1599px) {
+  main .container .mainContent {
+    width: 81%;
+  }
+}
+main .container .mainContent nav {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+main .container .mainContent nav .navLinks {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+main .container .mainContent nav .navLinks .iconsCont .bellCont {
+  position: relative;
+}
+main .container .mainContent nav .navLinks .iconsCont .bellCont i {
+  color: #5443c3;
+  font-size: 25px;
+  padding: 5px;
+}
+main .container .mainContent nav .navLinks .iconsCont .bellCont span {
+  font-size: 15px;
+  font-weight: bold;
+  position: absolute;
+  top: -8px;
+  right: -5px;
+  color: #fff;
+  background-color: red;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .container .mainContent nav .navLinks .User span i {
+  color: #5443c3;
+  font-size: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px solid #5443c3;
+}
+main .container .mainContent .topSec {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  flex-direction: column;
+  padding: 30px 0;
+}
+@media (min-width: 992px) and (max-width: 1599px) {
+  main .container .mainContent .topSec {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+main .container .mainContent .topSec .topSec-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+}
+main .container .mainContent .topSec .topSec-content h1 {
+  font-size: 50px;
+}
+main .container .mainContent .topSec .botSec-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+main .container .mainContent .topSec .botSec-content .outer-wrapper {
+  border-radius: 8px;
+  width: 100%;
+  padding: 0 0 10px 0;
+  direction: rtl;
+}
+main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper {
+  max-height: 600px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.0705882353);
+}
+main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table {
+  border-collapse: separate;
+  border-spacing: 0px;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  width: 100%;
+  background-color: transparent;
+  border-radius: 8px;
+}
+main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table thead {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+}
+main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table th {
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.062);
+  padding: 18px;
+  text-align: center;
+}
+main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td {
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+}
+main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td a {
+  margin: 0;
+}
+main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td a i {
+  transition: 0.2s;
+  font-size: 20px;
+  color: #5443c3;
+  background-color: #f1f2f3;
+  padding: 8px;
+  width: 100px;
+  border-radius: 8px;
+}
+main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td a i:hover {
+  transform: translateY(-2px);
+}
+main .container .mainContent .topSec .addSec .addSectionCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.174);
+  padding: 30px;
+  border-radius: 18px;
+  position: relative;
+}
+@media (min-width: 992px) and (max-width: 1599px) {
+  main .container .mainContent .topSec .addSec .addSectionCont {
+    padding: 15px;
+  }
+}
+main .container .mainContent .topSec .addSec .addSectionCont::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 5px;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #5443c3;
+  border-radius: 0 0 5px 5px;
+}
+main .container .mainContent .topSec .addSec .addSectionCont .col {
+  display: flex;
+  justify-content: center;
+}
+main .container .mainContent .topSec .addSec .addSectionCont .col form {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+@media (min-width: 992px) and (max-width: 1599px) {
+  main .container .mainContent .topSec .addSec .addSectionCont .col form {
+    gap: 15px;
+  }
+}
+main .container .mainContent .topSec .addSec .addSectionCont .col input, main .container .mainContent .topSec .addSec .addSectionCont .col select {
+  outline: none;
+  border: none;
+  background-color: #f1f2f3;
+  padding: 5px;
+  font-size: 18px;
+  border-radius: 8px;
+}
+@media (min-width: 992px) and (max-width: 1599px) {
+  main .container .mainContent .topSec .addSec .addSectionCont .col input, main .container .mainContent .topSec .addSec .addSectionCont .col select {
+    padding: 5px 3px;
+    font-size: 16px;
+  }
+}
+main .container .mainContent .topSec .addSec .addSectionCont .col button {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  outline: none;
+  border: none;
+  background-color: #9c9c9c;
+  padding: 5px 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  min-width: 100px;
+  color: #ffffff;
+  transition: 0.2s;
+  cursor: pointer;
+}
+@media (min-width: 992px) and (max-width: 1599px) {
+  main .container .mainContent .topSec .addSec .addSectionCont .col button {
+    padding: 4px 3px;
+    font-size: 15px;
+    min-width: 80px;
+  }
+}
+main .container .mainContent .topSec .addSec .addSectionCont .col button i {
+  transition: 0.4s;
+}
+main .container .mainContent .topSec .addSec .addSectionCont .col button:hover {
+  transform: translateY(-2px);
+  background-color: #4a4a4a;
+}
+main .container .mainContent .topSec .addSec .addSectionCont .col button:hover i {
+  transform: translateX(-2px);
+}
+main .container .mainContent .topSec .addSec .addSectionCont .col button:last-of-type:hover {
+  transform: translateY(2px);
+  background-color: #4a4a4a;
+}
+main .container .mainContent .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
+  transform: translateY(2px);
+}
+
 * {
   margin: 0;
   box-sizing: border-box;

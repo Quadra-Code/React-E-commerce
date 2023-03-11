@@ -45,7 +45,7 @@ class Navbar extends Component {
                 <a href="#contact" className="header_link">تواصل معنا</a>
               </li>
               <li>
-                <NavLink href="/superUser" className="header_link">Super user</NavLink>
+                <NavLink exact='true' href="/superUser" className="header_link">Super user</NavLink>
               </li>
               <li>
                 <a href="#ShoppingCart" className="header_link"><img alt ="ph"src="https://img.icons8.com/fluency/48/null/fast-cart.png"/></a>

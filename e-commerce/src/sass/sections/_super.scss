@@ -1,0 +1,296 @@
+@import '../variables/colors' ;
+
+
+main{
+  height: 100vh;
+  direction: rtl;
+  .container{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    .sideNav {
+      height: 100%;
+      @include breakpoint (medium) {
+        width: 18%;
+      }
+      width: 15%;
+      position: fixed;
+      right: 0;
+      top: 0;
+      padding: 20px;
+      background-color: #5443c3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 100px;
+      border-radius: 40px 0px 0px 40px;
+      .navLinks{
+        width: 100%;
+        ul{
+          display: flex;
+          flex-direction: column;
+          gap: 50px;
+          li{
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+            color: #ffffff;
+            padding: 10px;
+            padding-right: 20px;
+            transition: .5s ease-in-out;
+            cursor: pointer;
+            border-radius:12px ;
+            &.active, &:hover{
+              background-color: #766ad0;
+              border-radius:12px ;
+            }
+            &::before{
+              content: '';
+              position: absolute;
+              right: 6px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 5px;
+              height: 28px;
+              background-color: #5443c3;
+            }
+          }
+        }
+      }
+    }
+    .mainContent{
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      left: 0;
+      @include breakpoint (medium) {
+        width: 81%;
+      }
+      height: 100vh;
+      width: 85%;
+      gap: 30px;
+      padding-left: 10px;
+      nav{
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding: 20px;
+        .navLinks{
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          .iconsCont{
+            .bellCont{
+              position: relative;
+              i{
+                color: #5443c3;
+                font-size: 25px;
+                padding: 5px;
+              }
+              span{
+                font-size: 15px;
+                font-weight: bold;
+                position: absolute;
+                top: -8px;
+                right: -5px;
+                color: #fff;
+                background-color: red;
+                border-radius: 50%;
+                width: 22px;
+                height: 22px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+            }
+          }
+          .User{
+            span{
+              i{
+                color: #5443c3;
+                font-size: 20px;
+                background-color: #ffffff;
+                border-radius: 50%;
+                padding: 5px;
+                border: 1px solid #5443c3;
+              }
+            }
+          }
+        }
+      }
+      .topSec{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: flex-end;
+        flex-direction: column;
+        padding: 30px 0;
+        @include breakpoint (medium) {
+          width: 100%;
+          justify-content: flex-end;
+        }
+        .topSec-content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: row;
+          gap: 20px;
+          h1{
+            font-size: 50px;
+          }
+        }
+        .botSec-content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          width: 100%;
+          .outer-wrapper {
+            border-radius: 8px;
+            width: 100%;
+            padding: 0 0 10px 0;
+            direction: rtl;
+            .table-wrapper {
+              max-height: 600px;
+              overflow-y: auto;
+              background-color: $White_color;
+              border-radius: 8px;
+              box-shadow: 0 0 6px 2px #00000012;;
+              table {
+                border-collapse: separate;
+                border-spacing: 0px;
+                min-width: max-content;
+                width: 100%;
+                background-color: transparent;
+                border-radius: 8px;
+                thead{
+                  position: sticky;
+                  top: 0;
+                  background-color: $White_color
+                }
+                th {
+                  color: black;
+                  font-size: 18px;
+                  font-weight: 700;
+                  border-bottom: 1px solid rgba(0, 0, 0, 0.062);
+                  padding:18px;
+                  text-align: center;
+                }
+                td {
+                  color: rgb(0, 0, 0);
+                  font-size: 18px;
+                  a{
+                    margin: 0;
+                    i{
+                      transition: .2s;
+                      font-size: 20px;
+                      color: #5443c3;
+                      background-color: $gray_color;
+                      padding: 8px;
+                      width: 100px;
+                      border-radius: 8px;
+                      &:hover{
+                        transform: translateY(-2px);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        .addSec{
+          .addSectionCont{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.174);
+            padding: 30px;
+            border-radius:18px ;
+            position: relative;
+            @include breakpoint (medium) {
+              padding: 15px;
+            }    
+            &::before{
+              content:"";
+              position: absolute;
+              top: 0;
+              height: 5px;
+              width: 80%;
+              left: 50%;
+              transform: translateX(-50%);
+              background-color: #5443c3;
+              border-radius: 0 0 5px 5px;
+            }
+            .col{
+              display: flex;
+              justify-content: center;
+              form{
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                @include breakpoint (medium) {
+                  gap: 15px;
+                }    
+              }
+              input , select{
+                outline: none;
+                border: none;
+                background-color: $gray_color;
+                padding: 5px;
+                font-size: 18px;
+                border-radius: 8px;
+                @include breakpoint (medium) {
+                  padding: 5px 3px;
+                  font-size: 16px;
+                }    
+              }
+              button{
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                align-items: center;
+                outline: none;
+                border: none;
+                background-color: $Darkgray_color;
+                padding: 5px 10px;
+                font-size: 18px;
+                border-radius: 8px;
+                min-width: 100px;
+                color: $White_color;
+                transition: .2s;
+                @include breakpoint (medium) {
+                  padding: 4px 3px;
+                  font-size: 15px;
+                  min-width: 80px;
+                }    
+                cursor: pointer;
+                i{
+                  transition: .4s;
+                }
+                &:hover{
+                  transform: translateY(-2px);
+                  background-color: #4a4a4a;
+                  i {
+                    transform: translateX(-2px);
+                  }
+                }
+                &:last-of-type:hover{
+                  transform: translateY(2px);
+                  background-color: #4a4a4a;
+                  i {
+                    transform: translateY(2px);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

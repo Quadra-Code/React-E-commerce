@@ -37,9 +37,6 @@ class App extends Component {
           <Clients/>
           <Footer/>
         </main>
-        <Routes>
-          <Route path="/superUser" element={<SuperUser/>} />
-        </Routes>
       </Router>
     )
   }
