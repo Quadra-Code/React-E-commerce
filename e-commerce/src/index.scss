@@ -30,11 +30,13 @@
 }
 html{
   scroll-behavior: smooth;
+  // overflow-x: hidden;
 }
 body {
   background-color:$White_color;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   color: $Dark_color;
+  width: 100vw !important;
 }
 ::-webkit-scrollbar {
   height: 8px;

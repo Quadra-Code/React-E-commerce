@@ -73,15 +73,15 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 15px;
       margin:20px 0;
       direction: rtl;
       @include breakpoint(medium) {
         margin:20px 0;
       }  
-      @include breakpoint(mobile) {
-        justify-content: flex-start;
-      }  
+      // @include breakpoint(mobile) {
+      //   justify-content: flex-start;
+      // }  
       // perspective: 10px;
       .aboutUs-listCol {
         @include breakpoint(medium) {
@@ -90,10 +90,10 @@
           width: 200px;
         }  
         @include breakpoint(mobile) {
-          padding: 25px;
-          font-size: 22px;
-          width: 300px;
-          margin-bottom:45px;
+          padding: 10px;
+          font-size: 15px;
+          width: max-content;
+          margin-bottom: 18px;
         }    
         position: relative;
         background-color: $Dark_color;
@@ -124,6 +124,9 @@
           transition: .4s all ease-in-out;
           @include breakpoint(medium) {
             left: 42%;
+          }  
+          @include breakpoint(mobile) {
+            left: 30%;
           }  
         }
         &:hover:after{

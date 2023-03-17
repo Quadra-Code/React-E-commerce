@@ -1,26 +1,50 @@
 import React, {Component, Fragment} from 'react';
+import { useRef } from 'react';
 
 
 class Menu extends Component {
-
+  constructor (props) {
+    super(props);
+    this.myRef= React.createRef();
+    this.myMenuRef= React.createRef();
+  }
+  subMenu = ()=> {
+    this.myMenuRef.current.classList.toggle("responsive")
+  }
+  Responsive= ()=> {
+    this.myRef.current.classList.toggle("responsive")
+    console.log('done')
+  }
   render() {
     return(
       <>
         <main>
-          <div className="nav-container">
+          <div className="nav-container" ref={this.myRef}>
             <nav className="side-nav">
-              <div className="side-nav-header">
+              <button onClick={this.Responsive}>
+              <i className="fa-solid fa-xmark"></i>
+              </button>
+              {/* <div className="side-nav-header">
                 <img src="../static/NEW QC/لوجو qc-12.png" alt="" className="  navLogo"/>
-              </div>
+              </div> */}
               <div className="side-nav-main">
                 <ul>
-                  <li  className="active navLi">
-                    <a className="nav-links" href='#link'>
+                  <li ref={this.myMenuRef} className="active navLi" >
+                    <a onClick={this.subMenu} className="nav-links" href='#link'>
                       <i className="fa-solid fa-chart-line nav-icons"></i>
                       <span className="nav-Pagetitle">
                         قسم الالبان
                       </span>
                     </a>
+                    <div className='subMenu' >
+                      <ul>
+                        <li >قشطه قشطه قشطه قشطه</li>
+                        <li onClick={this.Responsive}>قشطه</li>
+                        <li>قشطه</li>
+                        <li>قشطه</li>
+                        <li>قشطه</li>
+                      </ul>
+                    </div>
                   </li>
                   <li  className="navLi">
                     <a className="nav-links" href='#link'>
@@ -150,15 +174,18 @@ class Menu extends Component {
             <div className="mainContent">
               <nav>
                 <div className="navLinks">
+                  <div className='bar'>
+                    <button onClick={this.Responsive}><i className="fa-solid fa-bars"></i></button>
+                  </div>
                   <div className="iconsCont">
                     <div className="bellCont">
                       <i className="fa-solid fa-bell"></i>
                       <span>18</span>
                     </div>
-                  </div>
-                  <div className="User">
-                    <span><i className="fa-solid fa-user"></i></span>
-                    <span>name here</span>
+                    <div className="User">
+                      <span><i className="fa-solid fa-user"></i></span>
+                      <span>name here</span>
+                    </div>
                   </div>
                 </div>
               </nav>

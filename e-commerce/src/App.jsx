@@ -4,6 +4,7 @@ import Navbar from './components/navbar';
 import Landing from './components/landing';
 import Information from './components/aboutUS';
 import MenuSec from './components/menuSec';
+import Menu from './components/menu';
 import Clients from './components/clients';
 import Footer from './components/footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -12,7 +13,7 @@ import SuperUser from './components/superUser/superUser';
 class App extends Component {
   animation = () => {
     scrollreveal({ 
-      reset: true ,
+      reset: false ,
       distance:'60px',
       duration:1500,
       delay:400,
@@ -30,12 +31,13 @@ class App extends Component {
     return (
       <Router>
         <main>
-          <Navbar/>
+          {/* <Navbar/>
           <Landing/>
           <Information/>
           <MenuSec/>
           <Clients/>
-          <Footer/>
+          <Footer/> */}
+          <Menu/>
         </main>
       </Router>
     )
