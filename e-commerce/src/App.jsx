@@ -7,6 +7,8 @@ import MenuSec from './components/menuSec';
 import Menu from './components/menu';
 import Clients from './components/clients';
 import Footer from './components/footer';
+import Cart from './components/cart';
+import Wishlist from './components/wishlist';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SuperUser from './components/superUser/superUser';
 
@@ -37,7 +39,9 @@ class App extends Component {
           <MenuSec/>
           <Clients/>
           <Footer/> */}
-          <Menu/>
+          {/* <Menu/> */}
+          {/* <Cart/> */}
+          <Wishlist/> 
         </main>
       </Router>
     )

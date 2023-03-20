@@ -8,7 +8,7 @@ class MyOrders extends Component {
           <div className="topSec-content" >
             <h1>My Orders</h1>
             <div>
-              <img src="https://img.icons8.com/bubbles/100/null/purchase-order.png"/>
+              <img alt ="pic" src="https://img.icons8.com/bubbles/100/null/purchase-order.png"/>
             </div>
           </div>
           <div className="botSec-content">

@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 
 
-class Menu extends Component {
+class Cart extends Component {
   constructor (props) {
     super(props);
     this.myRef= React.createRef();
@@ -193,8 +193,8 @@ class Menu extends Component {
               </nav>
               <div className="searchBar">
                 <div className="content">
-                  <i className="fa-solid fa-magnifying-glass"></i>
-                  <input type="text" placeholder="عن ماذا تبحث؟"/>
+                  <i class="fa-brands fa-opencart"></i>
+                  <span>My cart</span>
                 </div>
               </div>
               <div className="products-container">
@@ -206,9 +206,13 @@ class Menu extends Component {
                       <span>هاني كيك نوتيلا</span>
                       <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
                       <div className="links-container">
-                        <a href="#link">
-                          <i className="fa-solid fa-cart-shopping"></i>
-                        </a>
+                        <button><i className="fa-regular fa-heart"></i></button>
+                        <button><i className="fa-regular fa-trash-can"></i></button>
+                        <select name="" id="">
+                          <option value="">1kilo</option>
+                          <option value="">1kilo</option>
+                          <option value="">1kilo</option>
+                        </select>
                         <span>20$</span>
                       </div>
                     </div>
@@ -320,4 +324,4 @@ class Menu extends Component {
     )
   }
 }
-export default Menu;
+export default Cart;

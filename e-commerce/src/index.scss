@@ -15,12 +15,14 @@
 @import './sass/sections/clients' ;
 // import footer style
 @import './sass/sections/footer' ;
-// import wishlist style
-@import './sass/sections/wishlist' ;
 // import menu style
 @import './sass/sections/menu' ;
-// import menu style
+// import super style
 @import './sass/sections/super' ;
+// import cart style
+@import './sass/sections/cart' ;
+// import wishlist style
+@import './sass/sections/wishlist';
 
 * {
   margin :0;
