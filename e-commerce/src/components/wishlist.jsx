@@ -1,11 +1,35 @@
 import React, {Component, Fragment} from 'react';
-
+import axios from 'axios';
 
 class Wishlist extends Component {
   constructor (props) {
     super(props);
     this.myRef= React.createRef();
     this.myMenuRef= React.createRef();
+    this.state ={
+      items: []
+    }
+  }
+  componentDidMount(){
+      const getUser =  async ()=> {
+      try {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+        // const result = await response.json()
+        this.setState({
+          items:response.data
+        })
+        // console.log(this.state.items)
+        return response.data;
+      }
+      catch (error){
+        console.log(Error(error));
+      }
+    }
+    getUser()
+    this.getItems()
+  }
+  getItems = ()=>{
+    console.log(this.state.items)
   }
   subMenu = ()=> {
     this.myMenuRef.current.classList.toggle("responsive")
@@ -50,6 +74,7 @@ class Wishlist extends Component {
                       <i className="fa-solid fa-file-signature nav-icons"></i>
                       <span className="nav-Pagetitle">
                         سوريهات
+                        {this.state.items.map(item => <span key={item.id}>{item.name}</span>)}
                       </span>
                     </a>
                   </li>
