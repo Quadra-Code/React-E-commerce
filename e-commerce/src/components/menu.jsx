@@ -178,7 +178,7 @@ class Menu extends Component {
                   </div>
                   <div className="iconsCont">
                     <div className="User">
-                      <span><i class="fa-solid fa-house-chimney"></i></span>
+                      <span><i className="fa-solid fa-house-chimney"></i></span>
                     </div>
                     <div className="bellCont">
                       <i className="fa-solid fa-bell"></i>

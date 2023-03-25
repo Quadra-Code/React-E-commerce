@@ -14,11 +14,10 @@ class Wishlist extends Component {
       const getUser =  async ()=> {
       try {
         const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-        // const result = await response.json()
         this.setState({
           items:response.data
         })
-        // console.log(this.state.items)
+        console.log(response.data[1].userId)
         return response.data;
       }
       catch (error){
@@ -26,10 +25,9 @@ class Wishlist extends Component {
       }
     }
     getUser()
-    this.getItems()
   }
   getItems = ()=>{
-    console.log(this.state.items)
+    console.log(this.state.items[1])
   }
   subMenu = ()=> {
     this.myMenuRef.current.classList.toggle("responsive")
@@ -55,7 +53,7 @@ class Wishlist extends Component {
                   <li ref={this.myMenuRef} className="active navLi" >
                     <a onClick={this.subMenu} className="nav-links" href='#link'>
                       <i className="fa-solid fa-chart-line nav-icons"></i>
-                      <span className="nav-Pagetitle">
+                      <span onClick={this.getItems} className="nav-Pagetitle">
                         قسم الالبان
                       </span>
                     </a>
@@ -74,7 +72,7 @@ class Wishlist extends Component {
                       <i className="fa-solid fa-file-signature nav-icons"></i>
                       <span className="nav-Pagetitle">
                         سوريهات
-                        {this.state.items.map(item => <span key={item.id}>{item.name}</span>)}
+                        {this.state.items.map(item => <span key={item.id}>{item.userId}</span>)}
                       </span>
                     </a>
                   </li>
@@ -203,7 +201,7 @@ class Wishlist extends Component {
                   </div>
                   <div className="iconsCont">
                     <div className="User">
-                      <span><i class="fa-solid fa-house-chimney"></i></span>
+                      <span><i className="fa-solid fa-house-chimney"></i></span>
                     </div>
                     <div className="bellCont">
                       <i className="fa-solid fa-bell"></i>
@@ -218,7 +216,7 @@ class Wishlist extends Component {
               </nav>
               <div className="searchBar">
                 <div className="content">
-                  <i class="fa-brands fa-opencart"></i>
+                  <i className="fa-brands fa-opencart"></i>
                   <span>My wishlist</span>
                 </div>
               </div>

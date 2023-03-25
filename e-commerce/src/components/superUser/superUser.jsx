@@ -5,21 +5,21 @@ class SuperUser extends Component{
     return(
       <>
         <main>
-          <div class="container">
-            <div class="sideNav">
-              <div class="navLogo"><img src="../static/NEW QC/لوجو qc-12.png" alt="" class="navLogo" style={{width:'200px'}}/></div>
-              <div class="navLinks">
+          <div className="container">
+            <div className="sideNav">
+              <div className="navLogo"><img src="../static/NEW QC/لوجو qc-12.png" alt="" className="navLogo" style={{width:'200px'}}/></div>
+              <div className="navLinks">
                 <ul>
-                  <li class="active">
-                  <i class="fa-solid fa-bars"></i>
+                  <li className="active">
+                  <i className="fa-solid fa-bars"></i>
                     <span>إضافة أقسام</span>
                   </li>
                   <li>
-                    <i class="fa-solid fa-marker"></i>
+                    <i className="fa-solid fa-marker"></i>
                     <span>إضافة منتجات</span>
                   </li>
                   <li>
-                    <i class="fa-solid fa-marker"></i>
+                    <i className="fa-solid fa-marker"></i>
                     <span>الطلبات</span>
                   </li>
                 </ul>
@@ -27,15 +27,15 @@ class SuperUser extends Component{
             </div>
             <div className='mainContent'>
               <nav>
-                <div class="navLinks">
-                  <div class="iconsCont">
-                    <div class="bellCont">
-                      <i class="fa-solid fa-bell"></i>
+                <div className="navLinks">
+                  <div className="iconsCont">
+                    <div className="bellCont">
+                      <i className="fa-solid fa-bell"></i>
                       <span>18</span>
                     </div>
                   </div>
-                  <div class="User">
-                    <span><i class="fa-solid fa-user"></i></span>
+                  <div className="User">
+                    <span><i className="fa-solid fa-user"></i></span>
                     <span>name here</span>
                   </div>
                 </div>

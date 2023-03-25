@@ -11,6 +11,8 @@ import Cart from './components/cart';
 import Wishlist from './components/wishlist';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SuperUser from './components/superUser/superUser';
+import AddProducts from './components/superUser/addProduct';
+import AddSections from './components/superUser/addSection';
 
 class App extends Component {
   animation = () => {
@@ -39,9 +41,12 @@ class App extends Component {
           <MenuSec/>
           <Clients/>
           <Footer/> */}
+          {/* <SuperUser/> */}
+          <AddProducts/>
+          {/* <AddSections/> */}
           {/* <Menu/> */}
           {/* <Cart/> */}
-          <Wishlist/> 
+          {/* <Wishlist/>  */}
         </main>
       </Router>
     )
