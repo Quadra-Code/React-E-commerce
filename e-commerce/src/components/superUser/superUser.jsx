@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment} from 'react'
 
 class SuperUser extends Component{
   render(){

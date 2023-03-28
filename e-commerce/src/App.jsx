@@ -41,9 +41,9 @@ class App extends Component {
           <MenuSec/>
           <Clients/>
           <Footer/> */}
+          {/* <AddProducts/> */}
           {/* <SuperUser/> */}
-          <AddProducts/>
-          {/* <AddSections/> */}
+          <AddSections/>
           {/* <Menu/> */}
           {/* <Cart/> */}
           {/* <Wishlist/>  */}
