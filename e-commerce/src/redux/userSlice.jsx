@@ -1,8 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
+// export const addUser = createAsyncThunk ("user/add",async(user)=>{
+//   const res = await axios.post ("http://127.0.0.1:8000/add-show-categories-api",user)
+//   return res.data
+// } )
 export const addUser = createAsyncThunk ("user/add",async(user)=>{
-  const res = await axios.post ("https://jsonplaceholder.typicode.com/users",user)
+  const res = await axios.post ("http://localhost:9000/sections",user)
   return res.data
 } )
 
@@ -13,7 +17,8 @@ export const userSlice = createSlice({
       name :""
     },
     loading :false,
-    error : false
+    error : false,
+    isUpdating: false
   },
   reducers: {},
   extraReducers: {
@@ -25,8 +30,12 @@ export const userSlice = createSlice({
       state.error = true
     },
     [addUser.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.userData= action.payload;
+      if (!state.isUpdating) {
+        state.loading = false;
+        state.userData = action.payload;
+        state.isUpdating = true;
+        console.log(action.payload);
+      }
     }
   }
 })

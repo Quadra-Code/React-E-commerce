@@ -6,7 +6,7 @@ import HashLoader from "react-spinners/HashLoader"
 
 
 function SuperUser() {
-  const {name} =useSelector (state => state.user.userData)
+  const {category_name} =useSelector (state => state.user.userData)
   const [loading, setLoading] = useState(false);
   const override ={
     position:'absolute',
@@ -35,7 +35,7 @@ function SuperUser() {
       :
       <main>
         <div className="container">
-          <div className="sideNav">
+          <div className="sideNav ">
             <div className="navLogo"><img src="../static/NEW QC/لوجو qc-12.png" alt="" className="navLogo" style={{width:'200px'}}/></div>
             <div className="navLinks">
               <ul>
@@ -71,7 +71,7 @@ function SuperUser() {
                 </div>
                 <div className="User">
                   <span><i className="fa-solid fa-user"></i></span>
-                  <span>{name}</span>
+                  <span></span>
                 </div>
               </div>
             </nav>

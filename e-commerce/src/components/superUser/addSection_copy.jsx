@@ -1,9 +1,16 @@
 import React, {Fragment,useState,useEffect} from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { addUser } from '../../redux/userSlice';
+// import HashLoader from "react-spinners/HashLoader";
+// import { nanoid } from 'nanoid';
 import Swal from 'sweetalert2'
 import axios from 'axios';
-function AddSections() {
+function AddSections_copy() {
   const [sections , setSections] = useState();
   const [category_name, setCategory_name] = useState("");
+  // const [sub_categories, setSub_categories] = useState([]);
+  // const {loading, error} = useSelector(state=> state.user);
+  // const dispatch = useDispatch()
   useEffect (()=>{
     getAllProducts()
   },[])
@@ -51,7 +58,19 @@ function AddSections() {
   }
   return (
     <Fragment>
-        <section className="topSec">
+      {/* {error && console.log('error')}
+      {
+        loading && category_name? 
+        <HashLoader
+        color={"#906fee"}
+        loading={loading}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        cssOverride={override}
+        />
+        : */}
+        <section className="topSec ">
           <div className="topSec-content" >
             <h1 >Add Sections</h1>
             <div>
@@ -63,6 +82,7 @@ function AddSections() {
               <div className="col">
                 <form action="" onSubmit={handleSubmit}>
                   <input type="text" required name ='categoryName' onChange={(e)=>setCategory_name(e.target.value)} placeholder="أسم القسم"/>
+                  {/* <input type="text" onChange={(e)=>setSub_categories([{sub_category_name:e.target.value}])} name ='subName' placeholder="قسم فرعي"/> */}
                   <button>
                     <span>اضافه</span>
                     <i className="fa-solid fa-arrow-left"></i>
@@ -86,6 +106,7 @@ function AddSections() {
                       </div>
                     </th>
                     <th>الاقسام</th>
+                    {/* <th>الاقسام الفرعيه</th> */}
                     <th>خيارات</th>
                   </tr>
                 </thead>
@@ -98,6 +119,13 @@ function AddSections() {
                             </div>
                           </td>
                           <td >{section.category_name}</td>
+                          {/* <td>
+                            <select>
+                              {section.sub_categories.map((sub)=>
+                              <option key={sub.id} value="">{sub.sub_category_name}</option>
+                              )}
+                            </select>
+                          </td> */}
                           <td>
                             <button><i className="fa-regular fa-pen-to-square"></i></button>
                             <button onClick={()=>handleDelete(section)}><i className="fa-solid fa-trash"></i></button>
@@ -109,8 +137,9 @@ function AddSections() {
             </div>
           </div>
         </section>
+      {/* } */}
     </Fragment>
   )
 }
 
-export default AddSections
+export default AddSections_copy

@@ -1,0 +1,60 @@
+{
+  "sections": [
+    {
+      "id": 2,
+      "categoryName": "ألبان",
+      "subCategories": [
+        {
+          "id": 8,
+          "subName": "جاتوه"
+        },
+        {
+          "id": 9,
+          "subName": "قشطوطه"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "categoryName": "ألبان",
+      "subCategories": [
+        {
+          "id": 10,
+          "subName": "جاتوه"
+        },
+        {
+          "id": 11,
+          "subName": "قشطوطه"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "categoryName": "ألبان",
+      "subCategories": [
+        {
+          "id": 12,
+          "subName": "جاتوه"
+        },
+        {
+          "id": 13,
+          "subName": "قشطوطه"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "categoryName": "ألبان",
+      "subCategories": [
+        {
+          "id": 14,
+          "subName": "جاتوه"
+        },
+        {
+          "id": 15,
+          "subName": "قشطوطه"
+        }
+      ]
+    }
+  ]
+}
