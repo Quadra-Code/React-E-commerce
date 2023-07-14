@@ -21,12 +21,13 @@ main{
       right: 0;
       top: 0;
       padding: 20px;
-      background-color: #5443c3;
+      // background-color: #5443c3;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 100px;
-      border-radius: 40px 0px 0px 40px;
+      // border-radius: 40px 0px 0px 40px;
+      border-left: 1px solid $text-200-shadow;
       .navLinks{
         width: 100%;
         ul{
@@ -40,15 +41,17 @@ main{
               display: flex;
               align-items: center;
               gap: 20px;
-              color: #ffffff;
+              // color: #ffffff;
+              color: $text-200;
               padding: 10px;
               padding-right: 20px;
               transition: .5s ease-in-out;
               cursor: pointer;
               border-radius:12px ;
               &.active, &:hover{
-                background-color: #766ad0;
+                background-color: $primary-300;
                 border-radius:12px ;
+                color: $bg-100;
               }
               &::before{
                 content: '';
@@ -58,7 +61,7 @@ main{
                 transform: translateY(-50%);
                 width: 5px;
                 height: 28px;
-                background-color: #5443c3;
+                background-color: $bg-100;
               }
             }
           }
@@ -75,13 +78,13 @@ main{
       }
       height: 100vh;
       width: 85%;
-      gap: 30px;
+      gap: 3px;
       padding-left: 10px;
       nav{
         width: 100%;
         display: flex;
         justify-content: flex-end;
-        padding: 20px;
+        padding: 10px;
         .navLinks{
           display: flex;
           align-items: center;
@@ -132,7 +135,7 @@ main{
         align-items: center;
         align-self: flex-end;
         flex-direction: column;
-        padding: 30px 0;
+        padding: 15px 0;
         @include breakpoint (medium) {
           width: 100%;
           justify-content: flex-end;
@@ -142,9 +145,9 @@ main{
           justify-content: center;
           align-items: center;
           flex-direction: row;
-          gap: 20px;
+          gap: 10px;
           h1{
-            font-size: 50px;
+            font-size: 25px;
           }
         }
         .botSec-content {
@@ -297,16 +300,19 @@ main{
         }
         .allElements {
           margin-top: 30px;
-          width: 90%;
+          width: 97%;
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: baseline;
+          // flex-direction: column;
+          gap: 15px;
           .outerTable{
             background-color: #efefef;
+            background-color: $bg-200;
             padding: 20px;
             border-radius: 6px;
             width: 100%;
-            max-height: 675px;
+            max-height: 620px;
             overflow-y: auto;
             table{
               width: 100%;
@@ -315,6 +321,9 @@ main{
               tbody{
                 tr {
                   background-color: #fff;
+                  &.selected{
+                    background-color: #dcdcdc;
+                  }
                   td {
                     padding: 15px 10px;
                     gap: 10px;
@@ -339,17 +348,28 @@ main{
                       outline: 0;
                       border: 0;
                       width: 50px;
-                      padding:0px 5px ;
-                      font-size: 25px;
-                      background: transparent;
+                      padding:2px 5px ;
+                      font-size: 14px;
+                      border-radius: 5px;
+                      color: $White_color;
                       cursor: pointer;
-                      &:first-child{
-                        color: rgb(30, 201, 30);
-                        margin-left: 20px;
+                    }
+                    .edit{
+                      background: $edit_color;
+                      margin-left: 15px;
+                    }
+                    .view {
+                      background: $view_color;
+                      color: rgb(0, 0, 0);
+                      margin-left: 15px;
+                      width: min-content;
+                      a{
+                        width: 100%;
+                        padding: 4px 10px;
                       }
-                      &:last-child{
-                        color: rgb(180, 26, 26);
-                      }
+                    }
+                    .delete{
+                      background: $delete_color;
                     }
                     input{
                       outline: 0;
@@ -364,14 +384,166 @@ main{
                   }
                 }
               }
-              .Checkbox{
-                border-radius: 5px;
-                width: min-content;
-                padding: 0px 6px;
-                border: 2px solid rgba(0, 0, 0, 0.142);
-                font-size: 14px;
+            }
+            .addBtn {
+              border-radius: 5px;
+              button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                padding: 2px 8px;
+                font-size: 15px;
+                border-radius: 6px;
+                border: none;
+                outline: none;
+                background-color: $text-100;
                 color: #fff;
                 cursor: pointer;
+                a {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 10px;  
+                }
+              }
+            }
+          }
+          .container{
+            width: 100%;
+            form{
+              width:100%;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 10px;
+              // background-color: $gray_color;
+              padding:15px ;
+              .section:nth-child(1){
+                .inp-container{
+                  .input-cont{
+                    min-width: 32%;
+                  }
+                }
+              }
+              .section:nth-child(2){
+                .inp-container{
+                  .input-cont{
+                    min-width: 46%;
+                  }
+                }
+              }
+              .section:nth-child(3){
+                .inp-container{
+                  .input-cont{
+                    min-width: 23%;
+                  }
+                }
+              }
+              .submit-section{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                button{
+                  padding: 5px 10px;
+                  font-size: 18px;
+                  border: none;
+                  outline: none;
+                  border-radius: 10px;
+                  background-color: $text-200;
+                  color: $White_color;
+                  width: 150px;
+                  cursor: pointer;
+                  transition: .3s;
+                  &:hover{
+                    background-color: $text-100;
+                  }
+                }
+              }
+              .section{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                background-color: $bg-200;
+                padding:10px ;
+                border-radius: 15px;
+                .label{
+                  font-weight: 600;
+                }
+                .inp-container{
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  gap: 5px;
+                  .input-cont{
+                    input, textarea, select{
+                      font-size: 18px;
+                      padding: 3px 6px;
+                      border: 1px solid #e6e6e6;
+                      border-radius: 10px;
+                      outline: none;
+                      width: 100%;
+                    }
+                  }
+                  .image-container{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 8px;
+                    width: 100%;
+                    gap: 10px;
+                    .cont{
+                      display: flex;
+                      align-items: center;  
+                      justify-content: space-between;
+                    }
+                    .image-view {
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: center;
+                      background-color: $White_color;
+                      height: 200px;
+                      padding:8px 20px;
+                      border-radius: 20px;
+                      span{
+                        font-size: 12px;
+                        color:rgb(92 92 92 / 59%);
+                      }
+                    }
+                    .selected-images{
+                      display: flex;
+                      justify-content: space-between;
+                      gap: 20px;
+                      .image{
+                        border-radius: 10px;
+                        width: 70px;
+                        height: 70px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        img{
+                          width: 100%;
+                          border-radius: 10px;
+                        }
+                      }
+                    }
+                    .select-btn{
+                      button{
+                        padding: 5px 10px;
+                        font-size: 15px;
+                        border: none;
+                        outline: none;
+                        border-radius: 10px;
+                        background-color: $text-100;
+                        color: $White_color;
+                        width: 90px;
+                        cursor: pointer;
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -380,6 +552,6 @@ main{
     }
   }
 }
-.activeCheckbox {
-  background-color: rgb(78, 131, 238);
+.swal2-input {
+  direction: rtl !important;
 }
