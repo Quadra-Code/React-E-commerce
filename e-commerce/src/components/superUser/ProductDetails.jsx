@@ -9,27 +9,52 @@ export default function ProductDetails() {
   const [categoryUnit, setCategoryUnit] = useState('');
   const [categoryDisc, setCategoryDisc] = useState('');
   const [categoryImages, setCategoryImages] = useState(['']);
+  const [imageFile, setImageFile] = useState(null);
+  const [images, setImages] = useState([]);
   const handleOptionChange = (event) => {
     setCategoryUnit(event.target.value);
   }
   useEffect (()=>{
-    console.log(categoryName)
-    console.log(categoryPrice)
-    console.log(categoryUnit)
-    console.log(categoryDisc)
+    console.log(imageFile);
+    // console.log(categoryName)
+    // console.log(categoryPrice)
+    // console.log(categoryUnit)
+    // console.log(categoryDisc)
   })
   const uploadFile = ()=>{
     const inpFile = document.querySelector('.upload-file');
     inpFile.addEventListener('click', ()=>{
       inpFile.click()
     });
-    inpFile.addEventListener('change', (e)=>{
-      const file = e.target.files[0];
-      setCategoryImages(file);
-    });
   }
   const handleSubmit = (e)=>{
     e.preventDefault()
+  }
+  const handleImageChange = (event) => {
+    setImageFile(event.target.files[0]);
+    console.log(event.target.value);
+  }
+  const handleAddImage  = ()=>{
+    // const inpFile = document.querySelector('.upload-file');
+    // inpFile.addEventListener('click', ()=>{
+    //   inpFile.click()
+    // })
+    const newSection = {photo_path: imageFile.name  };
+    console.log(newSection); 
+    // const formData = new FormData();
+    // formData.append('photo_path', imageFile.name);
+    axios.post('http://127.0.0.1:8000/upload-photos-api', {
+      photo_path:newSection.photo_path
+    })
+    .then((response)=>{
+      if(response.status_code === 201){
+        setImages([...images, imageFile]);
+        console.log(response);
+      }
+    })
+    .catch((error)=>{
+      console.log(error);
+    });
   }
   return (
     <Fragment>
@@ -56,7 +81,7 @@ export default function ProductDetails() {
                   </div>
                   <div className='input-cont'>
                     <select name="" id=""  onChange={handleOptionChange}>
-                      <option value="اختر وحدة القياس" selected hidden disabled>اختر وحدة القياس</option>
+                      <option disabled selected hidden value="اختر وحدة القياس">اختر وحدة القياس</option>
                       <option value="كيلوجرام">كيلوجرام</option>
                       <option value="صينيه">صينيه</option>
                       <option value="قطعة">قطعة</option>
@@ -75,17 +100,19 @@ export default function ProductDetails() {
                   </div>
                   <div className='image-container'>
                     <div className='image-view cont' >
-                      <input className='upload-file' type="file"  hidden />
+                      <input className='upload-file' onChange={handleImageChange} type="file" />
                       <box-icon size="lg"  name='cloud-upload' ></box-icon>
                       <span>من الضروري رفع الصور بصيغة webp </span>
                     </div>
                     <div className='selected-images cont'>
-                      <div className='image'><img src={require('../../NEW QC/New folder/Pro1.jpg')} alt="" /></div>
-                      <div className='image'><img src={require('../../NEW QC/New folder/Pro1.jpg')} alt="" /></div>
-                      <div className='image'><img src={require('../../NEW QC/New folder/Pro1.jpg')} alt="" /></div>
+                      {images&& images.map((image, index) => (
+                        <div key={index} className='image'>
+                        </div>
+                      ))}
+                      {/* <img src={require(`hh`)} alt="" /> */}
                     </div>
                     <div className='select-btn cont'>
-                      <button type='click' onClick={uploadFile}>رفع صوره</button>
+                      <button type='click' onClick={()=>{handleAddImage()}}>رفع صوره</button>
                     </div>
                   </div>
                 </div>

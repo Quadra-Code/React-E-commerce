@@ -1627,13 +1627,12 @@ main .container .mainContent .topSec .allElements {
   width: 97%;
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 15px;
 }
 main .container .mainContent .topSec .allElements .outerTable {
-  background-color: #efefef;
   background-color: #ebebd2;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   border-radius: 6px;
   width: 100%;
   max-height: 620px;
@@ -1643,6 +1642,12 @@ main .container .mainContent .topSec .allElements .outerTable table {
   width: 100%;
   text-align: center;
   border-spacing: 0 15px;
+}
+main .container .mainContent .topSec .allElements .outerTable table th {
+  position: sticky;
+  top: 0;
+  background-color: #ebebd2;
+  padding: 10px;
 }
 main .container .mainContent .topSec .allElements .outerTable table tbody tr {
   background-color: #fff;
@@ -1714,6 +1719,7 @@ main .container .mainContent .topSec .allElements .outerTable table tbody tr td 
 }
 main .container .mainContent .topSec .allElements .outerTable .addBtn {
   border-radius: 5px;
+  margin: 10px 0;
 }
 main .container .mainContent .topSec .allElements .outerTable .addBtn button {
   display: flex;

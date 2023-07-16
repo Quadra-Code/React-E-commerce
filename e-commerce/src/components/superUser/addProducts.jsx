@@ -169,7 +169,7 @@ function AddProducts() {
           <div className='outerTable'>
             <div onClick={handleAdd} className='addBtn'>
               <button>
-                <i class="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
+                <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
                 <span>اضافه</span>
               </button>
             </div>
@@ -186,13 +186,13 @@ function AddProducts() {
                     <td >{subCategory.sub_name}</td>
                     <td>
                       <button className='edit' onClick={()=>handleEdit(subCategory.id, subCategory.sub_name)}>
-                        <i class="fa-solid fa-pen" style={{color:'#ffffff'}}></i>
+                        <i className="fa-solid fa-pen" style={{color:'#ffffff'}}></i>
                       </button>
                       <button className='view' onClick={()=>handleView(subCategory.id, `#tr${subCategory.id}`)}>
-                        <i class="fa-regular fa-eye" style={{color:'#000'}}></i>
+                        <i className="fa-regular fa-eye" style={{color:'#000'}}></i>
                       </button>
                       <button className='delete' onClick={()=>handleDelete(subCategory)}>
-                        <i class="fa-regular fa-trash-can" style={{color:'#ffffff'}}></i>
+                        <i className="fa-regular fa-trash-can" style={{color:'#ffffff'}}></i>
                       </button>
                     </td>
                   </tr>
@@ -204,7 +204,7 @@ function AddProducts() {
             <div className='addBtn'>
               <button>
                 <NavLink style={{color:'#fff'}} to='/super-user/product-details'>
-                  <i class="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
+                  <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
                   <span>اضافه</span>
                 </NavLink>
               </button>
@@ -222,7 +222,7 @@ function AddProducts() {
                     <td >{product.product_name}</td>
                     <td>
                       <button className='edit'onClick={()=>{handleEdit_sub(products.id,products.sub_name)}}>
-                        <i class="fa-solid fa-pen" style={{color:'#ffffff'}}></i>
+                        <i className="fa-solid fa-pen" style={{color:'#ffffff'}}></i>
                       </button>
                       <button className='view' >
                         <NavLink style={{color:'#000'}} to='/super-user/product-details'>
@@ -230,7 +230,7 @@ function AddProducts() {
                         </NavLink>
                       </button>
                       <button className='delete' onClick={()=>handleDelete(products)}>
-                        <i class="fa-regular fa-trash-can" style={{color:'#ffffff'}}></i>
+                        <i className="fa-regular fa-trash-can" style={{color:'#ffffff'}}></i>
                       </button>
                     </td>
                   </tr>
