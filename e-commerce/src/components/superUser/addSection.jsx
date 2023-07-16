@@ -5,7 +5,7 @@ import axios,{Axios} from 'axios';
 function AddSections() {
   const selected = useRef()
   const [sections , setSections] = useState();
-  const [sub_categories,setSub_categories] = useState(); 
+  const [sub_categories,setSub_categories] = useState([]); 
   useEffect (()=>{
     getAllSections()
   },[])
@@ -18,15 +18,15 @@ function AddSections() {
       console.error(error);
     } 
   }
-  const getSub_sections = async ()=> {
-    try {
-      const response = await axios.get('http://reactdjangoecommerce.pythonanywhere.com/sub-categories-list');
-      setSub_categories(response.data)
-      console.log(response.data)
-    } catch (error) {
-      console.error(error);
-    } 
-  }
+  // const getSub_sections = async ()=> {
+  //   try {
+  //     const response = await axios.get('http://reactdjangoecommerce.pythonanywhere.com/sub-categories-list');
+  //     setSub_categories(response.data)
+  //     console.log(response.data)
+  //   } catch (error) {
+  //     console.error(error);
+  //   } 
+  // }
   const handleView = async (id, trClass)=> {
     const selectedTr= document.querySelector(trClass);
     const childNodes= Array.from(selectedTr.parentNode.children);
@@ -71,7 +71,7 @@ function AddSections() {
     const addPopup = await Swal.fire({
       title: 'أضافة قسم جديد',
       html:
-        `<input id="swal-input1" value= ${name} placeholder="أسم القسم" class="swal2-input">` ,
+        `<input id="swal-input1" value= '${name}' class="swal2-input">` ,
       focusConfirm: false,
     })
     const category_name = document.getElementById('swal-input1').value;
@@ -88,7 +88,7 @@ function AddSections() {
       });
     } 
   }
-  const handleAdd_sub =async ()=>{
+  const handleAdd_sub =async (id)=>{
     const subCategory_body = document.getElementById('subCategory_body');
     console.log(subCategory_body.children);
     if (subCategory_body.children.length!==0) {
@@ -100,12 +100,12 @@ function AddSections() {
       })
       const sub_name = document.getElementById('swal-input2').value;
       if (sub_name!==""){
-        axios.post(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list`, {
-          sub_name
+        axios.post(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`, {
+          sub_category_name: sub_name,
+          category_fk: id
         })
-        .then((res)=>{
-          const new_subCategory = {id:res.data.id, sub_name };
-          setSub_categories([...sub_categories, new_subCategory]);
+          .then((res) => {
+          setSub_categories(res.data)
           console.log(res);
         })
         .catch((error)=>{
@@ -121,14 +121,15 @@ function AddSections() {
       const addPopup = await Swal.fire({
         title: 'أضافة قسم فرعي جديد',
         html:
-          `<input id="swal-input2" value=${name} placeholder="أسم القسم" class="swal2-input">` ,
+          `<input id="swal-input2" value='${name}' class="swal2-input">` ,
         focusConfirm: false,
       })
       const sub_name = document.getElementById('swal-input2').value;
       console.log(name);
       if (sub_name!==""){
         axios.put(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`, {
-          sub_category_name: sub_name
+          sub_category_name: sub_name,
+          category_fk:13
         })
         .then((res)=>{
           setSub_categories(res.data)
@@ -146,13 +147,24 @@ function AddSections() {
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        fetch(`https://reactdjangoecommerce.pythonanywhere.com/rud-product-api/${section.id}`, {
-          method: "DELETE",
+        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/rud-product-api/${section.id}`)
+        .then ((res)=>{
+          console.log(res);
+          setSections(res.data)
         })
-        .then((res)=>res.json())
-        .then ((data)=>{
-          console.log(data);
-          getAllSections()
+      }
+    })
+  }
+  const handleDeleteSub = (id,name)=> {
+    Swal.fire({
+      title: `Are you sure you want to delete ${name}?`,
+      showCancelButton:true,
+    }).then((data)=>{
+      if(data.isConfirmed){
+        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/testdel/${id}`)
+        .then ((res)=>{
+          console.log(res);
+          setSub_categories(res.data)
         })
       }
     })
@@ -202,14 +214,14 @@ function AddSections() {
               </table>
             </div>
             <div className='outerTable'>
-              {sub_categories && 
-                <div onClick={handleAdd_sub} className='addBtn'>
+            {sub_categories && sub_categories.map((subCategory) =>
+                <div onClick={()=>{handleAdd_sub(subCategory.category_fk)}} className='addBtn'>
                   <button>
                     <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
                     <span>اضافه</span>
                   </button>
                 </div>
-              }
+              )}
               <table>
                 <thead>
                   <tr>
@@ -220,10 +232,11 @@ function AddSections() {
                 <tbody id='subCategory_body'>
                   {sub_categories&& sub_categories.map((subCategory)=>
                     <tr key={subCategory.id}>
-                      <td >{subCategory.sub_category_name}</td>
+                      <td>{subCategory.sub_category_name}</td>
+                      <td hidden>{subCategory.category_fk}</td>
                       <td>
                         <button className='edit'onClick={()=>{handleEdit_sub(subCategory.id,subCategory.sub_category_name)}}>Edit</button>
-                        <button className='delete' onClick={()=>handleDelete(subCategory)}>Delete</button>
+                        <button className='delete' onClick={()=>handleDeleteSub(subCategory.id,subCategory.sub_category_name)}>Delete</button>
                       </td>
                     </tr>
                   )}
