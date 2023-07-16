@@ -161,7 +161,7 @@ function AddSections() {
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/testdel/${id}`)
+        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`)
         .then ((res)=>{
           console.log(res);
           setSub_categories(res.data)
