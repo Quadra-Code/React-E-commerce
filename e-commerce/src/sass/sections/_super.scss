@@ -303,7 +303,7 @@ main{
           width: 97%;
           display: flex;
           justify-content: center;
-          align-items: baseline;
+          align-items: flex-start;
           // flex-direction: column;
           gap: 15px;
           .outerTable{
@@ -318,6 +318,10 @@ main{
               width: 100%;
               text-align: center;
               border-spacing: 0 15px ;
+              th{
+                position: sticky;
+                top: 0;
+              }
               tbody{
                 tr {
                   background-color: #fff;

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, {Fragment,useState,useEffect,useRef } from 'react';
 import Swal from 'sweetalert2'
-import axios from 'axios';
+import axios,{Axios} from 'axios';
 function AddSections() {
   const selected = useRef()
   const [sections , setSections] = useState();
@@ -11,7 +11,7 @@ function AddSections() {
   },[])
   const getAllSections = async ()=> {
     try {
-      const response = await axios.get('http://localhost:9000/sections');
+      const response = await axios.get('https://reactdjangoecommerce.pythonanywhere.com/add-show-categories-api');
       setSections(response.data)
       // console.log(response.data)
     } catch (error) {
@@ -20,7 +20,7 @@ function AddSections() {
   }
   const getSub_sections = async ()=> {
     try {
-      const response = await axios.get('http://localhost:5000/sub_categories');
+      const response = await axios.get('http://reactdjangoecommerce.pythonanywhere.com/sub-categories-list');
       setSub_categories(response.data)
       console.log(response.data)
     } catch (error) {
@@ -33,11 +33,10 @@ function AddSections() {
     // console.log(childNodes);
     childNodes.map((child)=>child.classList.remove(`selected`));
     selectedTr.classList.toggle('selected');
-    axios.post (`http://localhost:9000/sectoins`,{
-      id
-    })
+    axios.get (`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`,{})
     .then((res)=>{
-      getSub_sections()
+      // getSub_sections()
+      setSub_categories(res.data)
       console.log(res);
     })
     .catch((error)=>{
@@ -53,7 +52,7 @@ function AddSections() {
     })
     const category_name = document.getElementById('swal-input1').value;
     if (category_name!==""){
-      axios.post('http://127.0.0.1:8000/categories-list', {
+      axios.post('https://reactdjangoecommerce.pythonanywhere.com/add-show-categories-api', {
         category_name:category_name
       })
       .then((res)=>{
@@ -77,7 +76,7 @@ function AddSections() {
     })
     const category_name = document.getElementById('swal-input1').value;
     if (category_name!==""){
-      axios.put(`http://localhost:9000/sections/${id}`, {
+      axios.put(`https://reactdjangoecommerce.pythonanywhere.com/rud-product-api/${id}`, {
         category_name
       })
       .then((res)=>{
@@ -101,7 +100,7 @@ function AddSections() {
       })
       const sub_name = document.getElementById('swal-input2').value;
       if (sub_name!==""){
-        axios.post(`http://localhost:5000/sub_categories`, {
+        axios.post(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list`, {
           sub_name
         })
         .then((res)=>{
@@ -126,12 +125,13 @@ function AddSections() {
         focusConfirm: false,
       })
       const sub_name = document.getElementById('swal-input2').value;
+      console.log(name);
       if (sub_name!==""){
-        axios.put(`http://localhost:5000/sub_categories/${id}`, {
-          sub_name
+        axios.put(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`, {
+          sub_category_name: sub_name
         })
         .then((res)=>{
-          getSub_sections()
+          setSub_categories(res.data)
           console.log(res);
         })
         .catch((error)=>{
@@ -146,7 +146,7 @@ function AddSections() {
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        fetch(`http://localhost:9000/sections/${section.id}`, {
+        fetch(`https://reactdjangoecommerce.pythonanywhere.com/rud-product-api/${section.id}`, {
           method: "DELETE",
         })
         .then((res)=>res.json())
@@ -202,12 +202,14 @@ function AddSections() {
               </table>
             </div>
             <div className='outerTable'>
-              <div onClick={handleAdd_sub} className='addBtn'>
-                <button>
-                  <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
-                  <span>اضافه</span>
-                </button>
-              </div>
+              {sub_categories && 
+                <div onClick={handleAdd_sub} className='addBtn'>
+                  <button>
+                    <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
+                    <span>اضافه</span>
+                  </button>
+                </div>
+              }
               <table>
                 <thead>
                   <tr>
@@ -218,9 +220,9 @@ function AddSections() {
                 <tbody id='subCategory_body'>
                   {sub_categories&& sub_categories.map((subCategory)=>
                     <tr key={subCategory.id}>
-                      <td >{subCategory.sub_name}</td>
+                      <td >{subCategory.sub_category_name}</td>
                       <td>
-                        <button className='edit'onClick={()=>{handleEdit_sub(subCategory.id,subCategory.sub_name)}}>Edit</button>
+                        <button className='edit'onClick={()=>{handleEdit_sub(subCategory.id,subCategory.sub_category_name)}}>Edit</button>
                         <button className='delete' onClick={()=>handleDelete(subCategory)}>Delete</button>
                       </td>
                     </tr>
