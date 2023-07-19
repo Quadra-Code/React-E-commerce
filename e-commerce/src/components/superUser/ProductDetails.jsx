@@ -106,18 +106,19 @@ export default function ProductDetails() {
   const [totalSize, setTotalSize] = useState(0);
   const fileUploadRef = useRef(null);
   const onTemplateSelect = (e) => {
-      let _totalSize = totalSize;
-      let files = e.files;
-  
-      Object.keys(files).forEach((key) => {
-          _totalSize += files[key].size || 0;
-      });
-  
-      setTotalSize(_totalSize);
+    console.log(e.file);
+    let _totalSize = totalSize;
+    let files = e.files;
+    Object.keys(files).forEach((key) => {
+        _totalSize += files[key].size || 0;
+    });
+
+    setTotalSize(_totalSize);
   };
   
   const onTemplateUpload = (e) => {
       let _totalSize = 0;
+      console.log(e.file);
   
       e.files.forEach((file) => {
           _totalSize += file.size || 0;
@@ -191,7 +192,6 @@ export default function ProductDetails() {
 
 
 
-  const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: ' hidden' };
   const handleSubmit = (e)=>{
     e.preventDefault();
       axios.post('http://localhost:9000/sections', {
@@ -203,6 +203,7 @@ export default function ProductDetails() {
         categoryProtein,
         categoryFat,
         categoryCarb,
+        categoryImages
       }) 
       .then ((res)=>{
         console.log(res);
@@ -220,15 +221,15 @@ export default function ProductDetails() {
     console.log(categoryImages);
     const formData = new FormData();
     formData.append('photo_path', image);
-    axios.post('http://127.0.0.1:8000/upload-photos-api',formData)
-    .then((response)=>{
-      if(response.ok){
-        console.log(response);
-      }
-    })
-    .catch((error)=>{
-      console.log(error);
-    });
+    // axios.post('http://127.0.0.1:8000/upload-photos-api',formData)
+    // .then((response)=>{
+    //   if(response.ok){
+    //     console.log(response);
+    //   }
+    // })
+    // .catch((error)=>{
+    //   console.log(error);
+    // });
   };
   const handleImageChange = (event) => {
     console.log(event.target.files[0]);
@@ -351,7 +352,7 @@ export default function ProductDetails() {
                         <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
                         <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
                         <FileUpload ref={fileUploadRef} name="demo[]" url="/api/upload" multiple accept="image/*" maxFileSize={1000000}
-                          onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
+                          onUpload={onTemplateUpload} onSelect={onUpload} onError={onTemplateClear} onClear={onTemplateClear}
                           headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
                           chooseOptions={chooseOptions}  cancelOptions={cancelOptions} />
                       </div>
