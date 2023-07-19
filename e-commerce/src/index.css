@@ -1373,7 +1373,7 @@ main .container .sideNav .navLinks ul li a {
 main .container .sideNav .navLinks ul li a.active, main .container .sideNav .navLinks ul li a:hover {
   background-color: #195775;
   border-radius: 12px;
-  color: #F5F5DC;
+  color: #fffff0;
 }
 main .container .sideNav .navLinks ul li a::before {
   content: "";
@@ -1383,7 +1383,7 @@ main .container .sideNav .navLinks ul li a::before {
   transform: translateY(-50%);
   width: 5px;
   height: 28px;
-  background-color: #F5F5DC;
+  background-color: #fffff0;
 }
 main .container .mainContent {
   display: flex;
@@ -1623,7 +1623,6 @@ main .container .mainContent .topSec .addSec .addSectionCont .col button:last-of
   transform: translateY(2px);
 }
 main .container .mainContent .topSec .allElements {
-  margin-top: 30px;
   width: 97%;
   display: flex;
   justify-content: center;
@@ -1755,6 +1754,9 @@ main .container .mainContent .topSec .allElements .container form {
 main .container .mainContent .topSec .allElements .container form .section:nth-child(1) .inp-container .input-cont {
   min-width: 32%;
 }
+main .container .mainContent .topSec .allElements .container form .section:nth-child(2) .inp-container {
+  gap: 0;
+}
 main .container .mainContent .topSec .allElements .container form .section:nth-child(2) .inp-container .input-cont {
   min-width: 46%;
 }
@@ -1785,7 +1787,7 @@ main .container .mainContent .topSec .allElements .container form .section {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   background-color: #ebebd2;
   padding: 10px;
   border-radius: 15px;
@@ -1797,7 +1799,16 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 5px;
+  gap: 20px;
+}
+main .container .mainContent .topSec .allElements .container form .section .inp-container .muirtl-1ff8729-MuiInputBase-root-MuiFilledInput-root,
+main .container .mainContent .topSec .allElements .container form .section .inp-container .muirtl-llrb4p-MuiInputBase-root-MuiFilledInput-root-MuiSelect-root {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+main .container .mainContent .topSec .allElements .container form .section .inp-container .textField {
+  width: 100%;
 }
 main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont input, main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont textarea, main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont select {
   font-size: 18px;
@@ -1814,6 +1825,13 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   padding: 8px;
   width: 100%;
   gap: 10px;
+}
+main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .p-button {
+  padding: 5px 10px;
+}
+main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .p-button .p-button-icon-left {
+  margin-left: 0.5rem;
+  margin-right: 0;
 }
 main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .cont {
   display: flex;
@@ -1865,6 +1883,38 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
 
 .swal2-input {
   direction: rtl !important;
+}
+
+.pi-cloud-upload {
+  font-size: 20px !important;
+}
+
+.pi-image {
+  font-size: 3rem !important;
+}
+
+.p-fileupload-content > .align-items-center {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.p-fileupload .p-fileupload-row > div {
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+}
+.p-fileupload .p-fileupload-row > div img {
+  width: 70px;
+}
+
+.muirtl-1ff8729-MuiInputBase-root-MuiFilledInput-root,
+.muirtl-llrb4p-MuiInputBase-root-MuiFilledInput-root-MuiSelect-root {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
 }
 
 .nav-container {
@@ -2745,7 +2795,7 @@ html {
 }
 
 body {
-  background-color: #F5F5DC;
+  background-color: #fffff0;
   overflow-x: hidden !important;
   color: #222831;
   width: 100vw !important;

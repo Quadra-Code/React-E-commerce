@@ -51,7 +51,7 @@ main{
               &.active, &:hover{
                 background-color: $primary-300;
                 border-radius:12px ;
-                color: $bg-100;
+                color: $bg-100-shadow;
               }
               &::before{
                 content: '';
@@ -61,7 +61,7 @@ main{
                 transform: translateY(-50%);
                 width: 5px;
                 height: 28px;
-                background-color: $bg-100;
+                background-color: $bg-100-shadow;
               }
             }
           }
@@ -299,7 +299,6 @@ main{
           }
         }
         .allElements {
-          margin-top: 30px;
           width: 97%;
           display: flex;
           justify-content: center;
@@ -434,6 +433,7 @@ main{
               }
               .section:nth-child(2){
                 .inp-container{
+                  gap: 0;
                   .input-cont{
                     min-width: 46%;
                   }
@@ -470,7 +470,7 @@ main{
                 width: 100%;
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
+                gap: 5px;
                 background-color: $bg-200;
                 padding:10px ;
                 border-radius: 15px;
@@ -481,7 +481,20 @@ main{
                   display: flex;
                   align-items: center;
                   justify-content: space-between;
-                  gap: 5px;
+                  gap: 20px;
+                  .muirtl-1ff8729-MuiInputBase-root-MuiFilledInput-root,
+                  .muirtl-llrb4p-MuiInputBase-root-MuiFilledInput-root-MuiSelect-root
+                    {
+                      background-color: rgba(0, 0, 0, 0) !important;
+                      border-top-right-radius: 4px;
+                      border-top-left-radius: 4px;
+                    }
+                  .textField{
+                    width: 100%;
+                    // div {
+                    //   padding: 10px;
+                    // }
+                  }
                   .input-cont{
                     input, textarea, select{
                       font-size: 18px;
@@ -499,6 +512,13 @@ main{
                     padding: 8px;
                     width: 100%;
                     gap: 10px;
+                    .p-button{
+                      padding: 5px 10px;
+                      .p-button-icon-left{
+                        margin-left: 0.5rem;
+                        margin-right: 0;
+                      }
+                    }
                     .cont{
                       display: flex;
                       align-items: center;  
@@ -560,4 +580,38 @@ main{
 }
 .swal2-input {
   direction: rtl !important;
+}
+.pi-cloud-upload{
+  font-size: 20px !important;
+}
+.pi-image{
+  font-size: 3rem !important;
+}
+.p-fileupload-content {
+  &>.align-items-center{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around;
+    gap: 10px;
+  }
+}
+.p-fileupload {
+  .p-fileupload-row{
+    &>div {
+      padding: 0 !important;
+      display: flex !important;
+      justify-content: space-around !important;
+      align-items: center !important;
+      img{
+        width: 70px;
+      }
+    }
+  }
+}
+.muirtl-1ff8729-MuiInputBase-root-MuiFilledInput-root,
+.muirtl-llrb4p-MuiInputBase-root-MuiFilledInput-root-MuiSelect-root
+{
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
 }

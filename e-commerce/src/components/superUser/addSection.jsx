@@ -8,7 +8,8 @@ function AddSections() {
   const [sub_categories,setSub_categories] = useState([]); 
   useEffect (()=>{
     getAllSections()
-  },[])
+    // console.log(btnId);
+  })
   const getAllSections = async ()=> {
     try {
       const response = await axios.get('https://reactdjangoecommerce.pythonanywhere.com/add-show-categories-api');
@@ -18,21 +19,17 @@ function AddSections() {
       console.error(error);
     } 
   }
-  // const getSub_sections = async ()=> {
-  //   try {
-  //     const response = await axios.get('http://reactdjangoecommerce.pythonanywhere.com/sub-categories-list');
-  //     setSub_categories(response.data)
-  //     console.log(response.data)
-  //   } catch (error) {
-  //     console.error(error);
-  //   } 
-  // }
+  // const category_fk = sub_categories&& sub_categories[0].category_fk
   const handleView = async (id, trClass)=> {
     const selectedTr= document.querySelector(trClass);
     const childNodes= Array.from(selectedTr.parentNode.children);
     // console.log(childNodes);
     childNodes.map((child)=>child.classList.remove(`selected`));
     selectedTr.classList.toggle('selected');
+    const addBtn = document.querySelector('.addSubBtn');
+    addBtn.setAttribute('id', `${id}`)
+    addBtn.removeAttribute('hidden')
+    // console.log(addBtn);
     axios.get (`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`,{})
     .then((res)=>{
       // getSub_sections()
@@ -56,8 +53,7 @@ function AddSections() {
         category_name:category_name
       })
       .then((res)=>{
-        const newSection = {id:res.data.id, category_name };
-        setSections([...sections, newSection]);
+        setSections(res.data);
         console.log(res);
       })
       .catch((error)=>{
@@ -81,23 +77,32 @@ function AddSections() {
       })
       .then((res)=>{
         console.log(res);
-        getAllSections()
+        setSections(res.data)
       })
       .catch((error)=>{
         console.log(error);
       });
     } 
   }
-  const handleAdd_sub =async (id)=>{
+  const handleAdd_sub =async ()=>{
     const subCategory_body = document.getElementById('subCategory_body');
-    console.log(subCategory_body.children);
-    if (subCategory_body.children.length!==0) {
+    const btnId = document.querySelector('.addSubBtn').getAttribute('id');
+    console.log(btnId);
+    // console.log(subCategory_body.children);
+    if (btnId!==null) {
       const addPopup = await Swal.fire({
         title: 'أضافة قسم فرعي جديد',
         html:
           '<input id="swal-input2"  placeholder="أسم القسم" class="swal2-input">' ,
         focusConfirm: false,
       })
+      // const addPopup = await Swal.fire({
+      //   title: 'أضافة قسم فرعي جديد',
+      //   html:
+      //     '<input id="swal-input2"  placeholder="أسم القسم" class="swal2-input">' ,
+      //   focusConfirm: false,
+      // })
+      const id = btnId;
       const sub_name = document.getElementById('swal-input2').value;
       if (sub_name!==""){
         axios.post(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`, {
@@ -146,6 +151,7 @@ function AddSections() {
       title: `Are you sure you want to delete ${section.category_name}?`,
       showCancelButton:true,
     }).then((data)=>{
+      console.log(section.id);
       if(data.isConfirmed){
         axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/rud-product-api/${section.id}`)
         .then ((res)=>{
@@ -214,14 +220,12 @@ function AddSections() {
               </table>
             </div>
             <div className='outerTable'>
-            {sub_categories && sub_categories.map((subCategory) =>
-                <div onClick={()=>{handleAdd_sub(subCategory.category_fk)}} className='addBtn'>
-                  <button>
-                    <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
-                    <span>اضافه</span>
-                  </button>
-                </div>
-              )}
+              <div onClick={()=>{handleAdd_sub()}} hidden className='addBtn addSubBtn'>
+                <button>
+                  <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
+                  <span>اضافه</span>
+                </button>
+              </div>
               <table>
                 <thead>
                   <tr>

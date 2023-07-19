@@ -6,8 +6,6 @@ import AddSections from './components/superUser/addSection';
 import ProductDetails from './components/superUser/ProductDetails';
 import Home from './components/Home'
 
-
-
 function App() {
   return (
     <Router>
