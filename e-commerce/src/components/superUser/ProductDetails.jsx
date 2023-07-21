@@ -31,8 +31,12 @@ export default function ProductDetails() {
   const [categoryFat, setCategoryFat] = useState('');
   const [categoryCarb, setCategoryCarb] = useState('');
   const [categoryImages, setCategoryImages] = useState([]);
-  const [imageFile, setImageFile] = useState();
-  const [images, setImages] = useState([]);
+  const [photos, setPhotos] = useState([]);
+
+  const [formData1, setFormData1] = useState({
+    product_images :null,
+});
+
 
   const handleOptionChange = (event) => {
     setCategoryUnit(event.target.value);
@@ -88,38 +92,43 @@ export default function ProductDetails() {
   `,
   );
   useEffect (()=>{
-    console.log(categoryImages);
-    // console.log(images);
-  })
-  // const uploadFile = ()=>{
-  //   const inpFile = document.querySelector('.upload-file');
-  //   inpFile.addEventListener('click', ()=>{
-  //     inpFile.click()
-  //   });
-  // }
-  // const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined' };
-
-
-
-
+    // console.log(formData1);
+    // console.log(categoryImages);
+    // console.log(photos);
+    // console.log(photos.map((arr) => arr.slice(-1)[0]));
+    // formReloading()
+    const formReloading = setInterval(() => {
+      setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])})
+    }, 1000);
+    return () => {
+      clearInterval(formReloading);
+    };
+  },[formData1,photos])
   const toast = useRef(null);
   const [totalSize, setTotalSize] = useState(0);
   const fileUploadRef = useRef(null);
+
   const onTemplateSelect = (e) => {
-    console.log(e.file);
+    const newPhotos = [...photos, e.files];
+    setPhotos(newPhotos);  
+    // const lastArray = photos.map((arr) => arr.slice(-1)[0]);
+    // setCategoryCal(lastArray)
+    // console.log(categoryCal);
     let _totalSize = totalSize;
     let files = e.files;
     Object.keys(files).forEach((key) => {
         _totalSize += files[key].size || 0;
     });
-
     setTotalSize(_totalSize);
   };
   
   const onTemplateUpload = (e) => {
       let _totalSize = 0;
       console.log(e.file);
-  
+      console.log('done');
+      setCategoryImages((prevImages) => {
+        return [...prevImages, e.files];
+      });
       e.files.forEach((file) => {
           _totalSize += file.size || 0;
       });
@@ -145,7 +154,6 @@ export default function ProductDetails() {
       return (
           <div className={className} style={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center' }}>
               {chooseButton}
-              
               {cancelButton}
               <div className="flex align-items-center gap-3 ml-auto">
                   <span>{formatedValue} / 1 MB</span>
@@ -156,19 +164,19 @@ export default function ProductDetails() {
   };
   
   const itemTemplate = (file, props) => {
-      return (
-          <div className="flex align-items-center flex-wrap">
-              <div className="flex align-items-center" style={{ width: '40%' }}>
-                  <img alt={file.name} role="presentation" src={file.objectURL} width={100} />
-                  <span className="flex flex-column text-left ml-3">
-                      {file.name}
-                      <small>{new Date().toLocaleDateString()}</small>
-                  </span>
-              </div>
-              <Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
-              <Button type="button" icon="pi pi-times" className="p-button-outlined p-button-rounded p-button-danger ml-auto" onClick={() => onTemplateRemove(file, props.onRemove)} />
+    return (
+      <div className="flex align-items-center flex-wrap">
+          <div className="flex align-items-center" style={{ width: '40%' }}>
+            <img alt={file.name} role="presentation" src={file.objectURL} width={100} />
+            <span className="flex flex-column text-left ml-3">
+                {file.name}
+                <small>{new Date().toLocaleDateString()}</small>
+            </span>
           </div>
-      );
+          <Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
+          <Button type="button" icon="pi pi-times" className="p-button-outlined p-button-rounded p-button-danger ml-auto" onClick={() => onTemplateRemove(file, props.onRemove)} />
+      </div>
+    );
   };
   
   const emptyTemplate = () => {
@@ -183,28 +191,38 @@ export default function ProductDetails() {
   };
   
   const chooseOptions = { icon: PrimeIcons.CLOUD_UPLOAD , iconOnly: true, className: 'custom-choose-btn p-button-rounded p-button-outlined' };
-  // const chooseOptions = { icon: 'pi-cloud-upload', iconOnly: true, className: 'custom-choose-btn p-button-rounded p-button-outlined' };
+  // const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined' };
   const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined' };
   
 
 
-
-
-
-
+// http://localhost:8000/crud-products/1
+// http://localhost:9000/sections
   const handleSubmit = (e)=>{
     e.preventDefault();
-      axios.post('http://localhost:9000/sections', {
-        categoryName,
-        categoryPrice,
-        categoryUnit,
-        categoryDisc,
-        categoryCal,
-        categoryProtein,
-        categoryFat,
-        categoryCarb,
-        categoryImages
-      }) 
+    // setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])});
+    const formData = new FormData();
+    if (formData1.product_images) {
+      formData1.product_images.forEach((image) => {
+        formData.append('product_images', image);
+      });
+    }
+    // formData1.product_images.forEach((image) => {
+    //   // console.log(image);
+    //   formData.append('product_images', image);
+    // });
+    formData.append('product_name', categoryName);
+    formData.append('product_price', categoryPrice);
+    formData.append('product_unit', categoryUnit);
+    formData.append('product_description', categoryDisc);
+    formData.append('product_calories', categoryCal);
+    formData.append('product_protein', categoryProtein);
+    formData.append('product_fat', categoryFat);
+    formData.append('product_carbohydrates', categoryCarb);
+    formData.append('sub_category_fk', 1);
+    console.log(formData);
+    console.log(categoryImages);
+      axios.post('http://localhost:8000/crud-products/1',formData)
       .then ((res)=>{
         console.log(res);
         // const newSection = {id:response.data.id, category_name };
@@ -214,63 +232,6 @@ export default function ProductDetails() {
       console.error(error)
       })
   }
-  const onUpload = (e) => {
-    console.log(e.files[0]);
-    let image = e.files[0]
-    setCategoryImages([...categoryImages, image])
-    console.log(categoryImages);
-    const formData = new FormData();
-    formData.append('photo_path', image);
-    // axios.post('http://127.0.0.1:8000/upload-photos-api',formData)
-    // .then((response)=>{
-    //   if(response.ok){
-    //     console.log(response);
-    //   }
-    // })
-    // .catch((error)=>{
-    //   console.log(error);
-    // });
-  };
-  const handleImageChange = (event) => {
-    console.log(event.target.files[0]);
-    console.log('ggg');
-    // let image = event.target.files[0]
-    // const photo_path=imageFile
-    // const formData = new FormData();
-    // formData.append('photo_path', image);
-    // axios.post('http://127.0.0.1:8000/upload-photos-api',formData)
-    // .then((response)=>{
-    //   if(response.status_code === 201){
-    //     console.log(response);
-    //   }
-    // })
-    // .catch((error)=>{
-    //   console.log(error);
-    // });
-  }
-  // const handleAddImage  = ()=>{
-  //   const inpFile = document.querySelector('.upload-file');
-  //   inpFile.addEventListener('click', ()=>{
-  //     inpFile.click()
-  //   })
-  //   // const newSection = {photo_path: imageFile.name };
-  //   const newSection = {imageFile};
-  //   console.log(newSection); 
-  //   // const formData = new FormData();
-  //   // formData.append('photo_path', imageFile.name);
-  //   axios.post('http://127.0.0.1:8000/upload-photos-api', {
-  //     photo_path:newSection
-  //   })
-  //   .then((response)=>{
-  //     if(response.status_code === 201){
-  //       setImages([...images, imageFile]);
-  //       console.log(response);
-  //     }
-  //   })
-  //   .catch((error)=>{
-  //     console.log(error);
-  //   });
-  // }
   return (
     <Fragment>
       <section className="topSec">
@@ -288,40 +249,24 @@ export default function ProductDetails() {
                   معلومات اساسيه
                 </div>
                 <div className='inp-container' dir='rtl'>
-                  {/* <div className='input-cont' >
-                    <input onChange={(e)=>setCategoryName(e.target.value)} type="text" placeholder='اسم المنتج'/>
-                  </div> */}
                   <TextField id="filled-basic" onChange={(e)=>setCategoryName(e.target.value)} className='textField' label="أسم المنتج" variant="filled" />
-                  {/* <div className='input-cont'>
-                    <input type="number" onChange={(e)=>setCategoryPrice(e.target.value)} placeholder='سعر المنتج'/>
-                  </div> */}
-                    <TextField id="filled-number" className='textField' onChange={(e)=>setCategoryPrice(e.target.value)} type="number" label='سعر المنتج' variant="filled" />
-                    <FormControl variant="filled" className='textField' sx={{ m: 1, minWidth: 120 }}>
-                      <InputLabel id="demo-simple-select-filled-label">أختر وحدة القياس</InputLabel>
-                      <Select 
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        // value={age}
-                        onChange={handleOptionChange}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                    
-                  {/* <div className='input-cont'>
-                    <select name="" id=""  onChange={handleOptionChange}>
-                      <option disabled selected hidden value="اختر وحدة القياس">اختر وحدة القياس</option>
-                      <option value="كيلوجرام">كيلوجرام</option>
-                      <option value="صينيه">صينيه</option>
-                      <option value="قطعة">قطعة</option>
-                    </select>
-                    <input type="text" onChange={(e)=>setCategoryUnit(e.target.value)} placeholder='وحدة قياس المنتج'/>
-                  </div> */}
+                  <TextField id="filled-number" className='textField' onChange={(e)=>setCategoryPrice(e.target.value)} type="number" label='سعر المنتج' variant="filled" />
+                  <FormControl variant="filled" className='textField' sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="demo-simple-select-filled-label">أختر وحدة القياس</InputLabel>
+                    <Select 
+                      labelId="demo-simple-select-filled-label"
+                      id="demo-simple-select-filled"
+                      // value={age}
+                      onChange={handleOptionChange}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
               </div>
               <div className="section">
@@ -333,32 +278,16 @@ export default function ProductDetails() {
                     <textarea name="" onChange={(e)=>{setCategoryDisc(e.target.value)}} placeholder='وصف المنتج' id="" cols="30" rows="10"></textarea>
                   </div>
                   <div className='image-container'>
-                    {/* <div className='image-view cont' >
-                      <input className='upload-file' onChange={handleImageChange} type="file" />
-                      <CloudUploadOutlinedIcon sx={{fontSize:'70px'}}></CloudUploadOutlinedIcon>
-                      <span>من الضروري رفع الصور بصيغة webp </span>
-                    </div>
-                    <div className='selected-images cont'>
-                      {images&& images.map((image)=>
-                        <div className='image'>
-                          <img src={imageFile} alt="" />
-                          src={URL.createObjectURL(imageFile)} select-btn cont
-                        </div>
-                      )}
-                    </div> */}
                     <div className=' card flex justify-content-center'>
                       <div>
                         <Toast ref={toast}></Toast>
                         <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
                         <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
-                        <FileUpload ref={fileUploadRef} name="demo[]" url="/api/upload" multiple accept="image/*" maxFileSize={1000000}
-                          onUpload={onTemplateUpload} onSelect={onUpload} onError={onTemplateClear} onClear={onTemplateClear}
+                        <FileUpload ref={fileUploadRef} name="demo[]" url='http://localhost:9000/sections'multiple accept="image/*" maxFileSize={1000000}
+                          onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
                           headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
-                          chooseOptions={chooseOptions}  cancelOptions={cancelOptions} />
+                          chooseOptions={chooseOptions} cancelOptions={cancelOptions} />
                       </div>
-                      {/* <FileUpload name="image" url={'http://localhost:9000/sections'} multiple uploadOptions={uploadOptions} onSelect={onUpload} accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} /> */}
-                      {/* <Toast ref={toast}></Toast> */}
-                      {/* <FileUpload mode="basic" chooseLabel="أختر الصوره" name="demo[]" url="/api/upload" accept="image/*" maxFileSize={1000000} onUpload={onUpload} /> */}
                     </div>
                   </div>
                 </div>
@@ -372,18 +301,6 @@ export default function ProductDetails() {
                   <TextField id="filled-basic" onChange={(e)=>{setCategoryProtein(e.target.value)}} className='textField' label="البروتين" variant="filled" />
                   <TextField id="filled-basic" onChange={(e)=>{setCategoryFat(e.target.value)}} className='textField' label="الدهون" variant="filled" />
                   <TextField id="filled-basic" onChange={(e)=>{setCategoryCarb(e.target.value)}} className='textField' label="الكربوهيدرات" variant="filled" />
-                  {/* <div className='input-cont'>
-                    <input type="text" placeholder='السعرات الحراريه'/>
-                  </div>
-                  <div className='input-cont'>
-                    <input type="text" placeholder='البروتين'/>
-                  </div>
-                  <div className='input-cont'>
-                    <input type="text" placeholder='الدهون'/>
-                  </div>
-                  <div className='input-cont'>
-                    <input type="text" placeholder='الكربوهيدرات'/>
-                  </div> */}
                 </div>
               </div>
               <div className="submit-section section">

@@ -1917,6 +1917,11 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   border-top-left-radius: 4px;
 }
 
+.photo-prev {
+  width: 80px;
+  height: 80px;
+}
+
 .nav-container {
   height: 100vh;
   width: 0%;
