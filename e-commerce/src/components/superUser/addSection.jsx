@@ -30,7 +30,7 @@ function AddSections() {
     addBtn.setAttribute('id', `${id}`)
     addBtn.removeAttribute('hidden')
     // console.log(addBtn);
-    axios.get (`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`,{})
+    axios.get (`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${id}`,{})
     .then((res)=>{
       // getSub_sections()
       setSub_categories(res.data)
@@ -72,7 +72,7 @@ function AddSections() {
     })
     const category_name = document.getElementById('swal-input1').value;
     if (category_name!==""){
-      axios.put(`https://reactdjangoecommerce.pythonanywhere.com/rud-product-api/${id}`, {
+      axios.put(`https://reactdjangoecommerce.pythonanywhere.com/rud-categories-api/${id}`, {
         category_name
       })
       .then((res)=>{
@@ -105,7 +105,7 @@ function AddSections() {
       const id = btnId;
       const sub_name = document.getElementById('swal-input2').value;
       if (sub_name!==""){
-        axios.post(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`, {
+        axios.post(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${id}`, {
           sub_category_name: sub_name,
           category_fk: id
         })
@@ -119,7 +119,7 @@ function AddSections() {
       } 
     }
   }
-  const handleEdit_sub =async (id,name)=>{
+  const handleEdit_sub =async (id,name,category_fk)=>{
     const subCategory_body = document.getElementById('subCategory_body');
     console.log(subCategory_body.children);
     if (subCategory_body.children.length!==0) {
@@ -132,9 +132,9 @@ function AddSections() {
       const sub_name = document.getElementById('swal-input2').value;
       console.log(name);
       if (sub_name!==""){
-        axios.put(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`, {
+        axios.put(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${id}`, {
           sub_category_name: sub_name,
-          category_fk:13
+          category_fk
         })
         .then((res)=>{
           setSub_categories(res.data)
@@ -153,7 +153,7 @@ function AddSections() {
     }).then((data)=>{
       console.log(section.id);
       if(data.isConfirmed){
-        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/rud-product-api/${section.id}`)
+        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/rud-categories-api/${section.id}`)
         .then ((res)=>{
           console.log(res);
           setSections(res.data)
@@ -167,7 +167,7 @@ function AddSections() {
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list/${id}`)
+        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${id}`)
         .then ((res)=>{
           console.log(res);
           setSub_categories(res.data)
@@ -239,8 +239,8 @@ function AddSections() {
                       <td>{subCategory.sub_category_name}</td>
                       <td hidden>{subCategory.category_fk}</td>
                       <td>
-                        <button className='edit'onClick={()=>{handleEdit_sub(subCategory.id,subCategory.sub_category_name)}}>Edit</button>
-                        <button className='delete' onClick={()=>handleDeleteSub(subCategory.id,subCategory.sub_category_name)}>Delete</button>
+                        <button className='edit'onClick={()=>{handleEdit_sub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}}>Edit</button>
+                        <button className='delete' onClick={()=>handleDeleteSub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}>Delete</button>
                       </td>
                     </tr>
                   )}

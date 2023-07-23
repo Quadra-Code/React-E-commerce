@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, {Fragment,useState,useEffect,useRef  } from 'react';
+import React, {Fragment,useState,useEffect,useRef,useCallback  } from 'react';
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+// import { Select, MenuItem } from '@material-ui/core';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import { Toast } from 'primereact/toast';
@@ -32,12 +33,24 @@ export default function ProductDetails() {
   const [categoryCarb, setCategoryCarb] = useState('');
   const [categoryImages, setCategoryImages] = useState([]);
   const [photos, setPhotos] = useState([]);
-
   const [formData1, setFormData1] = useState({
     product_images :null,
 });
 
+useEffect (()=>{
+  // formReloading()
+  const formReloading = setInterval(() => {
+    // setFormData1({...formData1,product_images: photos})
+    setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])})
+  }, 1000);
+  return () => {
+    clearInterval(formReloading);
+  };
+})
 
+// const handlePhoto = useCallback(()=>{
+//   setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])})
+// },[formData1,photos])
   const handleOptionChange = (event) => {
     setCategoryUnit(event.target.value);
   }
@@ -91,29 +104,13 @@ export default function ProductDetails() {
     }
   `,
   );
-  useEffect (()=>{
-    // console.log(formData1);
-    // console.log(categoryImages);
-    // console.log(photos);
-    // console.log(photos.map((arr) => arr.slice(-1)[0]));
-    // formReloading()
-    const formReloading = setInterval(() => {
-      setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])})
-    }, 1000);
-    return () => {
-      clearInterval(formReloading);
-    };
-  },[formData1,photos])
   const toast = useRef(null);
   const [totalSize, setTotalSize] = useState(0);
   const fileUploadRef = useRef(null);
 
-  const onTemplateSelect = (e) => {
-    const newPhotos = [...photos, e.files];
+  const onTemplateSelect  = async (e) => {
+    const newPhotos = [ ...photos,e.files];
     setPhotos(newPhotos);  
-    // const lastArray = photos.map((arr) => arr.slice(-1)[0]);
-    // setCategoryCal(lastArray)
-    // console.log(categoryCal);
     let _totalSize = totalSize;
     let files = e.files;
     Object.keys(files).forEach((key) => {
@@ -200,17 +197,14 @@ export default function ProductDetails() {
 // http://localhost:9000/sections
   const handleSubmit = (e)=>{
     e.preventDefault();
+    // handlePhoto()
     // setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])});
     const formData = new FormData();
-    if (formData1.product_images) {
-      formData1.product_images.forEach((image) => {
+    if(formData1.product_images){
+      formData1.product_images.map((image) => {
         formData.append('product_images', image);
       });
     }
-    // formData1.product_images.forEach((image) => {
-    //   // console.log(image);
-    //   formData.append('product_images', image);
-    // });
     formData.append('product_name', categoryName);
     formData.append('product_price', categoryPrice);
     formData.append('product_unit', categoryUnit);
@@ -221,7 +215,6 @@ export default function ProductDetails() {
     formData.append('product_carbohydrates', categoryCarb);
     formData.append('sub_category_fk', 1);
     console.log(formData);
-    console.log(categoryImages);
       axios.post('http://localhost:8000/crud-products/1',formData)
       .then ((res)=>{
         console.log(res);
@@ -252,11 +245,11 @@ export default function ProductDetails() {
                   <TextField id="filled-basic" onChange={(e)=>setCategoryName(e.target.value)} className='textField' label="أسم المنتج" variant="filled" />
                   <TextField id="filled-number" className='textField' onChange={(e)=>setCategoryPrice(e.target.value)} type="number" label='سعر المنتج' variant="filled" />
                   <FormControl variant="filled" className='textField' sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-filled-label">أختر وحدة القياس</InputLabel>
+                    <InputLabel id="demo-simple-select-filled-label"> وحدة القياس</InputLabel>
                     <Select 
                       labelId="demo-simple-select-filled-label"
                       id="demo-simple-select-filled"
-                      // value={age}
+                      value={categoryUnit}
                       onChange={handleOptionChange}
                     >
                       <MenuItem value="">

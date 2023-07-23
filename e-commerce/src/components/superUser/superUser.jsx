@@ -46,9 +46,9 @@ function SuperUser() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to ='add-products'>
+                  <NavLink to ='view-products'>
                     <i className="fa-solid fa-bars"></i>
-                    إضافة منتجات
+                    عرض منتجات
                   </NavLink>
                 </li>
                 <li>
