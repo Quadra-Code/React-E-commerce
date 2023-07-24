@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React, {Fragment,useState,useEffect } from 'react';
+import React, {Fragment,useState,useEffect, } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios';
+// import ViewProduct from './viewProduct';
 function ViewProducts() {
   const [sub_categories,setSub_categories] = useState([]); 
   const [products,setProducts] = useState(); 
+  const [addID, setAddID] =useState('')
   useEffect (()=>{
     getAllSub_sections()
     // getAll_products()
@@ -25,7 +27,11 @@ function ViewProducts() {
     // console.log(childNodes);
     childNodes.map((child)=>child.classList.remove(`selected`));
     selectedTr.classList.toggle('selected');
-    axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/${id}`)
+    const addBtn = document.querySelector('.addProBtn');
+    addBtn.removeAttribute('hidden')
+    setAddID(id)
+    console.log(addID);
+    axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/s${id}`)
     .then((res)=>{
       setProducts(res.data)
       console.log(res);
@@ -34,19 +40,31 @@ function ViewProducts() {
       console.log(error);
     });
   }
-  const handleDelete = (section)=> {
+  const handleView_product = async (id, trClass)=> {
+    const selectedTr= document.querySelector(trClass);
+    const childNodes= Array.from(selectedTr.parentNode.children);
+    // console.log(childNodes);
+    childNodes.map((child)=>child.classList.remove(`selected`));
+    selectedTr.classList.toggle('selected');
+    // axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/${id}`)
+    // .then((res)=>{
+    //   setProduct(res.data)
+    //   console.log(res);
+    // })
+    // .catch((error)=>{
+    //   console.log(error);
+    // });
+  }
+  const handleDelete = (product)=> {
     Swal.fire({
-      title: `Are you sure you want to delete ${section.category_name}?`,
+      title: `Are you sure you want to delete ${product.product_name}?`,
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        fetch(`http://localhost:9000/sections/${section.id}`, {
-          method: "DELETE",
-        })
-        .then((res)=>res.json())
-        .then ((data)=>{
-          console.log(data);
-          getAllSub_sections()
+        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/crud-products/p${product.id}`)
+        .then ((res)=>{
+          // console.log(res);
+          setProducts(res.data)
         })
       }
     })
@@ -84,9 +102,9 @@ function ViewProducts() {
             </table>
           </div>
           <div className='outerTable'>
-            <div className='addBtn'>
-              <button>
-                <NavLink style={{color:'#fff'}} to='/super-user/product-details'>
+            <div className='addBtn addProBtn' hidden >
+              <button >
+                <NavLink style={{color:'#fff'}} to={`/super-user/add-product/${addID}`}>
                   <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
                   <span>اضافه</span>
                 </NavLink>
@@ -104,12 +122,12 @@ function ViewProducts() {
                   <tr id={`tr${product.id}`} key={product.id}>
                     <td >{product.product_name}</td>
                     <td>
-                      <button className='view' onClick={()=>handleDelete(products)}>
-                        <NavLink style={{color:'#000'}} to='/super-user/product-details'>
+                      <button className='view' onClick={()=>handleView_product(product.id)}>
+                        <NavLink style={{color:'#000'}} to={`/super-user/view-product/${product.id}`}>
                           <i className="fa-regular fa-eye" style={{color:'#000'}}></i>
                         </NavLink>
                       </button>
-                      <button className='delete' onClick={()=>handleDelete(products)}>
+                      <button className='delete' onClick={()=>handleDelete(product)}>
                         <i className="fa-regular fa-trash-can" style={{color:'#ffffff'}}></i>
                       </button>
                     </td>
@@ -124,4 +142,5 @@ function ViewProducts() {
   )
 }
 
-export default ViewProducts
+export default  ViewProducts
+

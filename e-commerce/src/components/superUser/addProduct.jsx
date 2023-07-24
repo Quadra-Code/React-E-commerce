@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, {Fragment,useState,useEffect,useRef,useCallback  } from 'react';
+import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
@@ -22,7 +23,7 @@ import 'primeicons/primeicons.css';
 import "primereact/resources/themes/lara-light-indigo/theme.css";     
 import "primereact/resources/primereact.min.css";      
 
-export default function ProductDetails() {
+export default function AddProduct() {
   const [categoryName, setCategoryName] = useState('');
   const [categoryPrice, setCategoryPrice] = useState('');
   const [categoryUnit, setCategoryUnit] = useState('');
@@ -37,20 +38,18 @@ export default function ProductDetails() {
     product_images :null,
 });
 
+let {productID} = useParams()
+
 useEffect (()=>{
-  // formReloading()
+  console.log('2');
   const formReloading = setInterval(() => {
-    // setFormData1({...formData1,product_images: photos})
     setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])})
   }, 1000);
   return () => {
     clearInterval(formReloading);
   };
-})
+},[photos,formData1])
 
-// const handlePhoto = useCallback(()=>{
-//   setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])})
-// },[formData1,photos])
   const handleOptionChange = (event) => {
     setCategoryUnit(event.target.value);
   }
@@ -109,8 +108,9 @@ useEffect (()=>{
   const fileUploadRef = useRef(null);
 
   const onTemplateSelect  = async (e) => {
-    const newPhotos = [ ...photos,e.files];
-    setPhotos(newPhotos);  
+    const newPhotos = [e.files];
+    // const newPhotos = [ ...photos,e.files];
+    setPhotos([newPhotos]);  
     let _totalSize = totalSize;
     let files = e.files;
     Object.keys(files).forEach((key) => {
@@ -121,11 +121,10 @@ useEffect (()=>{
   
   const onTemplateUpload = (e) => {
       let _totalSize = 0;
-      console.log(e.file);
-      console.log('done');
-      setCategoryImages((prevImages) => {
-        return [...prevImages, e.files];
-      });
+      console.log(e.files);
+      // setCategoryImages((prevImages) => {
+      //   return [...prevImages, e.files];
+      // });
       e.files.forEach((file) => {
           _totalSize += file.size || 0;
       });
@@ -135,12 +134,16 @@ useEffect (()=>{
   };
   
   const onTemplateRemove = (file, callback) => {
+    console.log(file);
+    setPhotos([...photos[0].splice(file,1)])
+    console.log(photos);
       setTotalSize(totalSize - file.size);
       callback();
   };
   
   const onTemplateClear = () => {
-      setTotalSize(0);
+    setTotalSize(0);
+    setPhotos([]);  
   };
   
   const headerTemplate = (options) => {
@@ -201,8 +204,8 @@ useEffect (()=>{
     // setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])});
     const formData = new FormData();
     if(formData1.product_images){
-      formData1.product_images.map((image) => {
-        formData.append('product_images', image);
+      formData1.product_images[0].map((image) => {
+        formData.append('uploaded_images', image);
       });
     }
     formData.append('product_name', categoryName);
@@ -213,9 +216,9 @@ useEffect (()=>{
     formData.append('product_protein', categoryProtein);
     formData.append('product_fat', categoryFat);
     formData.append('product_carbohydrates', categoryCarb);
-    formData.append('sub_category_fk', 1);
+    formData.append('sub_category_fk', productID);
     console.log(formData);
-      axios.post('http://localhost:8000/crud-products/1',formData)
+      axios.post(`https://reactdjangoecommerce.pythonanywhere.com/crud-products/${productID}`,formData)
       .then ((res)=>{
         console.log(res);
         // const newSection = {id:response.data.id, category_name };
@@ -276,7 +279,7 @@ useEffect (()=>{
                         <Toast ref={toast}></Toast>
                         <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
                         <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
-                        <FileUpload ref={fileUploadRef} name="demo[]" url='http://localhost:9000/sections'multiple accept="image/*" maxFileSize={1000000}
+                        <FileUpload ref={fileUploadRef} url={null} name="demo[]" multiple accept="image/*" maxFileSize={1000000}
                           onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
                           headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
                           chooseOptions={chooseOptions} cancelOptions={cancelOptions} />
@@ -310,3 +313,4 @@ useEffect (()=>{
 
 
 
+//url='http://localhost:9000/sections'

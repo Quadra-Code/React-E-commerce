@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect, useState} from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import HashLoader from "react-spinners/HashLoader"
 
 
 function SuperUser() {
-  const {category_name} =useSelector (state => state.user.userData)
+  // const {category_name} =useSelector (state => state.user.userData)
   const [loading, setLoading] = useState(false);
   const override ={
     position:'absolute',

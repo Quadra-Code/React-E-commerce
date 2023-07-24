@@ -1833,6 +1833,42 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   margin-left: 0.5rem;
   margin-right: 0;
 }
+main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 50%;
+}
+main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col button:hover {
+  background-color: rgba(255, 0, 0, 0.127);
+}
+main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col button i {
+  font-size: 1.5rem;
+  color: red;
+}
+main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+}
 main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .cont {
   display: flex;
   align-items: center;

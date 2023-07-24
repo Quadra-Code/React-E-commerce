@@ -47,19 +47,21 @@ function AddSections() {
         '<input id="swal-input1" required placeholder="أسم القسم" class="swal2-input">' ,
       focusConfirm: false,
     })
-    const category_name = document.getElementById('swal-input1').value;
-    if (category_name!==""){
-      axios.post('https://reactdjangoecommerce.pythonanywhere.com/add-show-categories-api', {
-        category_name:category_name
-      })
-      .then((res)=>{
-        setSections(res.data);
-        console.log(res);
-      })
-      .catch((error)=>{
-        console.log(error);
-      });
-    } 
+    .then((data)=>{
+      const category_name = document.getElementById('swal-input1').value;
+      if (category_name!=="" && data.isConfirmed){
+        axios.post('https://reactdjangoecommerce.pythonanywhere.com/add-show-categories-api', {
+          category_name:category_name
+        })
+        .then((res)=>{
+          setSections(res.data);
+          console.log(res);
+        })
+        .catch((error)=>{
+          console.log(error);
+        });
+      } 
+    })
   }
   // http://localhost:9000/sections
   // https://reactdjangoecommerce.pythonanywhere.com/categories-list
