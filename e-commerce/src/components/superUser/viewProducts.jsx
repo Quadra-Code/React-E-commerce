@@ -93,7 +93,7 @@ function ViewProducts() {
                     <td >{subCategory.sub_category_name}</td>
                     <td>
                       <button className='view' onClick={()=>handleView(subCategory.id, `#tr${subCategory.id}`)}>
-                        <i className="fa-regular fa-eye" style={{color:'#000'}}></i>
+                        <i className="pi pi-eye" ></i>
                       </button>
                     </td>
                   </tr>
@@ -124,11 +124,11 @@ function ViewProducts() {
                     <td>
                       <button className='view' onClick={()=>handleView_product(product.id)}>
                         <NavLink style={{color:'#000'}} to={`/super-user/view-product/${product.id}`}>
-                          <i className="fa-regular fa-eye" style={{color:'#000'}}></i>
+                          <i className="pi pi-eye"></i>
                         </NavLink>
                       </button>
                       <button className='delete' onClick={()=>handleDelete(product)}>
-                        <i className="fa-regular fa-trash-can" style={{color:'#ffffff'}}></i>
+                        <i className="pi pi-trash" ></i>
                       </button>
                     </td>
                   </tr>

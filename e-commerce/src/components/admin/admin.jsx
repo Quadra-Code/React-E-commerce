@@ -5,7 +5,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import HashLoader from "react-spinners/HashLoader"
 
 
-function SuperUser() {
+function Admin() {
   // const {category_name} =useSelector (state => state.user.userData)
   const [loading, setLoading] = useState(false);
   const override ={
@@ -40,21 +40,15 @@ function SuperUser() {
             <div className="navLinks">
               <ul>
                 <li>
-                  <NavLink to ='add-sections'>
+                  <NavLink to ='orders'>
                     <i className="fa-solid fa-bars"></i>
-                    إضافة أقسام
+                    الاوردات
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to ='view-products'>
+                  <NavLink to ='add-new-order'>
                     <i className="fa-solid fa-bars"></i>
-                    عرض منتجات
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to ='admin'>
-                    <i className="fa-solid fa-bars"></i>
-                    الطلبات
+                    اضافة اوردر
                   </NavLink>
                 </li>
               </ul>
@@ -84,5 +78,4 @@ function SuperUser() {
   )
 }
 
-export default SuperUser
-
+export default Admin

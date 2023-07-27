@@ -128,6 +128,29 @@ main{
           }
         }
       }
+      .infoCont{
+        margin-bottom: 20px;
+        button{
+          outline: 0;
+          border: 0;
+          padding:8px ;
+          font-size: 16px;
+          border-radius: 5px;
+          color: $Dark_color;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          background-color: $bg-300;
+          i{
+            background-color: $primary-300;
+            padding: 8px;
+            border-radius: 20px;
+            color: $White_color;
+          }
+        }
+      }
       .topSec{
         width: 100%;
         display: flex;
@@ -303,15 +326,46 @@ main{
           display: flex;
           justify-content: center;
           align-items: flex-start;
-          // flex-direction: column;
+          flex-wrap: wrap;
           gap: 15px;
+          .last-child{
+            width: 100%;
+          }
           .outerTable{
             background-color: $bg-200;
             padding: 0 20px 20px 20px;
             border-radius: 6px;
-            width: 100%;
-            max-height: 620px;
+            min-width: 48%;
+            max-height: 650px;
             overflow-y: auto;
+            .search-add{
+              display: flex;
+              padding: 10px;
+              justify-content: space-between;
+              gap: 10px;
+              // width: max-content;
+              align-items: center;
+              button{
+                outline: 0;
+                border: 0;
+                padding:8px ;
+                font-size: 16px;
+                border-radius: 5px;
+                color: $Dark_color;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                background-color: $bg-300;
+                i{
+                  background-color: $primary-300;
+                  padding: 8px;
+                  border-radius: 20px;
+                  color: $White_color;
+                }
+              }
+            }
             table{
               width: 100%;
               text-align: center;
@@ -348,32 +402,53 @@ main{
                       padding:5px ;
                       font-size: 16px;
                     }
+                    // button {
+                    //   outline: 0;
+                    //   border: 0;
+                    //   width: 50px;
+                    //   padding:2px 5px ;
+                    //   font-size: 14px;
+                    //   border-radius: 5px;
+                    //   color: $White_color;
+                    //   cursor: pointer;
+                    // }
                     button {
-                      outline: 0;
-                      border: 0;
+                      background-color: transparent;
+                      border: none;
+                      outline: none;
                       width: 50px;
-                      padding:2px 5px ;
-                      font-size: 14px;
-                      border-radius: 5px;
-                      color: $White_color;
+                      height: 50px;
                       cursor: pointer;
+                      padding: 2px;
+                      border-radius: 50%;
+                      line-height: 1;
+                      &:hover{
+                        background-color:rgba(255, 0, 0, 0.127) ;
+                      }
+                      // i{
+                      //   font-size: 1rem;
+                      //   color: red;
+                      // }
                     }
                     .edit{
-                      background: $edit_color;
                       margin-left: 15px;
+                      i{
+                        color: $edit_color;
+                      }
                     }
                     .view {
-                      background: $view_color;
-                      color: rgb(0, 0, 0);
                       margin-left: 15px;
-                      width: min-content;
+                      i{
+                        color: $view_color;
+                      }
                       a{
                         width: 100%;
                         padding: 4px 10px;
                       }
                     }
                     .delete{
-                      background: $delete_color;
+                      // background: $delete_color;
+                      color: $delete_color;
                     }
                     input{
                       outline: 0;

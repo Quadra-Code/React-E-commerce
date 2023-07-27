@@ -87,10 +87,8 @@ function AddSections() {
     } 
   }
   const handleAdd_sub =async ()=>{
-    const subCategory_body = document.getElementById('subCategory_body');
     const btnId = document.querySelector('.addSubBtn').getAttribute('id');
     console.log(btnId);
-    // console.log(subCategory_body.children);
     if (btnId!==null) {
       const addPopup = await Swal.fire({
         title: 'أضافة قسم فرعي جديد',
@@ -98,12 +96,6 @@ function AddSections() {
           '<input id="swal-input2"  placeholder="أسم القسم" class="swal2-input">' ,
         focusConfirm: false,
       })
-      // const addPopup = await Swal.fire({
-      //   title: 'أضافة قسم فرعي جديد',
-      //   html:
-      //     '<input id="swal-input2"  placeholder="أسم القسم" class="swal2-input">' ,
-      //   focusConfirm: false,
-      // })
       const id = btnId;
       const sub_name = document.getElementById('swal-input2').value;
       if (sub_name!==""){
@@ -159,6 +151,14 @@ function AddSections() {
         .then ((res)=>{
           console.log(res);
           setSections(res.data)
+          axios.get(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${section.id}`,{})
+          .then((res)=>{
+            setSub_categories(res.data)
+            console.log(res);
+          })
+          .catch((error)=>{
+            console.log(error);
+          });
         })
       }
     })
@@ -207,13 +207,13 @@ function AddSections() {
                       <td >{section.category_name}</td>
                       <td>
                         <button className='edit' onClick={()=>handleEdit(section.id, section.category_name)}>
-                          <i className="fa-solid fa-pen" style={{color:'#ffffff'}}></i>
+                          <i className="pi pi-pencil" ></i>
                         </button>
                         <button className='view' onClick={()=>handleView(section.id, `#tr${section.id}`)}>
-                          <i className="fa-regular fa-eye" style={{color:'#000'}}></i>
+                          <i className="pi pi-eye" ></i>
                         </button>
                         <button className='delete' onClick={()=>handleDelete(section)}>
-                          <i className="fa-regular fa-trash-can" style={{color:'#ffffff'}}></i>
+                          <i className="pi pi-trash" ></i>
                         </button>
                       </td>
                     </tr>
@@ -241,8 +241,12 @@ function AddSections() {
                       <td>{subCategory.sub_category_name}</td>
                       <td hidden>{subCategory.category_fk}</td>
                       <td>
-                        <button className='edit'onClick={()=>{handleEdit_sub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}}>Edit</button>
-                        <button className='delete' onClick={()=>handleDeleteSub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}>Delete</button>
+                        <button className='edit'onClick={()=>{handleEdit_sub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}}>
+                          <i className="pi pi-pencil" ></i>
+                        </button>
+                        <button className='delete' onClick={()=>handleDeleteSub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}>
+                          <i className="pi pi-trash" ></i>
+                        </button>
                       </td>
                     </tr>
                   )}

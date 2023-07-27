@@ -6,6 +6,10 @@ import ViewProducts from './components/superUser/viewProducts';
 import ViewProduct from './components/superUser/viewProduct';
 import AddSections from './components/superUser/addSection';
 import AddProduct from './components/superUser/addProduct';
+import Admin from './components/admin/admin';
+import Orders from './components/admin/orders';
+import AddNewOrder from './components/admin/addNewOrder';
+
 import Home from './components/Home'
 
 // const initState = {
@@ -31,7 +35,14 @@ function App() {
           <Route path='view-products' exact element={<ViewProducts/>}/>
           <Route path='view-product/:productID' exact element={<ViewProduct/>}/>
           <Route path='add-sections' element={<AddSections/>}/>
-          <Route path='orders' element={<viewProducts/>}/>
+          <Route path='admin' element={<Admin/>}/>
+        </Route>
+        <Route path='/admin' exact element={<Admin/>}>
+          <Route path='add-product/:productID' exact element={<AddProduct/>}/>
+          <Route path='view-products' exact element={<ViewProducts/>}/>
+          <Route path='view-product/:productID' exact element={<ViewProduct/>}/>
+          <Route path='add-new-order/:customerID' element={<AddNewOrder/>}/>
+          <Route path='orders' element={<Orders/>}/>
         </Route>
       </Routes>
     </Router>

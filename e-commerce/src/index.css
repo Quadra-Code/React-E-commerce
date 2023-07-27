@@ -1442,6 +1442,29 @@ main .container .mainContent nav .navLinks .User span i {
   padding: 5px;
   border: 1px solid #5443c3;
 }
+main .container .mainContent .infoCont {
+  margin-bottom: 20px;
+}
+main .container .mainContent .infoCont button {
+  outline: 0;
+  border: 0;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: #222831;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #c2c2aa;
+}
+main .container .mainContent .infoCont button i {
+  background-color: #195775;
+  padding: 8px;
+  border-radius: 20px;
+  color: #ffffff;
+}
 main .container .mainContent .topSec {
   width: 100%;
   display: flex;
@@ -1627,15 +1650,46 @@ main .container .mainContent .topSec .allElements {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  flex-wrap: wrap;
   gap: 15px;
+}
+main .container .mainContent .topSec .allElements .last-child {
+  width: 100%;
 }
 main .container .mainContent .topSec .allElements .outerTable {
   background-color: #ebebd2;
   padding: 0 20px 20px 20px;
   border-radius: 6px;
-  width: 100%;
-  max-height: 620px;
+  min-width: 48%;
+  max-height: 650px;
   overflow-y: auto;
+}
+main .container .mainContent .topSec .allElements .outerTable .search-add {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+main .container .mainContent .topSec .allElements .outerTable .search-add button {
+  outline: 0;
+  border: 0;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: #222831;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #c2c2aa;
+}
+main .container .mainContent .topSec .allElements .outerTable .search-add button i {
+  background-color: #195775;
+  padding: 8px;
+  border-radius: 20px;
+  color: #ffffff;
 }
 main .container .mainContent .topSec .allElements .outerTable table {
   width: 100%;
@@ -1676,32 +1730,37 @@ main .container .mainContent .topSec .allElements .outerTable table tbody tr td 
   font-size: 16px;
 }
 main .container .mainContent .topSec .allElements .outerTable table tbody tr td button {
-  outline: 0;
-  border: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
   width: 50px;
-  padding: 2px 5px;
-  font-size: 14px;
-  border-radius: 5px;
-  color: #ffffff;
+  height: 50px;
   cursor: pointer;
+  padding: 2px;
+  border-radius: 50%;
+  line-height: 1;
+}
+main .container .mainContent .topSec .allElements .outerTable table tbody tr td button:hover {
+  background-color: rgba(255, 0, 0, 0.127);
 }
 main .container .mainContent .topSec .allElements .outerTable table tbody tr td .edit {
-  background: rgb(21, 81, 185);
   margin-left: 15px;
 }
+main .container .mainContent .topSec .allElements .outerTable table tbody tr td .edit i {
+  color: rgb(21, 81, 185);
+}
 main .container .mainContent .topSec .allElements .outerTable table tbody tr td .view {
-  background: rgb(51, 175, 247);
-  color: rgb(0, 0, 0);
   margin-left: 15px;
-  width: -moz-min-content;
-  width: min-content;
+}
+main .container .mainContent .topSec .allElements .outerTable table tbody tr td .view i {
+  color: rgb(51, 175, 247);
 }
 main .container .mainContent .topSec .allElements .outerTable table tbody tr td .view a {
   width: 100%;
   padding: 4px 10px;
 }
 main .container .mainContent .topSec .allElements .outerTable table tbody tr td .delete {
-  background: rgb(180, 26, 26);
+  color: rgb(180, 26, 26);
 }
 main .container .mainContent .topSec .allElements .outerTable table tbody tr td input {
   outline: 0;
