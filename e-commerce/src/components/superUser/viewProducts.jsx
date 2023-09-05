@@ -92,8 +92,8 @@ function ViewProducts() {
                   <tr id={`tr${subCategory.id}`} key={subCategory.id}>
                     <td >{subCategory.sub_category_name}</td>
                     <td>
-                      <button className='view' onClick={()=>handleView(subCategory.id, `#tr${subCategory.id}`)}>
-                        <i className="pi pi-eye" ></i>
+                      <button className='button' onClick={()=>handleView(subCategory.id, `#tr${subCategory.id}`)}>
+                        <i className="pi pi-eye" style={{'color':'rgb(51, 175, 247)'}}></i>
                       </button>
                     </td>
                   </tr>
@@ -122,13 +122,13 @@ function ViewProducts() {
                   <tr id={`tr${product.id}`} key={product.id}>
                     <td >{product.product_name}</td>
                     <td>
-                      <button className='view' onClick={()=>handleView_product(product.id)}>
+                      <button className='button' onClick={()=>handleView_product(product.id)}>
                         <NavLink style={{color:'#000'}} to={`/super-user/view-product/${product.id}`}>
-                          <i className="pi pi-eye"></i>
+                          <i className="pi pi-eye" style={{'color':'rgb(51, 175, 247)'}}></i>
                         </NavLink>
                       </button>
-                      <button className='delete' onClick={()=>handleDelete(product)}>
-                        <i className="pi pi-trash" ></i>
+                      <button className='button' onClick={()=>handleDelete(product)}>
+                        <i className="pi pi-trash" style={{'color':'rgb(180, 26, 26)'}}></i>
                       </button>
                     </td>
                   </tr>

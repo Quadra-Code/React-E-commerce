@@ -1,86 +1,81 @@
-import React ,{Fragment,useState,useEffect, }from 'react'
+import React ,{Fragment,useState,useEffect,useRef }from 'react'
 import Swal from 'sweetalert2'
 import axios,{Axios} from 'axios';
 import { NavLink, Outlet } from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from "primereact/inputtext";
 import { Tag } from 'primereact/tag';
-
+import { Toast } from 'primereact/toast';
   export default function Orders() {
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [search, setSearch] = useState('');
   const [customers,setCustomers] = useState(); 
   const [orders,setOrders] = useState([]); 
-  const [cities,setCities] = useState([
-    { name: 'الزهراء', code: 'NY' },
-    { name: 'سيتي', code: 'RM' },
-    { name: 'اكتوبر', code: 'LDN' },
-    { name: 'الخارجه', code: 'IST' },
-  ]); 
+  const toast  = useRef(null);
   const [addID, setAddID] =useState('')
   useEffect (()=>{
     getAll_customers()
-    getAll_orders()
+    // getAll_orders()
   },[])
   const getAll_customers = async ()=> {
     try {
-      const response = await axios.get('http://localhost:7000/customers');
+      const response = await axios.get('http://localhost:8000/client-api');
       setCustomers(response.data)
-      // console.log(response.data)
+      console.log(response.data)
     } catch (error) {
       console.error(error);
     } 
   }
   const getAll_orders = async ()=> {
     try {
-      const response = await axios.get('http://localhost:5000/orders');
+      const response = await axios.get('http://localhost:8000/order-master-api');//this link gets data from database that exists in your pc not pythonanywhere database 
       setOrders(response.data)
       // console.log(response.data)
     } catch (error) {
       console.error(error);
     } 
   }
-
   const handleAdd_order=(id, trClass)=>{
     const selectedTr= document.querySelector(trClass);
     const childNodes= Array.from(selectedTr.parentNode.children);
     // console.log(childNodes);
     childNodes.map((child)=>child.classList.remove(`selected`));
     selectedTr.classList.toggle('selected');
+    axios.get(`http://127.0.0.1:8000/client-with-address-api/client${id}`)
   }
-  const handleView = async (id, trClass)=> {
+
+  const handleView_clientOrders = async (id, trClass)=> {
     const selectedTr= document.querySelector(trClass);
     const childNodes= Array.from(selectedTr.parentNode.children);
     // console.log(childNodes);
     childNodes.map((child)=>child.classList.remove(`selected`));
     selectedTr.classList.toggle('selected');
-    const addBtn = document.querySelector('.addProBtn');
-    addBtn.removeAttribute('hidden')
     setAddID(id)
     console.log(addID);
-    // axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/s${id}`)
-    // .then((res)=>{
-    //   setCustomers(res.data)
-    //   console.log(res);
-    // })
-    // .catch((error)=>{
-    //   console.log(error);
-    // });
+    axios.get (`http://localhost:8000/order-master-api/${id}`)
+    .then((res)=>{
+      setOrders(res.data)
+      console.log(res);
+    })
+    .catch((error)=>{
+      console.log(error);
+    });
   }
-  const handleView_product = async (id, trClass)=> {
-    const selectedTr= document.querySelector(trClass);
-    const childNodes= Array.from(selectedTr.parentNode.children);
-    // console.log(childNodes);
-    childNodes.map((child)=>child.classList.remove(`selected`));
-    selectedTr.classList.toggle('selected');
-    // axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/${id}`)
-    // .then((res)=>{
-    //   setProduct(res.data)
-    //   console.log(res);
-    // })
-    // .catch((error)=>{
-    //   console.log(error);
-    // });
-  }
+  // const handleView_order = async (id, trClass)=> {
+  //   const selectedTr= document.querySelector(trClass);
+  //   const childNodes= Array.from(selectedTr.parentNode.children);
+  //   // console.log(childNodes);
+  //   childNodes.map((child)=>child.classList.remove(`selected`));
+  //   selectedTr.classList.toggle('selected');
+  //   console.log(id);
+  //   axios.get(`http://localhost:8000/order-master-api/master${id}`)
+  //   .then((res)=>{
+  //     console.log(id);
+  //     console.log(res);
+  //   })
+  //   .catch((error)=>{
+  //     console.log(error);
+  //   });
+  // }
   const handleDelete = (product)=> {
     Swal.fire({
       title: `Are you sure you want to delete ${product.product_name}?`,
@@ -96,45 +91,46 @@ import { Tag } from 'primereact/tag';
       }
     })
   }
-  const handleSelect_add = ()=>{
+  const handleClient_add = ()=>{
     Swal.fire({
-      title: 'أضافة قسم جديد',
+      title: 'أضافة عميل جديد',
       html:
-        '<input id="swal-input1" required placeholder="أسم القسم" class="swal2-input">' ,
+        '<input id="swal-input1" required placeholder="أسم العميل" class="swal2-input"><input id="swal-input2" required placeholder="رقم الهاتف " class="swal2-input">' ,
       focusConfirm: false,
     })
     .then((data)=>{
-      const category_name = document.getElementById('swal-input1').value;
-      if (category_name!=="" && data.isConfirmed){
-        // axios.post('https://reactdjangoecommerce.pythonanywhere.com/add-show-categories-api', {
-        //   category_name:category_name
-        // })
-        // .then((res)=>{
-          const newAddress = {name:category_name, code:5};
-          setCities([...cities, newAddress]);  
-          // setSections(res.data);
-          // console.log(res);
-        // })
-        // .catch((error)=>{
-        //   console.log(error);
-        // });
+      const client_name = document.getElementById('swal-input1').value;
+      const client_main_phone = document.getElementById('swal-input2').value;
+      if (client_name!=="" && client_main_phone!=="" && data.isConfirmed){
+        axios.post('http://localhost:8000/client-api', {
+          client_name,
+          client_main_phone
+        })
+        .then((res)=>{
+          setCustomers(res.data)
+          toast.current.show({severity:'success', summary: 'تم', detail:'تمت الاضافه بنجاح', life: 3000});
+          console.log(res);
+        })
+        .catch((error)=>{
+          toast.current.show({severity:'error', summary: 'خطأ', detail:'أدخل البيانات بشكل صحيح', life: 3000});
+          console.log(error);
+        });
       } 
     })
-
   }
   return(
     <>
-      <section className="topSec">
+      <section className="topSec callCenterTop">
         <div className='allElements' style={{"flexDirection":"column"}}>
           <div className='outerTable'>
             <div className='search-add'>
-              <button onClick={handleSelect_add}>
+              <button className='button' onClick={handleClient_add}>
                 <i className="pi pi-plus" ></i>
                 <span>اضافة عميل</span>
               </button>
               <span className="p-input-icon-left">
                 <i className="pi pi-search" />
-                <InputText placeholder="بحث برقم الهاتف" />
+                <InputText placeholder="بحث برقم الهاتف" onChange={(e)=>{setSearch(e.target.value)}}/>
               </span>
             </div>
             <table>
@@ -142,26 +138,26 @@ import { Tag } from 'primereact/tag';
                 <tr>
                   <th>اسم العميل</th>
                   <th>رقم الهاتف</th>
-                  <th>العنوان</th>
-                  <th>اوردر</th>
+                  <th>خيارات</th>
                 </tr>
               </thead>
               <tbody>
-                {customers&& customers.map((customer)=>
-                  <tr id={`tr${customer.customer_id}`} key={customer.customer_id}>
-                    <td >{customer.customer_name}</td>
-                    <td >{customer.customer_phone}</td>
+                {customers&& customers.filter((item)=>{
+                  return search&& search.toLowerCase() === ''
+                  ? item
+                  : item.client_main_phone.toLowerCase().includes(search);
+                }).map((customer)=>
+                  <tr id={`tr${customer.id}`} key={customer.id}>
+                    <td >{customer.client_name}</td>
+                    <td >{customer.client_main_phone}</td>
                     <td>
-                      <div className="card flex justify-content-center">
-                        <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name" 
-                          placeholder="العنوان" className="w-full md:w-14rem" />
-                      </div>
-                    </td>
-                    <td>
-                      <button className='order' onClick={()=>handleAdd_order(customer.customer_id, `#tr${customer.customer_id}`)}>
-                        <NavLink style={{color:'#000'}} to={`/admin/add-new-order/${customer.customer_id}`}>
+                      <button className='button' onClick={()=>handleAdd_order(customer.id, `#tr${customer.id}`)}>
+                        <NavLink style={{color:'#000'}} to={`/admin/add-new-order/${customer.id}`}>
                           <i className="pi pi-plus" style={{"color":"rgb(21, 81, 185)"}} ></i>
                         </NavLink>
+                      </button>
+                      <button className='button' onClick={()=>handleView_clientOrders(customer.id, `#tr${customer.id}`)}>
+                        <i className="pi pi-eye" style={{"color":"rgb(72 197 128)"}} ></i>
                       </button>
                     </td>
                   </tr>
@@ -187,31 +183,37 @@ import { Tag } from 'primereact/tag';
                   <th>رقم الهاتف</th>
                   <th>العنوان</th>
                   <th>تاريخ الاوردر</th>
+                  <th>الاجمالي</th>
                   <th>حالة الاوردر</th>
                   <th>خيارات</th>
                 </tr>
               </thead>
               <tbody id='subCategory_body'>
                 {orders&& orders.map((order)=>
-                  <tr id={`tr${order.order_id}`} key={order.order_id}>
-                    <td >{order.customer_name}</td>
-                    <td >{order.customer_phone}</td>
-                    <td >{order.customer_address.address_label}</td>
-                    <td >{order.order_date}</td>
+                  <tr id={`tr${order.id}`} key={order.id}>
+                    <td >{order.client_name}</td>
+                    <td >{order.client_main_phone}</td>
+                    <td >{order.client_address}</td>
+                    <td >{order.order_master_date_time}</td>
+                    <td >{order.order_master_total}</td>
                     <td>
-                      <Tag severity={
-                        
-                        order.order_status==='done'? 'success' : order.order_status==='pending'? 'warning': order.order_status==='delivery'? 'info':'danger'} value={order.order_status}></Tag>
+                      <Tag 
+                        severity={
+                        order.order_master_state==='0'? 'danger' : order.order_master_state==='2 || 3'? 'warning': order.order_master_state==='4'? 'success':order.order_master_state==='1'? 'info':'danger'}
+                        value={
+                          order.order_master_state==='0'? 'غير مكتمل' : order.order_master_state==='2 || 3'? 'قيد الانتظار': order.order_master_state==='4'? 'تم':order.order_master_state==='1'? 'بإنتظار الموافقة':'danger'
+                        }
+                        ></Tag>
                     </td>
                     <td>
-                      {/* <button className='view' onClick={()=>handleView_product(order.id)}>
-                        <NavLink style={{color:'#000'}} to={`/super-user/view-product/${order.id}`}>
-                          <i className="fa-regular fa-eye" style={{color:'#000'}}></i>
+                      <button className='button'>
+                        <NavLink style={{color:'#000'}} to={`/admin/view-order/${order.id}`}>
+                          <i className="fa-regular fa-eye" style={{color:'rgb(72 197 128)'}}></i>
                         </NavLink>
-                      </button> */}
-                      <button className='order' onClick={()=>handleAdd_order(order.order_id, `#tr${order.order_id}`)}>
-                        <i className="pi pi-eye" style={{"color":"rgb(51, 175, 247)"}}></i>
                       </button>
+                      {/* <button className='button' onClick={()=>handleView_order(order.id, `#tr${order.order_id}`)}>
+                        <i className="pi pi-eye" style={{"color":"rgb(51, 175, 247)"}}></i>
+                      </button> */}
                       {/* <button className='delete' onClick={()=>handleDelete(order)}>
                         <i className="fa-regular fa-trash-can" style={{color:'#ffffff'}}></i>
                       </button> */}

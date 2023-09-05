@@ -6,12 +6,13 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { useParams } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
+import { Paginator } from 'primereact/paginator';
 import 'primeicons/primeicons.css';
 import { InputNumber } from 'primereact/inputnumber';
-export default function AddNewOrder() {
-  const [sub_categories,setSub_categories] = useState([]); 
-  const [value2, setValue2] = useState(10.50);
-  const [search , setSearch] = useState('');
+export default function ViewOrder() {
+  const [search, setSearch] = useState('');
+  const [value2, setValue2] = useState();
+  const [sections , setSections] = useState();
   const [products,setProducts] = useState(); 
   const [addID, setAddID] =useState('')
   const [name, setName] = useState('احمد')
@@ -24,23 +25,19 @@ export default function AddNewOrder() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [total_quantity, setTotal_quantity] = useState(0);
   const [put_clientInfo, setPut_ClientInfo] = useState([]);
+  const [client_fk, setClient_fk] = useState();
   const [selectedCity, setSelectedCity] = useState(null);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [addProduct,setAddProduct] = useState([])
+  const [allResponse,setAllResponse] = useState([])
   const [total_rowOrder, setTotal_rowOrder] = useState()
   let total_price = 0;
   const toast  = useRef(null);
-  // const addToCart = (product) => {
-  //   setAddProduct([...addProduct, product]);
-  // };
   console.log(clientAddress);
   let {customerID}= useParams()
   useEffect (()=>{
-    // getAllSub_sections()
-    // getAllSections()
+    getOrderInfo()
     getAllProducts()
-    getClientInfo()
-    // handleView()
     order_total_price()
   },[])
   const order_total_price = ()=>{
@@ -48,19 +45,22 @@ export default function AddNewOrder() {
     const totalPrice = prices.reduce((total, price) => total + price, 0);
     setTotal_rowOrder(totalPrice)
   }
-  // const total_orderPrice = order_total_price();
-  // console.log(total_orderPrice);
-  const getClientInfo = async ()=> {
+  const getOrderInfo = async ()=> {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/client-with-address-api/client${customerID}`);
+      const response = await axios.get(`http://127.0.0.1:8000/order-master-api/master${customerID}`);
       setClientInfo(response.data)
-      setClientAddresses(response.data.client_addresses)
       console.log(response.data)
-      console.log(response.data.client_addresses)
+      setAddProduct(response.data.order_details)
+      setAllResponse(response.data)
+      setValue2(response.data.client_address)
+      setClient_fk(response.data.client_fk)
+      const getClient_info = await axios.get(`http://127.0.0.1:8000/client-with-address-api/client${response.data.client_fk}`)
+      setClientAddresses(getClient_info.data.client_addresses)
     } catch (error) {
       console.error(error);
     } 
   }
+  console.log(value2);
   const getAllProducts = async ()=> {
     try {
       const response = await axios.get('http://127.0.0.1:8000/crud-products/all');
@@ -70,6 +70,7 @@ export default function AddNewOrder() {
       console.error(error);
     } 
   }
+
   // const handleView = async (id, trClass)=> {
   //   const selectedTr= document.querySelector(trClass);
   //   const childNodes= Array.from(selectedTr.parentNode.children);
@@ -90,39 +91,39 @@ export default function AddNewOrder() {
   //     console.log(error);
   //   });
   // }
-  // const handleView_products = async (id, trClass)=> {
-  //   const selectedTr= document.querySelector(trClass);
-  //   const childNodes= Array.from(selectedTr.parentNode.children);
-  //   // console.log(childNodes);
-  //   childNodes.map((child)=>child.classList.remove(`selected`));
-  //   selectedTr.classList.toggle('selected');
-  //   const addBtn = document.querySelector('.addProBtn');
-  //   addBtn.removeAttribute('hidden')
-  //   setAddID(id)
-  //   console.log(addID);
-  //   axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/s${id}`)
-  //   .then((res)=>{
-  //     setProducts(res.data)
-  //     console.log(res);
-  //   })
-  //   .catch((error)=>{
-  //     console.log(error);
-  //   });
-  // }
+  const handleView_products = async (id, trClass)=> {
+    const selectedTr= document.querySelector(trClass);
+    const childNodes= Array.from(selectedTr.parentNode.children);
+    // console.log(childNodes);
+    childNodes.map((child)=>child.classList.remove(`selected`));
+    selectedTr.classList.toggle('selected');
+    const addBtn = document.querySelector('.addProBtn');
+    addBtn.removeAttribute('hidden')
+    setAddID(id)
+    console.log(addID);
+    axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/s${id}`)
+    .then((res)=>{
+      setProducts(res.data)
+      console.log(res);
+    })
+    .catch((error)=>{
+      console.log(error);
+    });
+  }
 
   const handleAdd_pro = async (id, name,price,disc)=> {
     const newProduct = {
-      product_description: disc,
       product_fk:id,
       product_name: name,
-      product_price: price,
-      quantity:1,
+      order_item_price: price,
+      order_detail_notes: disc,
+      order_detail_quantity:1,
     };
     const existingObj = addProduct.find(obj => obj.product_fk === id);
     if (existingObj) {
         setAddProduct(addProduct=>
           addProduct.map((item)=>
-          id === item.product_fk ? {...item,quantity:item.quantity +1} 
+          id === item.product_fk ? {...item,order_detail_quantity:item.order_detail_quantity +1} 
           :item))
       console.log('Object with ID '+ id + 'lready exists in myArray');
     } else {
@@ -131,13 +132,12 @@ export default function AddNewOrder() {
       console.log('newObj added to myArray:', addProduct);
     } 
   }
-    
-    console.log(addProduct);
   const handleDelete_row = (id)=> {
     const newArray = addProduct.filter((product) => product.product_fk !== id);
     setAddProduct(newArray)
     console.log(addProduct);
   }
+  // product.product_fk !== id
   const handle_addNewAddress = ()=>{
     Swal.fire({
       title: 'أضافة  عنوان جديد',
@@ -167,8 +167,8 @@ export default function AddNewOrder() {
   const finishOrder = () => {
     const client_fk = clientInfo.id
     const order_details = []
-    const total_masterPrice = document.querySelector('.totalPrice').textContent;
     const order_body = document.querySelector('#order_body');
+    const total_masterPrice = document.querySelector('.totalPrice').textContent;
     order_body.querySelectorAll("tr").forEach((row) => {
       let price = row.querySelector('#price')
       let total_detailPrice = row.querySelector('#order_total')
@@ -190,7 +190,7 @@ export default function AddNewOrder() {
       // setTotalOrder([...totalOrder,order_details])
     });
     
-    axios.post(`http://localhost:8000/order-master-api/post`,{
+    axios.put(`http://localhost:8000/order-master-api/${allResponse.id}`,{
       client_fk,
       order_master_notes:'sss',
       order_master_address:clientAddress.id,
@@ -206,15 +206,15 @@ export default function AddNewOrder() {
       toast.current.show({severity:'error', summary: 'خطأ', detail:'أدخل البيانات بشكل صحيح', life: 3000});
     })
   }
-  // const handleQuantity = (e)=> {
-  //   console.log(e.target);
-  //   e.target.setAttribute("id", e.target.value);
-  //   const quantity = e.target.value;
-  //   const price = parseFloat(e.target.getAttribute('data-price'));
-  //   const newTotalPrice =  quantity * price;
-  //   setTotalPrice(newTotalPrice);
-  //   // console.log(e.target.getAttribute("Quantity"));
-  // }
+  const handleQuantity = (e)=> {
+    console.log(e.target);
+    e.target.setAttribute("id", e.target.value);
+    const quantity = e.target.value;
+    const price = parseFloat(e.target.getAttribute('data-price'));
+    const newTotalPrice =  quantity * price;
+    setTotalPrice(newTotalPrice);
+    // console.log(e.target.getAttribute("Quantity"));
+  }
   console.log(total_quantity);
   const handleNotes= (e)=> {
     console.log(e.target);
@@ -224,14 +224,14 @@ export default function AddNewOrder() {
   const handleQuantity_increment = (product)=> {
     setAddProduct(addProduct=>
       addProduct.map((item)=>
-      product.product_fk === item.product_fk ? {...item,quantity:item.quantity +1} :item
+      product.product_fk === item.product_fk ? {...item,order_detail_quantity:item.order_detail_quantity +1} :item
       ))
     // setTotal_rowOrder(product.quantity*product.product_price)
   }
   const handleQuantity_decrement = (product)=> {
     setAddProduct(addProduct=>
       addProduct.map((item)=>
-      product.product_fk === item.product_fk ? {...item,quantity:item.quantity-(item.quantity > 1 ? 1: 0)} :item
+      product.product_fk === item.product_fk ? {...item,order_detail_quantity:item.order_detail_quantity-(item.order_detail_quantity > 1 ? 1: 0)} :item
       )
     )
   }
@@ -242,8 +242,8 @@ export default function AddNewOrder() {
         <div className="topSec-content infoCont" >
           <InputText disabled value={clientInfo&&clientInfo.client_name} onChange={(e) => setName(e.target.value)} />
           <InputText disabled value={clientInfo&&clientInfo.client_main_phone} onChange={(e) => setNumber(e.target.value)} />
-          <Dropdown value={clientAddress} onChange={(e) => setClientAddress(e.value)} options={clientAddresses&&clientAddresses} optionLabel="client_address" 
-            placeholder="العنوان" className="w-full md:w-14rem" />
+          <Dropdown value={value2} onChange={(e) => setValue2(e.value)} options={clientAddresses&&clientAddresses} optionLabel="client_address" 
+            placeholder={value2} className="w-full md:w-14rem" />
           <button onClick={handle_addNewAddress}>
             <i className="pi pi-plus" ></i>
             <span>اضافة عنوان جديد</span>
@@ -260,25 +260,25 @@ export default function AddNewOrder() {
                   <th>الكميه</th>
                   <th>إجمالي السعر</th>
                   <th>الملاحظات</th>
-                  <th>حذف</th>
+                  <th>اضافه</th>
                 </tr>
               </thead>
               <tbody id='order_body'>
                 {addProduct.length>0 ? addProduct.map((product)=>{
-                  total_price += product.product_price*product.quantity;
+                  total_price += product.order_item_price*product.order_detail_quantity;
                   return(
-                    <tr id={`tr${product.product_fk}`} key={product.product_fk}>
+                    <tr id={`tr${product.id}`} key={product.id}>
                       <td >{product.product_name}</td>
-                      <td id='price' product_fk={product.product_fk} data-price={product.product_price}>{product.product_price}</td>
+                      <td id='price' product_fk={product.product_fk} data-price={product.order_item_price}>{product.order_item_price}</td>
                       <td >{product.product_description}</td>
                       <td >
                         <div className='quantityDiv'>
                           <button type='button' onClick={()=> handleQuantity_increment(product)} className='increment'>+</button>
-                          <div className='count'>{product.quantity}</div>
+                          <div className='count'>{product.order_detail_quantity}</div>
                           <button type='button' onClick={()=> handleQuantity_decrement(product)} className='decrement'>-</button>
                         </div>
                       </td>
-                      <td id='order_total'>{product.product_price*product.quantity}</td>
+                      <td id='order_total'>{product.order_item_price*product.order_detail_quantity}</td>
                       <td ><InputText className='notes' onChange={(e) => handleNotes(e)} /></td>
                       <td>
                         <button className='button' onClick={()=>handleDelete_row(product.product_fk)}>
@@ -299,8 +299,7 @@ export default function AddNewOrder() {
             {addProduct.length>0 ?
               <span  onClick={finishOrder}>
                 إجمالي السعر
-                <span className='totalPrice' style={{'marginRight':'8px'}}>{total_price}</span>
-                
+                <span className='totalPrice' style={{'margin-right':'8px'}}>{total_price}</span>
               </span>
             :
               console.log(null)

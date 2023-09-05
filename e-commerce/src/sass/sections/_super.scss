@@ -280,7 +280,7 @@ main{
                   font-size: 16px;
                 }    
               }
-              button{
+              .button{
                 display: flex;
                 justify-content: center;
                 gap: 10px;
@@ -338,6 +338,28 @@ main{
             min-width: 48%;
             max-height: 650px;
             overflow-y: auto;
+            // display: flex;
+            // align-items: center;
+            // flex-direction: column;
+            text-align: center;
+            .finishOrder{
+              padding: 8px;
+              background: rgb(0,59,89);
+              background: linear-gradient(90deg, rgb(0, 93, 140) 0%, rgb(13, 110, 188) 48%, rgba(0,165,199,1) 100%);
+              width: 150px;
+              border: none;
+              border-radius: 25px;
+              color: #fff;
+              font-size: 16px;
+              margin-left: 60px;
+              cursor: pointer;
+            }
+            .totalPrice {
+              background-color: #ffffff;
+              padding: 8px;
+              width: 150px;
+              border-radius: 5px;
+            }
             .search-add{
               display: flex;
               padding: 10px;
@@ -345,7 +367,7 @@ main{
               gap: 10px;
               // width: max-content;
               align-items: center;
-              button{
+              .button{
                 outline: 0;
                 border: 0;
                 padding:8px ;
@@ -412,7 +434,7 @@ main{
                     //   color: $White_color;
                     //   cursor: pointer;
                     // }
-                    button {
+                    .button {
                       background-color: transparent;
                       border: none;
                       outline: none;
@@ -451,8 +473,6 @@ main{
                       color: $delete_color;
                     }
                     input{
-                      outline: 0;
-                      border: 0;
                       text-align: center;
                       font-size: 18px;
                       background-color: transparent;
@@ -729,4 +749,18 @@ main{
 .photo-prev{
   width: 80px;
   height: 80px;
+}
+.p-inputnumber-buttons-horizontal .p-button.p-inputnumber-button-down {
+  order: 1;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.p-inputnumber-buttons-horizontal .p-button.p-inputnumber-button-up {
+  order: 1;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }

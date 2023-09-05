@@ -1,0 +1,50 @@
+@import '../variables/colors' ;
+.callCenterTop{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  flex-direction: column;
+  padding: 15px 0;
+  @include breakpoint (medium) {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  >.allElements{
+    .outerTable{
+      width: 100%;
+    }
+  }
+}
+.quantityDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .increment{
+    width: 30px;
+    padding: 7.5px;
+    background-color: rgb(105, 202, 105);
+    border: none;
+    outline: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+  }
+  .count{
+    width: 120px;
+    padding: 5px;
+    background-color: #eee;
+  }
+  .decrement{
+    width: 30px;
+    padding: 7.5px;
+    background-color: rgb(236, 70, 64);
+    border: none;
+    outline: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    cursor: pointer;
+  }
+  
+}

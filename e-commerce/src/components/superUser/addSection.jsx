@@ -206,14 +206,14 @@ function AddSections() {
                     <tr id={`tr${section.id}`} ref={selected} key={section.id}>
                       <td >{section.category_name}</td>
                       <td>
-                        <button className='edit' onClick={()=>handleEdit(section.id, section.category_name)}>
-                          <i className="pi pi-pencil" ></i>
+                        <button className='button' onClick={()=>handleEdit(section.id, section.category_name)}>
+                          <i className="pi pi-pencil" style={{'color':'rgb(82 206 114)'}}></i>
                         </button>
-                        <button className='view' onClick={()=>handleView(section.id, `#tr${section.id}`)}>
-                          <i className="pi pi-eye" ></i>
+                        <button className='button' onClick={()=>handleView(section.id, `#tr${section.id}`)}>
+                          <i className="pi pi-eye"style={{'color':'rgb(51, 175, 247)'}} ></i>
                         </button>
-                        <button className='delete' onClick={()=>handleDelete(section)}>
-                          <i className="pi pi-trash" ></i>
+                        <button className='button' onClick={()=>handleDelete(section)}>
+                          <i className="pi pi-trash" style={{'color':'rgb(180, 26, 26)'}}></i>
                         </button>
                       </td>
                     </tr>
@@ -241,11 +241,11 @@ function AddSections() {
                       <td>{subCategory.sub_category_name}</td>
                       <td hidden>{subCategory.category_fk}</td>
                       <td>
-                        <button className='edit'onClick={()=>{handleEdit_sub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}}>
-                          <i className="pi pi-pencil" ></i>
+                        <button className='button'onClick={()=>{handleEdit_sub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}}>
+                          <i className="pi pi-pencil" style={{'color':'rgb(51, 175, 247)'}}></i>
                         </button>
-                        <button className='delete' onClick={()=>handleDeleteSub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}>
-                          <i className="pi pi-trash" ></i>
+                        <button className='button' onClick={()=>handleDeleteSub(subCategory.id,subCategory.sub_category_name,subCategory.category_fk)}>
+                          <i className="pi pi-trash"style={{'color':'rgb(180, 26, 26)'}} ></i>
                         </button>
                       </td>
                     </tr>
