@@ -51,9 +51,9 @@ function Navbar()  {
             <li onClick={hideNavbar}>
               <a href="#contact" className="header_link">تواصل معنا</a>
             </li>
-            <li onClick={hideNavbar}>
+            {/* <li onClick={hideNavbar}>
               <NavLink exact='true' href="/superUser" className="header_link">Super user</NavLink>
-            </li>
+            </li> */}
             <li onClick={hideNavbar}>
               <a href="#ShoppingCart" className="header_link"><i className="fa-solid fa-cart-shopping"></i></a>
             </li>

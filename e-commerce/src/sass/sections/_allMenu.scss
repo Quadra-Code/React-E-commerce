@@ -1,0 +1,36 @@
+// import colors style
+@import '../variables/colors' ;
+.all-menu-container{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+  .aboutUs-container{
+    position: absolute;
+    top: 8%;
+    @include breakpoint(mobile){
+      top: 2%;
+    }
+    .features-container {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+      h3{
+        background-color: black;
+        padding: 5px 14px;
+        color: #fff;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+      }
+      .menu-items{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        width: 100%;
+      }
+    }
+  }
+}

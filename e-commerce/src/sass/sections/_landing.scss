@@ -2,7 +2,7 @@ $landing-before:30px ;
 .landing-container {
   position: relative;
   width: 100%;
-  perspective: 200px;
+  margin-top:5%;
   img {
     transform: translate3d(0, 0, 0);
     transition: .3s all ease-in-out;

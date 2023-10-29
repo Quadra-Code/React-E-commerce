@@ -30,7 +30,6 @@ root.render(
             <App/>
           </ThemeProvider>
         </CacheProvider>
-        {/* <App /> */}
       </Provider>
     </React.StrictMode>
 );

@@ -34,12 +34,12 @@ function Home() {
     });
     scrollreveal().reveal('.servicer-content .col', { delay: 50, origin: 'bottom', interval:'200' });
     scrollreveal().reveal('.features-container .features', { delay: 50, origin: 'right', interval:'200' });
-    scrollreveal().reveal('.landingRe1', { delay: 300, origin: 'top' });
-    scrollreveal().reveal('.landingRe2', { delay: 200, origin: 'top' });
-    scrollreveal().reveal('.landingRe3', { delay: 100, origin: 'bottom' });
+    scrollreveal().reveal('.landingRe1', { delay: 10, origin: 'top' });
+    scrollreveal().reveal('.landingRe2', { delay: 10, origin: 'top' });
+    scrollreveal().reveal('.landingRe3', { delay: 10, origin: 'bottom' });
   }
   return (
-    <main >
+    <main className='home-page'>
       {
       
       loading ?

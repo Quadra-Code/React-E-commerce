@@ -1,4 +1,8 @@
 @use './sass/helpers/mixins'  as *;
+// import home style
+@import './sass/sections/home';
+// import all menu style
+@import './sass/sections/allMenu';
 // import navbar style
 @import './sass/sections/nav-bar';
 // import global-rules style

@@ -10,7 +10,7 @@ import Admin from './components/admin/admin';
 import Orders from './components/admin/orders';
 import AddNewOrder from './components/admin/addNewOrder';
 import ViewOrder from './components/admin/viewOrder';
-
+import AllMenu from './components/allMenu';
 import Home from './components/Home'
 
 // const initState = {
@@ -31,6 +31,7 @@ function App() {
     <Router>
       <Routes>
         <Route path ='/' exact element= {<Home/>}/>
+        <Route path ='/all-menu' exact element= {<AllMenu/>}/>
         <Route path='/super-user' exact element={<SuperUser/>}>
           <Route path='add-product/:productID' exact element={<AddProduct/>}/>
           <Route path='view-products' exact element={<ViewProducts/>}/>

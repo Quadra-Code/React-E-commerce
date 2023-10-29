@@ -2,15 +2,16 @@
 header  {
   direction: rtl;
   width: 100vw;
-  background-color:$Dark_color;
+  background-color:#fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 40px ;
+  padding: 2px 5px ;
   position: fixed ;
   top: 0;
   left: 0;
-  z-index:9;
+  z-index:1;
+  box-shadow: 0px 3px 10px 0px #00000024;
   @include breakpoint (mobile) {
     flex-direction: column;
     padding: 5px 10px;
@@ -25,13 +26,14 @@ header  {
       top: 50%;
       transform: translateY(-50%);
     }
+
     background-color: transparent;
     border: none;
     outline: none;
     display:none;
     i{
       font-size:20px ;
-      color:$White_color;
+      color:$Dark_color;
     }
   }
   .logo {
@@ -100,16 +102,14 @@ header  {
             // display: flex;
           }
           text-decoration: none;
-          color: $Dark_color;
           font-weight: 700;
           font-size: 17px;
-          // color: rgba(0, 0, 0, 0.685);
-          color: rgba(255, 255, 255, 0.747);
-          &:hover {
-            color: $White_color;
+          color: rgba(0, 0, 0, 0.611);
+          &:hover{
+            color: $Dark_color;
           }
           &.active{
-            color: $White_color;
+            color: $Dark_color;
           }
         }
       }

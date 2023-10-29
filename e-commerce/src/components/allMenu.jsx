@@ -1,20 +1,14 @@
 import React,{useState} from 'react';
 import { NavLink } from 'react-router-dom';
+import Navbar from './navbar';
 
-export default function MenuSec() {
-  const [product,setProduct]=useState({
-    product1: {
-      img:require('../NEW QC/New folder/Pro4.jpg'),
-      bestSeller:true,
-      label:'هاني كيك نوتيلا',
-      preif:'الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس',
-    }
-  })
-  return(
+export default function AllMenu() {
+  return (
     <>
+    <div className='all-menu-container'>
+      <Navbar/>
       <section id="aboutus" className="aboutUs-container">
         <div className="aboutUs-content">
-          <h2 className="sec-label">المنيو بتاعنا</h2>
           <div className ="aboutUs-list">
             <div className="aboutUs-listCol active" id="team" >
               قسم الالبان
@@ -40,8 +34,8 @@ export default function MenuSec() {
               <div className="col">
                 <span className="header">الاكثر مبيعا</span>
                 <div className="features-container">
+                  <h3>الأرز بلبن</h3>
                   <div className='menu-items'>
-
                     <div className="features cart1">
                       <img src={require('../NEW QC/New folder/Pro5.jpg')} alt=""/>
                       <div className="feat">
@@ -70,6 +64,37 @@ export default function MenuSec() {
                     </div>
                     <div className="features cart1">
                       <img src={require('../NEW QC/New folder/Pro3.jpg')} alt=""/>
+                      <div className="feat">
+                        <span>هاني كيك نوتيلا</span>
+                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
+                        <div className="links-container">
+                          <a href="#cart">
+                            <i className="fa-solid fa-cart-shopping"></i>
+                          </a>
+                          <span>20$</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="features cart1">
+                      <img src={require('../NEW QC/New folder/Pro4.jpg')} alt=""/>
+                      <div className="feat">
+                        <span>هاني كيك نوتيلا</span>
+                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
+                        <div className="links-container">
+                          <a href="3">
+                            <i className="fa-solid fa-cart-shopping"></i>
+                          </a>
+                          <span>20$</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="features-container">
+                  <h3>قشطوطه</h3>
+                  <div className='menu-items'>
+                    <div className="features cart1">
+                      <img src={require('../NEW QC/New folder/Pro5.jpg')} alt=""/>
                       <div className="feat">
                         <span>هاني كيك نوتيلا</span>
                         <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
@@ -133,6 +158,8 @@ export default function MenuSec() {
           </div>
         </div>
       </section>
+    </div>
     </>
   )
 }
+
