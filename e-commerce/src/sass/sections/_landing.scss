@@ -2,7 +2,7 @@ $landing-before:30px ;
 .landing-container {
   position: relative;
   width: 100%;
-  margin-top:5%;
+  margin-top:4%;
   img {
     transform: translate3d(0, 0, 0);
     transition: .3s all ease-in-out;
@@ -48,7 +48,7 @@ $landing-before:30px ;
           width: 48px;
           top: $landing-before ;
           height: 3px;
-          background-color: $yellow_color;
+          background-color: $mainColor;
         }
       }
     }

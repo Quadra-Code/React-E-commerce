@@ -6,7 +6,7 @@
   padding:50px 20px ;
   h2{
     font-size: 35px;
-    color: $yellow_color;
+    color: $mainColor;
     text-align: center;
     position: relative;
     width: max-content;
@@ -17,7 +17,7 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: $yellow_color;
+      background-color: $mainColor;
       animation-name: move-bubble;
       animation-duration: 3.5s;
       animation-iteration-count: infinite;
@@ -31,7 +31,7 @@
       transform: translateX(-50%);
       width: 100px;
       height: 3px;
-      background-color: $yellow_color;
+      background-color: $mainColor;
     }
   }
   .swiper {
@@ -57,7 +57,7 @@
         align-items: flex-start;
         gap: 15px;
         .fa-quote-right{
-          color: $yellow_color;
+          color: $mainColor;
           font-size: 30px;
         }
         .clientInfo{
@@ -69,10 +69,10 @@
       }
     }
     .swiper-pagination-bullet {
-      background-color: $yellow_color;
+      background-color: $mainColor;
     }
     .swiper-pagination-bullet-active { 
-      background-color: $yellow_color;
+      background-color: $mainColor;
     }
   }
 }

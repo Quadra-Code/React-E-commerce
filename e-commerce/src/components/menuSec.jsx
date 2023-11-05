@@ -41,61 +41,15 @@ export default function MenuSec() {
                 <span className="header">الاكثر مبيعا</span>
                 <div className="features-container">
                   <div className='menu-items'>
-
                     <div className="features cart1">
-                      <img src={require('../NEW QC/New folder/Pro5.jpg')} alt=""/>
-                      <div className="feat">
-                        <span>هاني كيك نوتيلا</span>
-                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
-                        <div className="links-container">
-                          <a href="#3">
-                            <i className="fa-solid fa-cart-shopping"></i>
-                          </a>
-                          <span>20$</span>
+                      <div className='eye-container'>
+                        <img  src={require('../NEW QC/New folder/Pro3.jpg')} alt=""/>
+                        <div className='opacity'>
+                          <button className='view-item-popup'>
+                            <i className='pi pi-eye'></i>
+                          </button>
                         </div>
                       </div>
-                    </div>
-                    <div className="features cart1">
-                      <img src={require('../NEW QC/New folder/Pro1.jpg')} alt=""/>
-                      <div className="feat">
-                        <span>هاني كيك نوتيلا</span>
-                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
-                        <div className="links-container">
-                          <a href="#3">
-                            <i className="fa-solid fa-cart-shopping"></i>
-                          </a>
-                          <span>20$</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="features cart1">
-                      <img src={require('../NEW QC/New folder/Pro3.jpg')} alt=""/>
-                      <div className="feat">
-                        <span>هاني كيك نوتيلا</span>
-                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
-                        <div className="links-container">
-                          <a href="#3">
-                            <i className="fa-solid fa-cart-shopping"></i>
-                          </a>
-                          <span>20$</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="features cart1">
-                      <img src={require('../NEW QC/New folder/Pro1.jpg')} alt=""/>
-                      <div className="feat">
-                        <span>هاني كيك نوتيلا</span>
-                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
-                        <div className="links-container">
-                          <a href="#3">
-                            <i className="fa-solid fa-cart-shopping"></i>
-                          </a>
-                          <span>20$</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="features cart1">
-                      <img src={require('../NEW QC/New folder/Pro3.jpg')} alt=""/>
                       <div className="feat">
                         <span>هاني كيك نوتيلا</span>
                         <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
@@ -103,20 +57,147 @@ export default function MenuSec() {
                           <a href="#cart">
                             <i className="fa-solid fa-cart-shopping"></i>
                           </a>
-                          <span>20$</span>
+                          <span className='item-price'>20$</span>
                         </div>
                       </div>
                     </div>
                     <div className="features cart1">
-                      <img src={require('../NEW QC/New folder/Pro4.jpg')} alt=""/>
+                      <div className='eye-container'>
+                        <img  src={require('../NEW QC/New folder/Pro1.jpg')} alt=""/>
+                        <div className='opacity'>
+                          <button className='view-item-popup'>
+                            <i className='pi pi-eye'></i>
+                          </button>
+                        </div>
+                      </div>
                       <div className="feat">
                         <span>هاني كيك نوتيلا</span>
                         <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
                         <div className="links-container">
-                          <a href="3">
+                          <a href="#cart">
                             <i className="fa-solid fa-cart-shopping"></i>
                           </a>
-                          <span>20$</span>
+                          <span className='item-price'>20$</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="features cart1">
+                      <div className='eye-container'>
+                        <img  src={require('../NEW QC/New folder/Pro2.jpg')} alt=""/>
+                        <div className='opacity'>
+                          <button className='view-item-popup'>
+                            <i className='pi pi-eye'></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="feat">
+                        <span>هاني كيك نوتيلا</span>
+                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
+                        <div className="links-container">
+                          <a href="#cart">
+                            <i className="fa-solid fa-cart-shopping"></i>
+                          </a>
+                          <span className='item-price'>20$</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="features cart1">
+                      <div className='eye-container'>
+                        <img  src={require('../NEW QC/New folder/Pro4.jpg')} alt=""/>
+                        <div className='opacity'>
+                          <button className='view-item-popup'>
+                            <i className='pi pi-eye'></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="feat">
+                        <span>هاني كيك نوتيلا</span>
+                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
+                        <div className="links-container">
+                          <a href="#cart">
+                            <i className="fa-solid fa-cart-shopping"></i>
+                          </a>
+                          <span className='item-price'>20$</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="features cart1">
+                      <div className='eye-container'>
+                        <img  src={require('../NEW QC/New folder/Pro5.jpg')} alt=""/>
+                        <div className='opacity'>
+                          <button className='view-item-popup'>
+                            <i className='pi pi-eye'></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="feat">
+                        <span>هاني كيك نوتيلا</span>
+                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
+                        <div className="links-container">
+                          <a href="#cart">
+                            <i className="fa-solid fa-cart-shopping"></i>
+                          </a>
+                          <span className='item-price'>20$</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="features cart1">
+                      <div className='eye-container'>
+                        <img  src={require('../NEW QC/New folder/Pro3.jpg')} alt=""/>
+                        <div className='opacity'>
+                          <button className='view-item-popup'>
+                            <i className='pi pi-eye'></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="feat">
+                        <span>هاني كيك نوتيلا</span>
+                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
+                        <div className="links-container">
+                          <a href="#cart">
+                            <i className="fa-solid fa-cart-shopping"></i>
+                          </a>
+                          <span className='item-price'>20$</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="features cart1">
+                      <div className='eye-container'>
+                        <img  src={require('../NEW QC/New folder/Pro3.jpg')} alt=""/>
+                        <div className='opacity'>
+                          <button className='view-item-popup'>
+                            <i className='pi pi-eye'></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="feat">
+                        <span>هاني كيك نوتيلا</span>
+                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
+                        <div className="links-container">
+                          <a href="#cart">
+                            <i className="fa-solid fa-cart-shopping"></i>
+                          </a>
+                          <span className='item-price'>20$</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="features cart1">
+                      <div className='eye-container'>
+                        <img  src={require('../NEW QC/New folder/Pro3.jpg')} alt=""/>
+                        <div className='opacity'>
+                          <button className='view-item-popup'>
+                            <i className='pi pi-eye'></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="feat">
+                        <span>هاني كيك نوتيلا</span>
+                        <span className="description">الكيكه الاسفنجيه المحشوه بكريمة النوتيلا و مغطاة بطبقه من اللوتس</span>
+                        <div className="links-container">
+                          <a href="#cart">
+                            <i className="fa-solid fa-cart-shopping"></i>
+                          </a>
+                          <span className='item-price'>20$</span>
                         </div>
                       </div>
                     </div>

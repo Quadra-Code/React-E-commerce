@@ -1,0 +1,190 @@
+.cart-container{
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .landing-image{
+    margin-top: 4%;
+    @include breakpoint(mobile){
+      margin-top: 10%;
+      padding: 60px 0;
+    }
+    width: 100%;
+    height: 250px;
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+    background-color:#e0e0e0 ;
+    img{
+      height: 100%;
+      @include breakpoint(mobile){
+        width: 180px;
+      }
+    }
+  }
+  .top-col{
+    width: 100%;
+    @include breakpoint(mobile){
+      margin-top: 12%;
+    }
+    margin-top: 5%;
+    .table-wrap{
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .table-scroll{
+        @include breakpoint(mobile){
+          width: 96%;
+        }
+        height: 490px;
+        overflow-y: auto;
+        table{
+          border-spacing: 0;
+          text-align: center;
+          th{
+            background-color: rgb(0, 0, 0);
+            color: #fff;
+            font-size: 14px;
+            position: sticky;
+            top :0;
+            padding: 10px;
+            @include breakpoint(mobile){
+              font-size: 10px;
+            }
+          }
+          td{
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            min-width: 150px;
+            font-size: 18px;
+            @include breakpoint(mobile){
+              font-size: 14px;
+              min-width: 70px;
+              padding: 8px 0;
+            }
+            .item-price{
+              font-weight: bold;
+            }
+            .quantity-div{
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: 1px solid rgba(0, 0, 0, 0.164);
+              border-radius: 8px;
+              width: 100px;
+              @include breakpoint(mobile){
+                width: 60px;
+              }  
+              margin: auto;
+              .calcDiv{
+                display: flex;
+                flex-direction: column;
+                width: 30%;
+                @include breakpoint(mobile){
+                  width: 40%;
+                }    
+                border-left: 1px solid rgba(0, 0, 0, 0.164);
+                .calc-btn{
+                  background-color: transparent;
+                  border: none;
+                  outline: none;
+                }
+              }
+              .count{
+                width: 70%;
+              }
+            }
+          }
+          .image-name-disc{
+            display: flex;
+            align-items: center;      
+            gap: 15px;
+            @include breakpoint(mobile){
+              flex-direction: column;
+            }
+            img{
+              max-width: 150px;
+              @include breakpoint(mobile){
+                max-width: 90px;
+              }
+            }
+            .name-disc {
+              display: flex;
+              flex-direction: column;
+              .item-name{
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .bottom-col{
+    @include breakpoint(mobile){
+      margin-top: 15%;
+      padding: 8% 0;
+      gap: 30px;
+    }
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    background-color: #e0e0e0;
+    width: 100%;
+    padding: 5% 0;
+    @include breakpoint(mobile){
+      flex-direction: column;
+    }  
+    .clientInfo-container{
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 20px;
+      border: 4px solid #000;
+      min-width: 30%;
+      background-color: #fff;
+      @include breakpoint(mobile){
+        min-width: 80%;
+      }    
+      span{
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+      }
+    }
+    .subtotal-container{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border: 4px solid #000;
+      min-width: 30%;
+      padding: 20px;
+      background-color: #fff;
+      @include breakpoint(mobile){
+        min-width: 80%;
+      }    
+      span{
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+        font-size: 1
+        8px;
+      }
+      .checkOut-btn{
+        background-color: #000;
+        border: 1px solid #fff;
+        padding: 8px 0;
+        font-size: 18px;
+        color: #fff;
+        transition: .2s;
+        cursor: pointer;
+        &:hover{
+          background-color: #7f3aaf;
+        }
+      }
+    }
+  }
+
+}
