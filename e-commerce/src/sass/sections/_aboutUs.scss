@@ -173,12 +173,6 @@
             gap: 30px;
             width: 100%;
             .features {
-              @include breakpoint (medium) {
-                padding: 30px 0px 0px 0px
-              }
-              @include breakpoint (mobile) {
-                margin-bottom: 25px;
-              }
               position: relative;
               // margin-left: 20px;
               background-color: $gray_color;
@@ -190,6 +184,13 @@
               flex-direction: column;
               gap:20px;
               box-shadow: 0 0 5px 2px rgb(183 183 183 / 49%);
+              min-width:300px;
+              @include breakpoint (medium) {
+                padding: 30px 0px 0px 0px
+              }
+              @include breakpoint (mobile) {
+                margin-bottom: 25px;
+              }
               &::after{
                 content: "";
                 position: absolute;
@@ -264,6 +265,7 @@
                 align-items: center;
                 flex-direction: column;  
                 background-color: $Dark_color;
+                width: 100%;
                 span{
                   font-size: 18px;
                   font-weight: bold;

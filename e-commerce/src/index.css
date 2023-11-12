@@ -140,7 +140,7 @@
 }
 
 .p-dialog {
-  width: 70vw !important;
+  width: 800px !important;
 }
 
 .p-dialog .p-dialog-content {
@@ -858,6 +858,7 @@ a {
   flex-direction: column;
   gap: 20px;
   box-shadow: 0 0 5px 2px rgba(183, 183, 183, 0.49);
+  min-width: 300px;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
   .aboutUs-container .aboutUs-content .aboutUs-ourTeam .col .features-container .menu-items .features {
@@ -938,6 +939,7 @@ a {
   align-items: center;
   flex-direction: column;
   background-color: #222831;
+  width: 100%;
 }
 .aboutUs-container .aboutUs-content .aboutUs-ourTeam .col .features-container .menu-items .features .feat span {
   font-size: 18px;
