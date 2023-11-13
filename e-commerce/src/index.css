@@ -2965,6 +2965,192 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   color: #222831;
 }
 
+.ChannelI-container {
+  height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0px;
+}
+.ChannelI-container .top-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  gap: 0px;
+  width: 100%;
+  padding: 18px 0;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.0784313725);
+}
+.ChannelI-container .top-header .sign-in {
+  margin-left: 50px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+.ChannelI-container .top-header .sign-in a {
+  padding: 5px 10px;
+  min-width: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 25px;
+  text-decoration: none;
+  color: #000;
+  border: 2px solid #387fdb;
+}
+.ChannelI-container .lg-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+  gap: 0px;
+  width: 100%;
+  height: 100%;
+}
+.ChannelI-container .lg-container .right-section {
+  width: 40%;
+  height: 100%;
+  background-color: rgb(239, 240, 240);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 0px;
+}
+.ChannelI-container .lg-container .right-section .col {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 30px;
+  margin-top: 18%;
+}
+.ChannelI-container .lg-container .right-section .col h2 {
+  font-size: 30px;
+}
+.ChannelI-container .lg-container .right-section .col .illstration {
+  width: 220px;
+  align-self: center;
+}
+.ChannelI-container .lg-container .right-section .col span {
+  color: rgba(0, 0, 0, 0.542);
+}
+.ChannelI-container .lg-container .left-section {
+  padding: 25px 0 0 0;
+  width: 60%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 0px;
+}
+.ChannelI-container .lg-container .left-section .col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 18%;
+}
+.ChannelI-container .lg-container .left-section .col .form-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.ChannelI-container .lg-container .left-section .col .form-header .errmsg {
+  color: red;
+  background-color: 255;
+}
+.ChannelI-container .lg-container .left-section .col .form-header .offscreen {
+  display: none;
+}
+.ChannelI-container .lg-container .left-section .col .form-header .top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 0px;
+}
+.ChannelI-container .lg-container .left-section .col .form-header .top h3 {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.6274509804);
+  font-size: 30px;
+}
+.ChannelI-container .lg-container .left-section .col .form-header .label {
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6274509804);
+  font-size: 20px;
+}
+.ChannelI-container .lg-container .left-section .col form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.ChannelI-container .lg-container .left-section .col form input {
+  width: 350px;
+}
+.ChannelI-container .lg-container .left-section .col form .confirm {
+  text-decoration: none;
+  background-color: rgb(0, 149, 255);
+  padding: 8px 0;
+  min-width: 150px;
+  border-radius: 19px;
+  font-size: 16px;
+  color: #fff;
+  transition: 0.3s;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.ChannelI-container .lg-container .left-section .col form .confirm:hover {
+  background-color: rgb(7, 109, 182);
+}
+
+.p-float-label label {
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  margin-top: -0.5rem;
+  transition-property: all;
+  transition-timing-function: ease;
+  line-height: 1;
+}
+
+.p-float-label > label {
+  right: 0.75rem;
+  color: #6c757d;
+  transition-duration: 0.2s;
+}
+
+.signUP-form .input-cont .instructions {
+  margin-top: 5px;
+  width: 350px;
+  background-color: black;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 5px;
+}
+.signUP-form .input-cont .instructions .pi-info {
+  border: 1px solid #fff;
+  border-radius: 10px;
+  padding: 3px;
+  font-size: 10px;
+  margin-right: 2px;
+}
+.signUP-form .input-cont .offscreen {
+  display: none;
+}
+.signUP-form .input-cont .confirm:disabled {
+  background-color: antiquewhite;
+}
+
 main {
   height: 100vh;
   direction: rtl;

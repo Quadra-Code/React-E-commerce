@@ -9,6 +9,19 @@
     left: 30%;
   }
 }
+@mixin flex ($gap,$justify,$align,$direction){
+  display: flex;
+  justify-content:$justify ;
+  align-items: $align;
+  flex-direction: $direction;
+  gap:$gap;
+}
+@mixin button (){
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
 // media query
 @mixin breakpoint ($point) {
   @if $point == mobile {

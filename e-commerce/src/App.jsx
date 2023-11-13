@@ -13,6 +13,8 @@ import ViewOrder from './components/admin/viewOrder';
 import AllMenu from './components/allMenu';
 import MyCart from './components/myCart';
 import Home from './components/Home'
+import Login from './components/login';
+import SignUp from './components/signUp';
 
 // const initState = {
 //   product_data : null
@@ -32,6 +34,8 @@ function App() {
     <Router>
       <Routes>
         <Route path ='/' exact element= {<Home/>}/>
+        <Route path ='/login' exact element= {<Login/>}/>
+        <Route path ='/sign-up' exact element= {<SignUp/>}/>
         <Route path ='/all-menu' exact element= {<AllMenu/>}/>
         <Route path ='/my-cart' exact element= {<MyCart/>}/>
         <Route path='/super-user' exact element={<SuperUser/>}>

@@ -15,9 +15,21 @@ export default function AllMenu() {
   const [visible, setVisible] = useState(false);
   const [images, setImages] = useState(null);
   const [categories,setCategories] = useState();
-  const [activeCategory,setActiveCategory] = useState(42)
-  const [items_subCategories,setItems_subCategories] = useState(42)
+  const [activeCategory,setActiveCategory] = useState(42);
+  const [items_subCategories,setItems_subCategories] = useState();
   const [position, setPosition] = useState('bottom');
+  const [quantity, setQuantity] = useState(1);
+  const [itemPopupData, setItemPopupData] = useState(
+    {
+      itemID:null,
+      name: "",
+      price:null,
+      desc:'',
+      images:[
+        'ss','pp'
+      ],
+    }
+  );
   const responsiveOptions = [
     {
       breakpoint: '1024px',
@@ -36,11 +48,6 @@ export default function AllMenu() {
       numVisible: 1
     }
   ];
-  useEffect(() => {
-    PhotoService.getImages().then(data => setImages(data));
-    getDefaultItems()
-    getCategories()
-  }, [])
   const getCategories =() =>{
     axios.get (`http://127.0.0.1:8000/categories-api`,{})
     .then(response=>{
@@ -71,10 +78,32 @@ export default function AllMenu() {
       console.log(error);
     });
   }
+  useEffect(() => {
+    PhotoService.getImages().then(data => setImages(data));
+    getDefaultItems()
+    getCategories()
+  }, [])
+  const getItemPopupData = (itemID,itemName,itemPrice,itemDesc,itemImages)=> {
+    setItemPopupData({itemID,name: itemName,price:itemPrice,desc:itemDesc,images:itemImages});
+    setVisible(true);
+    console.log(itemID);
+    console.log(itemPopupData);
+  }
+  const handleQuantity_increment = ()=> {
+    setQuantity(quantity+1)
+  }
+  const handleQuantity_decrement = ()=> {
+    setQuantity(quantity > 1? quantity - 1 : 1);  
+  }
+  const addToCart = (itemID)=> {
+    axios.post(`http://127.0.0.1:8000/cart-api/${itemID}`,{quantity})
+    .then((response)=>console.log(response))
+    .catch((error)=>console.log(error))
+    console.log(itemID);
+  }
   const itemTemplate = (item) => {
     return <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%',display: 'block' }} />
   }
-
   const thumbnailTemplate = (item) => {
       return <img src={item.thumbnailImageSrc} alt={item.alt} style={{ width: '100%',display: 'block' }}/>
   }
@@ -99,18 +128,18 @@ export default function AllMenu() {
                 item={itemTemplate} autoPlay transitionInterval={2500} thumbnail={thumbnailTemplate} />
             </div>
             <div className="item-more-details">
-              <h3>هاني كيك نوتيلا</h3>
-              <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex et, neque sed, dicta, nihil iure aliquam adipisci vel ducimus consectetur dolore laudantium. Accusantium quaerat velit quisquam nam, ullam veritatis animi.</span>
+              <h3>{itemPopupData.name}</h3>
+              <span>{itemPopupData.desc}</span>
               <div className="item-options">
-                <button className='AddCart'>اضافة الي العربه</button>
-                <button className='AddFav'><i className='pi pi-heart'></i></button>
                 <div className='quantity-div'>
                   <div className='calcDiv'>
-                    <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                    <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
+                    <button type='button' className='calc-btn' onClick={()=>handleQuantity_increment()}><i className='pi pi-angle-up'></i></button>
+                    <button type='button'  className='calc-btn' onClick={()=>handleQuantity_decrement()}><i className='pi pi-angle-down'></i></button>
                   </div>
-                  <div className='count'>2</div>
+                  <div className='count'>{quantity}</div>
                 </div>
+                <button className='AddCart' onClick={()=>addToCart(itemPopupData.itemID)}>اضافة الي العربه</button>
+                <button className='AddFav'><i className='pi pi-heart'></i></button>
               </div>
             </div>
           </div>
@@ -142,7 +171,8 @@ export default function AllMenu() {
                           <div className='eye-container'>
                             <img  src={image1} alt=""/>
                             <div className='opacity'>
-                              <button className='view-item-popup' onClick={() => setVisible(true)}>
+                              <button className='view-item-popup' 
+                                onClick={() => getItemPopupData(item.productID,item.productName,item.productPrice,item.productDesc,item.productImagesLink)}>
                                 <i className='pi pi-eye'></i>
                               </button>
                             </div>
