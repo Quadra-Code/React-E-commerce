@@ -96,7 +96,10 @@ export default function AllMenu() {
     setQuantity(quantity > 1? quantity - 1 : 1);  
   }
   const addToCart = (itemID)=> {
-    axios.post(`http://127.0.0.1:8000/cart-api/${itemID}`,{quantity})
+    axios.post(`http://127.0.0.1:8000/cart-api/post`,{
+      itemID,
+      quantity
+    })
     .then((response)=>console.log(response))
     .catch((error)=>console.log(error))
     console.log(itemID);

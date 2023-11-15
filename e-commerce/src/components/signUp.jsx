@@ -7,7 +7,7 @@ import axios from 'axios';
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 export default function SignUp() {
   const [fullName, setFullName] = useState();
-  const [email, setEmail] = useState();
+  const [phoneNumber, setPhoneNumber] = useState();
   const [pwd, setPwd] =useState('');
   const [validPwd, setValidPwd] =useState(false);
   const [pwdFocus, setPwdFocus] =useState(false);
@@ -27,11 +27,17 @@ export default function SignUp() {
     setErrMsg('');
   },[pwd,matchPwd])
   const navigate = useNavigate();
+  const handlePhoneNumberChange = (e)=>{
+    const enteredValue = e.target.value;
+    // Allow only numbers by replacing non-numeric characters with an empty string
+    const numericValue = enteredValue.replace(/\D/g, '');
+    setPhoneNumber(numericValue);
+  }
   const handleSinUp = (e)=> {
     e.preventDefault();
     axios.post(`http://127.0.0.1:8000/users/register-api`,{
       full_name:fullName,
-      email,
+      phoneNumber,
       password:pwd
     }).then((res)=>{
       console.log(res.request.status);
@@ -55,7 +61,7 @@ export default function SignUp() {
             </div>
           </section>
           <section className='left-section'>
-            <div className='col'>
+            <div className='col '>
               <div className='form-header'>
                 <div className='top'>
                   <h3>شركة و حلواني الأصيل</h3>
@@ -72,8 +78,8 @@ export default function SignUp() {
                 </div>
                 <div className="input-cont">
                   <span className="p-float-label">
-                    <InputText id="username" type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <label htmlFor="username">الأيميل</label>
+                    <InputText id="username" type='text' value={phoneNumber} onChange={handlePhoneNumberChange} />
+                    <label htmlFor="username">رقم الهاتف</label>
                   </span>
                 </div>
                 <div className="input-cont">
@@ -91,7 +97,9 @@ export default function SignUp() {
                   </span>
                   <p id='pwdnote' className={pwdFocus && !validPwd?"instructions":"offscreen" }>
                     <i className='pi pi-info'></i>
-                    8 to 24 characters. <br/>
+                    <br/>
+                    8 to 24 characters. 
+                    <br/>
                     Must include uppercase and lowercase letters, a number and a special character. <br/>  
                     Allowed special characters : <span aria-label='exclamation mark'>!</span>  
                     <span aria-label='at symbol'>@</span> <span aria-label='hashtag'>#</span>
@@ -124,67 +132,3 @@ export default function SignUp() {
     </>
   )
 }
-{/* <section className='left-section'>
-<div className='channels'>
-  <div className='form-header'>
-    <div className='top'>
-      <span>QuadraBot</span>
-    </div>
-    <span className='label'>Create your free account</span>
-  </div>
-  <form className='signUP-form' onSubmit={(e)=>{handleSinUp(e)}}>
-    <div className="input-cont">
-      <span className="p-float-label">
-        <InputText id="username" value={fullName} onChange={(e) => setFullName(e.target.value)} />
-        <label htmlFor="username">Full name</label>
-      </span>
-    </div>
-    <div className="input-cont">
-      <span className="p-float-label">
-        <InputText id="username" type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-        <label htmlFor="username">Business email</label>
-      </span>
-    </div>
-    <div className="input-cont">
-      <span className="p-float-label">
-        <InputText
-          type='password' id="username"
-          value={pwd} onChange={(e) => setPwd(e.target.value)} 
-          required
-          aria-invalid = {validPwd?'false':"true"}
-          aria-describedby = "pwdnote"
-          onFocus={()=>setPwdFocus(true)}
-          onBlur={()=>setPwdFocus(false)}
-          />
-        <label htmlFor="username">Password</label>
-      </span>
-      <p id='pwdnote' className={pwdFocus && !validPwd?"instructions":"offscreen" }>
-        <i className='pi pi-info'></i>
-        8 to 24 characters. <br/>
-        Must include uppercase and lowercase letters, a number and a special character. <br/>  
-        Allowed special characters : <span aria-label='exclamation mark'>!</span>  
-        <span aria-label='at symbol'>@</span> <span aria-label='hashtag'>#</span>
-        <span aria-label='dollar sign'>$</span> <span aria-label='percent'>%</span>
-      </p>
-    </div>
-    <div className="input-cont">
-      <span className="p-float-label">
-        <InputText type='password' id="confirm_pwd"
-          value={matchPwd} onChange={(e) => setMatchPwd(e.target.value)}
-          required
-          aria-invalid = {validMatch?'false':"true"}
-          aria-describedby = "confirmnote"
-          onFocus={()=>setMatchFocus(true)}
-          onBlur={()=>setMatchFocus(false)}
-        />
-        <label htmlFor="username">Confirm Password</label>
-      </span>
-      <p id='confirmnote' className={matchFocus && !validMatch?"instructions":"offscreen" }>
-        <i className='pi pi-info'></i>
-        Must match the first password input field.
-      </p>
-    </div>
-    <button className='confirm' disabled={!validPwd || !validMatch ? true :false}>Create account</button>
-  </form>
-</div>
-</section> */}

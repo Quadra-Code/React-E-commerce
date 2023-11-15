@@ -3085,6 +3085,11 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   color: rgba(0, 0, 0, 0.6274509804);
   font-size: 20px;
 }
+.ChannelI-container .lg-container .left-section .col .signUP-form {
+  display: flex;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+}
 .ChannelI-container .lg-container .left-section .col form {
   display: flex;
   justify-content: center;
@@ -3128,8 +3133,12 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   transition-duration: 0.2s;
 }
 
+.signUP-form .input-cont {
+  position: relative;
+}
 .signUP-form .input-cont .instructions {
-  margin-top: 5px;
+  position: absolute;
+  top: 110%;
   width: 350px;
   background-color: black;
   color: #fff;
@@ -3146,6 +3155,7 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
 }
 .signUP-form .input-cont .offscreen {
   display: none;
+  max-width: 300px;
 }
 .signUP-form .input-cont .confirm:disabled {
   background-color: antiquewhite;
