@@ -80,11 +80,11 @@
             font-size: 20px;
           }
         }
-        .signUP-form{
-          display: flex;
-          flex-direction: row !important;
-          flex-wrap: wrap;
-        }
+        // .signUP-form{
+        //   display: flex;
+        //   flex-direction: row !important;
+        //   flex-wrap: wrap;
+        // }
         form{
           @include flex(20px,center,center,column);
           input{

@@ -3085,11 +3085,6 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   color: rgba(0, 0, 0, 0.6274509804);
   font-size: 20px;
 }
-.ChannelI-container .lg-container .left-section .col .signUP-form {
-  display: flex;
-  flex-direction: row !important;
-  flex-wrap: wrap;
-}
 .ChannelI-container .lg-container .left-section .col form {
   display: flex;
   justify-content: center;
@@ -3140,6 +3135,7 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   position: absolute;
   top: 110%;
   width: 350px;
+  z-index: 9;
   background-color: black;
   color: #fff;
   font-size: 14px;

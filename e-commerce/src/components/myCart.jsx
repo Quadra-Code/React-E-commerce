@@ -1,12 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Navbar from './navbar';
 import Footer from './footer';
 import image from '../NEW QC/New folder/Pro2.jpg';
 import image2 from '../NEW QC/New folder/Pro3.jpg';
 import image3 from '../NEW QC/New folder/wordpress-shopping-cart-plugins.webp';
 import { InputNumber } from 'primereact/inputnumber';
+import axios from 'axios';
 function MyCart() {
   const [value2, setValue2] = useState(10.50);
+  const [cartItems,setCartItems] = useState();
+  useEffect(()=>{
+    getCartItems()
+  },[])
+  const getCartItems = ()=> {
+    axios.get(`http://127.0.0.1:8000/cart-api/5`)
+    .then((response) =>{
+      setCartItems(response.data)
+      console.log(response.data)
+    })
+    .catch((error)=>console.log(error))
+  }
   return (
     <>
       <div className='cart-container'>
