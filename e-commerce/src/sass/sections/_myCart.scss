@@ -4,187 +4,386 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  .landing-image{
-    margin-top: 4%;
-    @include breakpoint(mobile){
-      margin-top: 10%;
-      padding: 60px 0;
-    }
-    width: 100%;
-    height: 250px;
+  justify-content: space-between;
+  gap: 30px;
+  .main-content{
     display: flex;
-    align-items: center;  
     justify-content: center;
-    background-color:#e0e0e0 ;
-    img{
-      height: 100%;
-      @include breakpoint(mobile){
-        width: 180px;
-      }
-    }
-  }
-  .top-col{
-    width: 100%;
-    @include breakpoint(mobile){
-      margin-top: 12%;
-    }
-    margin-top: 5%;
-    .table-wrap{
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      .table-scroll{
-        @include breakpoint(mobile){
-          width: 96%;
-        }
-        height: 490px;
-        overflow-y: auto;
-        table{
-          border-spacing: 0;
-          text-align: center;
-          th{
-            background-color: rgb(0, 0, 0);
-            color: #fff;
-            font-size: 14px;
-            position: sticky;
-            top :0;
-            padding: 10px;
-            @include breakpoint(mobile){
-              font-size: 10px;
-            }
-          }
-          td{
-            padding: 5px;
-            border-bottom: 1px solid #eee;
-            min-width: 150px;
-            font-size: 18px;
-            @include breakpoint(mobile){
-              font-size: 14px;
-              min-width: 70px;
-              padding: 8px 0;
-            }
-            .item-price{
-              font-weight: bold;
-            }
-            .quantity-div{
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              border: 1px solid rgba(0, 0, 0, 0.164);
-              border-radius: 8px;
-              width: 100px;
-              @include breakpoint(mobile){
-                width: 60px;
-              }  
-              margin: auto;
-              .calcDiv{
-                display: flex;
-                flex-direction: column;
-                width: 30%;
-                @include breakpoint(mobile){
-                  width: 40%;
-                }    
-                border-left: 1px solid rgba(0, 0, 0, 0.164);
-                .calc-btn{
-                  background-color: transparent;
-                  border: none;
-                  outline: none;
-                }
-              }
-              .count{
-                width: 70%;
-              }
-            }
-          }
-          .image-name-disc{
-            display: flex;
-            align-items: center;      
-            gap: 15px;
-            @include breakpoint(mobile){
-              flex-direction: column;
-            }
-            img{
-              max-width: 150px;
-              @include breakpoint(mobile){
-                max-width: 90px;
-              }
-            }
-            .name-disc {
-              display: flex;
-              flex-direction: column;
-              .item-name{
-                font-weight: bold;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  .bottom-col{
-    @include breakpoint(mobile){
-      margin-top: 15%;
-      padding: 8% 0;
-      gap: 30px;
-    }
-    margin-top: 5%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     gap: 20px;
-    background-color: #e0e0e0;
     width: 100%;
-    padding: 5% 0;
-    @include breakpoint(mobile){
-      flex-direction: column;
-    }  
-    .clientInfo-container{
+    margin-top: 7%;
+    align-items: flex-start;
+    .items-container{
+      width: 68%;
+      background-color: #f7f7f7;
+      border-radius: 20px;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
-      padding: 20px;
-      gap: 20px;
-      border: 4px solid #000;
-      min-width: 30%;
-      background-color: #fff;
-      @include breakpoint(mobile){
-        min-width: 80%;
-      }    
-      span{
-        border-bottom: 1px solid #eee;
-        padding-bottom: 8px;
+      gap: 10px;
+      .cart-labels{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        span:nth-of-type(1) {
+          flex-grow: 18;
+          font-size: 25px;
+          font-weight: bold;
+        }
+        span:nth-of-type(2),span:nth-of-type(3),span:nth-of-type(4) {
+          flex-grow: 1;
+          font-size: 14px;
+          font-weight: bold;
+          text-align: center;
+          color: #00000058;
+        }
+        span:nth-of-type(4){
+          opacity: 0;
+        }
+      }
+      .item-container{
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        .image-name-disc{
+          flex-grow: 5;
+          background-color: #fff;
+          border-radius: 10px;
+          padding: 1.2rem .8rem;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          .name-disc{
+            display: flex;
+            flex-direction: column;
+            .item-name{
+              font-weight: bold;
+              font-size: 17px;
+            }
+          }
+          img{
+            width: 100px;
+            border-radius: 5px;
+          }
+        }
+        .options{
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          .delete-item{
+            margin: auto;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            i{
+              font-size: 18px;
+            }
+          }
+        }
+        .totalPrice{
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          .total{
+            margin: auto;
+            font-weight: bold;
+          }
+        }
+        .quantity-div{
+          flex-grow: 1;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          .calcDiv-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 0, 0, 0.089);
+            border-radius: 8px;
+            width: 100px;
+            margin: auto;
+            @include breakpoint(mobile){
+              width: 60px;
+            }  
+            .calcDiv{
+              display: flex;
+              flex-direction: column;
+              width: 30%;
+              @include breakpoint(mobile){
+                width: 40%;
+              }    
+              border-left: 1px solid rgba(0, 0, 0, 0.164);
+              .calc-btn{
+                background-color: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+              }
+            }
+            .count{
+              text-align: center;
+              width: 70%;
+            }
+          }
+        }
       }
     }
-    .subtotal-container{
+    .order-details{
+      width: 28%;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      border: 4px solid #000;
-      min-width: 30%;
-      padding: 20px;
-      background-color: #fff;
-      @include breakpoint(mobile){
-        min-width: 80%;
-      }    
-      span{
-        border-bottom: 1px solid #eee;
-        padding-bottom: 8px;
-        font-size: 1
-        8px;
+      .top-section{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background-color: #f7f7f7;
+        border-radius: 20px;
+        padding: 1.5rem;
       }
-      .checkOut-btn{
+      .checkout{
         background-color: #000;
         border: 1px solid #fff;
-        padding: 8px 0;
-        font-size: 18px;
+        padding: 10px 0;
+        font-size: 16px;
         color: #fff;
         transition: .2s;
+        border-radius: .5rem;
         cursor: pointer;
         &:hover{
           background-color: #7f3aaf;
         }
       }
+      .bottom-section{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background-color: #f7f7f7;
+        border-radius: 20px;
+        padding: 1.5rem;
+        .subtotal{
+          display: flex;
+          flex-direction: column;  
+          gap: 10px;
+          .col{
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+          }
+        }
+        .total-order{
+          display: flex;
+          flex-direction: column;  
+          padding-top: 10px;
+          border-top: 1px dashed #b1b1b1;
+          .col{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            .order-total-price{
+              font-size: 19px;
+              font-weight: bold;
+            }
+            .order-totalPrice{
+              font-size: 19px;
+              font-weight: bold;
+              color: #7f3aaf;
+            }
+          }
+        }
+      }
     }
   }
+  // .landing-image{
+  //   margin-top: 4%;
+  //   @include breakpoint(mobile){
+  //     margin-top: 10%;
+  //     padding: 60px 0;
+  //   }
+  //   width: 100%;
+  //   height: 250px;
+  //   display: flex;
+  //   align-items: center;  
+  //   justify-content: center;
+  //   background-color:#e0e0e0 ;
+  //   img{
+  //     height: 100%;
+  //     @include breakpoint(mobile){
+  //       width: 180px;
+  //     }
+  //   }
+  // }
+  // .top-col{
+  //   width: 100%;
+  //   @include breakpoint(mobile){
+  //     margin-top: 12%;
+  //   }
+  //   margin-top: 5%;
+  //   .table-wrap{
+  //     width: 100%;
+  //     display: flex;
+  //     justify-content: space-around;
+  //     align-items: center;
+  //     .table-scroll{
+  //       @include breakpoint(mobile){
+  //         width: 96%;
+  //       }
+  //       height: 490px;
+  //       overflow-y: auto;
+  //       table{
+  //         border-spacing: 0;
+  //         text-align: center;
+  //         th{
+  //           background-color: rgb(0, 0, 0);
+  //           color: #fff;
+  //           font-size: 14px;
+  //           position: sticky;
+  //           top :0;
+  //           padding: 10px;
+  //           @include breakpoint(mobile){
+  //             font-size: 10px;
+  //           }
+  //         }
+  //         td{
+  //           padding: 5px;
+  //           border-bottom: 1px solid #eee;
+  //           min-width: 150px;
+  //           font-size: 18px;
+  //           @include breakpoint(mobile){
+  //             font-size: 14px;
+  //             min-width: 70px;
+  //             padding: 8px 0;
+  //           }
+  //           .item-price{
+  //             font-weight: bold;
+  //           }
+  //           .quantity-div{
+  //             display: flex;
+  //             align-items: center;
+  //             justify-content: center;
+  //             border: 1px solid rgba(0, 0, 0, 0.164);
+  //             border-radius: 8px;
+  //             width: 100px;
+  //             @include breakpoint(mobile){
+  //               width: 60px;
+  //             }  
+  //             margin: auto;
+  //             .calcDiv{
+  //               display: flex;
+  //               flex-direction: column;
+  //               width: 30%;
+  //               @include breakpoint(mobile){
+  //                 width: 40%;
+  //               }    
+  //               border-left: 1px solid rgba(0, 0, 0, 0.164);
+  //               .calc-btn{
+  //                 background-color: transparent;
+  //                 border: none;
+  //                 outline: none;
+  //               }
+  //             }
+  //             .count{
+  //               width: 70%;
+  //             }
+  //           }
+  //         }
+  //         .image-name-disc{
+  //           display: flex;
+  //           align-items: center;      
+  //           gap: 15px;
+  //           @include breakpoint(mobile){
+  //             flex-direction: column;
+  //           }
+  //           img{
+  //             max-width: 150px;
+  //             @include breakpoint(mobile){
+  //               max-width: 90px;
+  //             }
+  //           }
+  //           .name-disc {
+  //             display: flex;
+  //             flex-direction: column;
+  //             .item-name{
+  //               font-weight: bold;
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  // .bottom-col{
+  //   @include breakpoint(mobile){
+  //     margin-top: 15%;
+  //     padding: 8% 0;
+  //     gap: 30px;
+  //   }
+  //   margin-top: 5%;
+  //   display: flex;
+  //   justify-content: space-around;
+  //   align-items: center;
+  //   gap: 20px;
+  //   background-color: #e0e0e0;
+  //   width: 100%;
+  //   padding: 5% 0;
+  //   @include breakpoint(mobile){
+  //     flex-direction: column;
+  //   }  
+  //   .clientInfo-container{
+  //     display: flex;
+  //     flex-direction: column;
+  //     padding: 20px;
+  //     gap: 20px;
+  //     border: 4px solid #000;
+  //     min-width: 30%;
+  //     background-color: #fff;
+  //     @include breakpoint(mobile){
+  //       min-width: 80%;
+  //     }    
+  //     span{
+  //       border-bottom: 1px solid #eee;
+  //       padding-bottom: 8px;
+  //     }
+  //   }
+  //   .subtotal-container{
+  //     display: flex;
+  //     flex-direction: column;
+  //     gap: 20px;
+  //     border: 4px solid #000;
+  //     min-width: 30%;
+  //     padding: 20px;
+  //     background-color: #fff;
+  //     @include breakpoint(mobile){
+  //       min-width: 80%;
+  //     }    
+  //     span{
+  //       border-bottom: 1px solid #eee;
+  //       padding-bottom: 8px;
+  //       font-size: 1
+  //       8px;
+  //     }
+  //     .checkOut-btn{
+  //       background-color: #000;
+  //       border: 1px solid #fff;
+  //       padding: 8px 0;
+  //       font-size: 18px;
+  //       color: #fff;
+  //       transition: .2s;
+  //       cursor: pointer;
+  //       &:hover{
+  //         background-color: #7f3aaf;
+  //       }
+  //     }
+  //   }
+  // }
 
 }
