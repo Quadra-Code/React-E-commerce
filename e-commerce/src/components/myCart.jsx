@@ -26,12 +26,12 @@ function MyCart() {
         <Navbar/> 
         <div className='main-content'>
           <section className='items-container'>
-            <div className="cart-labels">
+            {/* <div className="cart-labels">
               <span className='label'>العربة</span>
               <span className='label'>الكمية</span>
               <span className='label'>المجموع الكلي</span>
               <span className='label'>ازالة</span>
-            </div>
+            </div> */}
             <div className='item-container'>
               <div className='image-name-disc'>
                 <img src={image} alt=""/>
@@ -40,48 +40,52 @@ function MyCart() {
                   <span>كيكه اسفنجيه مغموره بالحليب </span>
                 </div>
               </div>
-              <div className='quantity-div'>
-                <div className='calcDiv-container'>
-                  <div className='calcDiv'>
-                    <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                    <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
+              <div className="more-options">
+                <div className='quantity-div'>
+                  <div className='calcDiv-container'>
+                    <div className='calcDiv'>
+                      <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
+                      <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
+                    </div>
+                    <div className='count'>2</div>
                   </div>
-                  <div className='count'>2</div>
                 </div>
-              </div>
-              <div className="totalPrice">
-                <span className='total'>82</span>
-              </div>
-              <div className="options">
-                <button className="delete-item">
-                  <i className='pi pi-trash'></i>
-                </button>
+                <div className="totalPrice">
+                  <span className='total'>EGP 82</span>
+                </div>
+                <div className="options">
+                  <button className="delete-item">
+                    <i className='pi pi-trash'></i>
+                  </button>
+                </div>
               </div>
             </div>
             <div className='item-container'>
               <div className='image-name-disc'>
                 <img src={image2} alt=""/>
                 <div className='name-disc'>
-                  <span className='item-name'>قشطوطه باللبن</span>
+                  <span className='item-name'>دونتس</span>
                   <span>كيكه اسفنجيه مغموره بالحليب </span>
                 </div>
               </div>
-              <div className='quantity-div'>
-                <div className='calcDiv-container'>
-                  <div className='calcDiv'>
-                    <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                    <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
+              <div className="more-options">
+                <div className='quantity-div'>
+                  <div className='calcDiv-container'>
+                    <div className='calcDiv'>
+                      <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
+                      <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
+                    </div>
+                    <div className='count'>2</div>
                   </div>
-                  <div className='count'>2</div>
                 </div>
-              </div>
-              <div className="totalPrice">
-                <span className='total'>82</span>
-              </div>
-              <div className="options">
-                <button className="delete-item">
-                  <i className='pi pi-trash'></i>
-                </button>
+                <div className="totalPrice">
+                  <span className='total'>EGP 82</span>
+                </div>
+                <div className="options">
+                  <button className="delete-item">
+                    <i className='pi pi-trash'></i>
+                  </button>
+                </div>
               </div>
             </div>
           </section>
@@ -111,330 +115,6 @@ function MyCart() {
           <button className='checkout'>متابعة عملية الشراء</button>
           </section>
         </div>
-        {/* <div className='landing-image' >
-          <img src={image3} alt="" />
-        </div>
-        <section className='top-col'>
-          <div className='table-wrap'>
-            <div className='table-scroll'>
-              <table>
-                <thead>
-                  <tr>
-                    <th>المنتجات</th>
-                    <th>السعر</th>
-                    <th>الكمية</th>
-                    <th>الاجمالي</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image2} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image2} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className='image-name-disc'>
-                        <img src={image} alt="" />
-                        <div className='name-disc'>
-                          <span className='item-name'>قشطوطه باللبن</span>
-                          <span>كيكه اسفنجيه مغموره بالحليب </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>25</span>$
-                    </td>
-                    <td>
-                      <div className='quantity-div'>
-                        <div className='calcDiv'>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                        </div>
-                        <div className='count'>2</div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className='item-price'>50</span>$
-                    </td>
-                    <td>
-                      <i className="pi pi-trash" style={{ fontSize: '1rem' }}></i>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-        <section className='bottom-col'>
-          <div className='clientInfo-container'>
-            <span>أسم العميل : <span className='client-name'>hossam sonbaty</span></span>
-            <span> العنوان: <span className='client-name'>خلف مسجد  الزهراء</span></span>
-            <span> رقم الهاتف: <span className='client-name'>01118066382</span></span>
-          </div>
-          <div className='subtotal-container'>
-            <span>الاجمالي <span>(2)</span>: <span>$240</span></span>
-            <span>سعر التوصيل : <span>$240</span></span>
-            <button className='checkOut-btn'>متابعة عملية الشراء</button>
-          </div>
-        </section> */}
         <div className="footer2" style={{width:'100%'}}>
           <Footer/>
         </div>
