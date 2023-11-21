@@ -7,7 +7,7 @@ import { InputText } from "primereact/inputtext";
 // import { AuthContext } from './AuthContext';
 export default function Login() {
   const errRef = useRef();
-  const [email, setEmail] = useState('');
+  const [username, setUserName] = useState('');
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
@@ -16,20 +16,20 @@ export default function Login() {
   const navigate = useNavigate();
   useEffect(()=>{
     setErrMsg('')
-  },[email, pwd])
+  },[username, pwd])
   const handleLogin = async (e) =>{
     e.preventDefault();
-    await axios.post(`http://127.0.0.1:8000/users/login-api`,{
-      email,
+    await axios.post(`http://127.0.0.1:8000/users/client-login-api`,{
+      username,
       password:pwd
     }).then((response)=>{
       const userId  = response?.data?.id;
       localStorage.setItem('userId', `${userId}`);
       // setAuth({email, pwd, userId})
       setSuccess(true);
-      setEmail('')
+      setUserName('')
       setPwd('')
-      navigate(`/dashboard/${response?.data?.id}`)
+      navigate(`/home/${response?.data?.id}`)
     }).catch((error)=>{
       if(!error?.response){
         setErrMsg('No Server Response');
@@ -70,10 +70,11 @@ export default function Login() {
               <form onSubmit={(e)=>handleLogin(e)}>
                 <div className="card flex justify-content-center">
                   <span className="p-float-label">
-                    <InputText id="username" type='email' 
-                      value={email} onChange={(e) => setEmail(e.target.value)} 
+                    <InputText id="username" type='text' 
+                      value={username} onChange={(e) => setUserName(e.target.value)} 
                       autoComplete='off'
                       required
+                      keyfilter="int"
                     />
                     <label htmlFor="username">الأيميل</label>
                   </span>

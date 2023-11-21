@@ -35,11 +35,10 @@ export default function SignUp() {
   }
   const handleSinUp = (e)=> {
     e.preventDefault();
-    axios.post(`http://127.0.0.1:8000/users/register-api`,{
-      fullName,
-      clientMainPhone:phoneNumber,
+    axios.post(`http://127.0.0.1:8000/users/client-register-api`,{
+      first_name:fullName,
+      username:phoneNumber,
       password:pwd,
-      userType:'client'
     }).then((res)=>{
       console.log(res.request.status);
       res.request.status===201?navigate('/login'):alert('error')
