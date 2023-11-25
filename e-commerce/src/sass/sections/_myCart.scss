@@ -11,7 +11,7 @@
     justify-content: center;
     gap: 20px;
     width: 100%;
-    margin-top: 7%;
+    margin-top: 6rem;
     align-items: flex-start;
     @include breakpoint(mobile) {
       align-items: center;
@@ -72,6 +72,9 @@
             .item-name{
               font-weight: bold;
               font-size: 17px;
+            }
+            .item-description{
+              max-width: 20rem;
             }
           }
           img{

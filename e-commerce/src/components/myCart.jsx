@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState,useEffect} from 'react';
 import Navbar from './navbar';
 import Footer from './footer';
@@ -13,9 +14,9 @@ function MyCart() {
     getCartItems()
   },[])
   const getCartItems = ()=> {
-    axios.get(`http://127.0.0.1:8000/cart-api/5`)
+    axios.get(`http://127.0.0.1:8000/cart-api/6`)
     .then((response) =>{
-      setCartItems(response.data)
+      setCartItems(response.data[0].cartItems)
       console.log(response.data)
     })
     .catch((error)=>console.log(error))
@@ -32,35 +33,40 @@ function MyCart() {
               <span className='label'>المجموع الكلي</span>
               <span className='label'>ازالة</span>
             </div> */}
-            <div className='item-container'>
-              <div className='image-name-disc'>
-                <img src={image} alt=""/>
-                <div className='name-disc'>
-                  <span className='item-name'>قشطوطه باللبن</span>
-                  <span>كيكه اسفنجيه مغموره بالحليب </span>
-                </div>
-              </div>
-              <div className="more-options">
-                <div className='quantity-div'>
-                  <div className='calcDiv-container'>
-                    <div className='calcDiv'>
-                      <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                      <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
+            {cartItems&& cartItems.map((item)=>{
+              return(
+                <div className='item-container' key={item.itemID}>
+                  <div className='image-name-disc'>
+                    <img src={image} alt=""/>
+                    <div className='name-disc'>
+                      <span className='item-name'>{item.itemName}</span>
+                      <span className='item-description'>{item.itemDescription}</span>
                     </div>
-                    <div className='count'>2</div>
+                  </div>
+                  <div className="more-options">
+                    <div className='quantity-div'>
+                      <div className='calcDiv-container'>
+                        <div className='calcDiv'>
+                          <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
+                          <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
+                        </div>
+                        <div className='count'>{item.itemQuantity}</div>
+                      </div>
+                    </div>
+                    <div className="totalPrice">
+                      <span className='total'>EGP {item.itemQuantity*item.itemPrice}</span>
+                    </div>
+                    <div className="options">
+                      <button className="delete-item">
+                        <i className='pi pi-trash'></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="totalPrice">
-                  <span className='total'>EGP 82</span>
-                </div>
-                <div className="options">
-                  <button className="delete-item">
-                    <i className='pi pi-trash'></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className='item-container'>
+              )
+            })
+            }
+            {/* <div className='item-container'>
               <div className='image-name-disc'>
                 <img src={image2} alt=""/>
                 <div className='name-disc'>
@@ -87,7 +93,7 @@ function MyCart() {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </section>
           <section className='order-details'>
             <div className="top-section">

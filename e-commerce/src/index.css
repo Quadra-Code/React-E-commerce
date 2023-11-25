@@ -163,7 +163,7 @@
   justify-content: center;
   gap: 20px;
   width: 100%;
-  margin-top: 7%;
+  margin-top: 6rem;
   align-items: flex-start;
 }
 @media (max-width: 768px) {
@@ -220,6 +220,9 @@
 .cart-container .main-content .items-container .item-container .image-name-disc .name-disc .item-name {
   font-weight: bold;
   font-size: 17px;
+}
+.cart-container .main-content .items-container .item-container .image-name-disc .name-disc .item-description {
+  max-width: 20rem;
 }
 .cart-container .main-content .items-container .item-container .image-name-disc img {
   width: 100px;

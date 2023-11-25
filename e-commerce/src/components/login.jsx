@@ -29,7 +29,8 @@ export default function Login() {
       setSuccess(true);
       setUserName('')
       setPwd('')
-      navigate(`/home/${response?.data?.id}`)
+      // navigate(`/home/${response?.data?.id}`)
+      navigate(`/home`)
     }).catch((error)=>{
       if(!error?.response){
         setErrMsg('No Server Response');
