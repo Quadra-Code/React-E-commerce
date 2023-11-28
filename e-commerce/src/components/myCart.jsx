@@ -37,7 +37,7 @@ function MyCart() {
               return(
                 <div className='item-container' key={item.itemID}>
                   <div className='image-name-disc'>
-                    <img src={image} alt=""/>
+                    <img src={image2} alt=""/>
                     <div className='name-disc'>
                       <span className='item-name'>{item.itemName}</span>
                       <span className='item-description'>{item.itemDescription}</span>
@@ -66,34 +66,6 @@ function MyCart() {
               )
             })
             }
-            {/* <div className='item-container'>
-              <div className='image-name-disc'>
-                <img src={image2} alt=""/>
-                <div className='name-disc'>
-                  <span className='item-name'>دونتس</span>
-                  <span>كيكه اسفنجيه مغموره بالحليب </span>
-                </div>
-              </div>
-              <div className="more-options">
-                <div className='quantity-div'>
-                  <div className='calcDiv-container'>
-                    <div className='calcDiv'>
-                      <button type='button'  className='calc-btn'><i className='pi pi-angle-up'></i></button>
-                      <button type='button'  className='calc-btn'><i className='pi pi-angle-down'></i></button>
-                    </div>
-                    <div className='count'>2</div>
-                  </div>
-                </div>
-                <div className="totalPrice">
-                  <span className='total'>EGP 82</span>
-                </div>
-                <div className="options">
-                  <button className="delete-item">
-                    <i className='pi pi-trash'></i>
-                  </button>
-                </div>
-              </div>
-            </div> */}
           </section>
           <section className='order-details'>
             <div className="top-section">
