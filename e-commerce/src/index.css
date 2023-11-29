@@ -175,6 +175,8 @@
 }
 .cart-container .main-content .items-container {
   width: 68%;
+  max-height: 47rem;
+  overflow-y: auto;
   background-color: #f7f7f7;
   border-radius: 20px;
   padding: 1.5rem;
@@ -198,6 +200,7 @@
   width: 100%;
   display: flex;
   gap: 10px;
+  background-color: #f7f7f7;
 }
 @media (max-width: 768px) {
   .cart-container .main-content .items-container .item-container {
@@ -222,7 +225,7 @@
   font-size: 17px;
 }
 .cart-container .main-content .items-container .item-container .image-name-disc .name-disc .item-description {
-  max-width: 20rem;
+  max-width: 22rem;
 }
 .cart-container .main-content .items-container .item-container .image-name-disc img {
   width: 100px;
@@ -231,7 +234,7 @@
 .cart-container .main-content .items-container .item-container .more-options {
   flex-grow: 4;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .cart-container .main-content .items-container .item-container .more-options .options {
   display: flex;

@@ -2,69 +2,57 @@
 import React, {useState,useEffect} from 'react';
 import Navbar from './navbar';
 import Footer from './footer';
-import image from '../NEW QC/New folder/Pro2.jpg';
 import image2 from '../NEW QC/New folder/Pro3.jpg';
-import image3 from '../NEW QC/New folder/wordpress-shopping-cart-plugins.webp';
 import { InputTextarea } from "primereact/inputtextarea";import axios from 'axios';
 function MyCart() {
-  const [value2, setValue2] = useState(10.50);
   const [value, setValue] = useState("");
   const [cartItems,setCartItems] = useState();
-  const [TotalPrice, setTotalPrice] = useState(0);
-
-  useEffect(()=>{
+  const [TotalPrice, setTotalPrice] = useState();
+  useEffect(() => {
     getCartItems()
-    handleTotalPrice()
-  },[cartItems])
-  const handleTotalPrice =() => {
-    // setTotalPrice(cartItems&& cartItems.reduce((acc,item)=>{
-    //   return acc + item.itemPrice;
-    // },0))
-    let item_price=0;
-    cartItems&& cartItems.forEach((item)=>{
-      // console.log(item.itemPrice);
-      item_price += item.itemPrice;
-    })
-    setTotalPrice(item_price)
-  }
+  },[]);
   const getCartItems = ()=> {
-    axios.get(`http://127.0.0.1:8000/cart-api/5`)
+    axios.get(`http://127.0.0.1:8000/cart-api/6`)
     .then((response) =>{
+      setTotalPrice(response.data[0].totalPrice)
       setCartItems(response.data[0].cartItems)
-      // console.log(response.data)
     })
     .catch((error)=>console.log(error))
   }
   const handleQuantity_increment = (item,itemID,itemQuantity)=> {
-    // console.log(itemID,itemQuantity);
-    // setQuantity(quantity+1)
-    setCartItems(item=>
-      item.map((item)=>
-      item.itemID === itemID ? {...item,itemQuantity:item.itemQuantity +1} :item
-      ))
+    axios.put(`http://127.0.0.1:8000/cart-api/${itemID}`,{
+      action_type:'increment'
+    })
+    .then((response) =>{
+      setCartItems(response.data[0].cartItems)
+      setTotalPrice(response.data[0].totalPrice)
+    })
+    .catch((error)=>console.log(error))
   }
   const handleQuantity_decrement = (item,itemID,itemQuantity)=> {
-    // console.log(itemID,itemQuantity);
-    // setQuantity(quantity > 1? quantity - 1 : 1);  
-    setCartItems(item=>
-      item.map((item)=>
-      item.itemID === itemID ? {...item,itemQuantity:item.itemQuantity > 1 ? item.itemQuantity-1 :1} :item
-    ))
-    
+    axios.put(`http://127.0.0.1:8000/cart-api/${itemID}`,{
+      action_type:'decrement'
+    })
+    .then((response) =>{
+      setCartItems(response.data[0].cartItems)
+      setTotalPrice(response.data[0].totalPrice)
+    })
+    .catch((error)=>console.log(error))
   }
-
+  const handleDelete = (itemID) => {
+    axios.delete(`http://127.0.0.1:8000/cart-api/${itemID}`)
+    .then((response) =>{
+      setCartItems(response.data[0].cartItems)
+      setTotalPrice(response.data[0].totalPrice)
+    })
+    .catch((error)=>console.log(error))
+  }
   return (
     <>
       <div className='cart-container'>
         <Navbar/> 
         <div className='main-content'>
           <section className='items-container'>
-            {/* <div className="cart-labels">
-              <span className='label'>العربة</span>
-              <span className='label'>الكمية</span>
-              <span className='label'>المجموع الكلي</span>
-              <span className='label'>ازالة</span>
-            </div> */}
             {cartItems&& cartItems.map((item)=>{
               return(
                 <div className='item-container' key={item.itemID}>
@@ -89,7 +77,7 @@ function MyCart() {
                       <span className='total'>EGP {item.itemQuantity*item.itemPrice}</span>
                     </div>
                     <div className="options">
-                      <button className="delete-item">
+                      <button className="delete-item" onClick={()=>handleDelete(item.itemID)}>
                         <i className='pi pi-trash'></i>
                       </button>
                     </div>
@@ -108,7 +96,7 @@ function MyCart() {
               <div className='subtotal'>
                 <div className='col'>
                   <span>المجموع الفرعي:</span>
-                  <span>EGP 100.88</span>
+                  <span>EGP {TotalPrice}</span>
                 </div>
                 <div className='col'>
                   <span>الضريبة المضافة:</span>
