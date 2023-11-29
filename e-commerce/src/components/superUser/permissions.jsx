@@ -8,21 +8,23 @@ import { InputText } from "primereact/inputtext";
 function Permissions() {
   const selected = useRef()
   const [visible, setVisible] = useState(false);
+  const [screenVisible, setScreenVisible] = useState(false);
   const [sections , setSections] = useState();
   const [sub_categories,setSub_categories] = useState([]); 
   const [selectedScreens, setSelectedScreens] = useState(null);
   const [permissionName, setPermissionName] = useState('');
   const [permissions, setPermissions] = useState();
+  const [allScreens, setAllScreens] = useState();
   const [permissionScreens, setPermissionScreens] = useState();
-  const screens = [
-    { name: 'إضافة اوردر', permission_screen: '2' },
-    { name: 'أضافة موظفين', permission_screen: '3' },
-    { name: 'أضافة عملاء', permission_screen: '4' },
-    { name: 'عمل طلبات', permission_screen: '5' },
-  ];
+  // const screens = [
+  //   { name: 'إضافة اوردر', permission_screen: '2' },
+  //   { name: 'أضافة موظفين', permission_screen: '3' },
+  //   { name: 'أضافة عملاء', permission_screen: '4' },
+  //   { name: 'عمل طلبات', permission_screen: '5' },
+  // ]
   useEffect (()=>{
-    getAllSections()
     getAllPermissions()
+    getAllScreens()
     // console.log(selectedScreens&& selectedScreens.map((code)=>{return(code.slice(1))}));
   },[])
   // console.log(selectedScreens[0]);
@@ -34,9 +36,17 @@ function Permissions() {
     })
     .catch((error)=>{console.log(error);})
   }
+  const getAllScreens =() =>{
+    axios.get(`http://127.0.0.1:8000/permission-api/screens`)
+    .then((response)=>{
+      setAllScreens(response.data);
+      console.log(response.data);
+    })
+    .catch((error)=>{console.log(error);})
+  }
   const handleAddPermission =async ()=>{
     console.log(selectedScreens);
-    axios.post(`http://127.0.0.1:8000/permission-api/get`,{
+    axios.post(`http://127.0.0.1:8000/permission-api/nested`,{
       permission_name:permissionName,
       permission_screens:selectedScreens
     }).then((response)=>{
@@ -49,11 +59,12 @@ function Permissions() {
   }
   const handleViewPermission = (permissionID)=> {
     const addBtn = document.querySelector('.addSubBtn');
+    addBtn.setAttribute('id', `${permissionID}`)
     addBtn.removeAttribute('hidden')
     axios.get(`http://127.0.0.1:8000/permission-api/${permissionID}`)
     .then((response)=>{
       console.log(response.data);
-      setPermissionScreens(response.data)
+      setPermissionScreens(response.data);
     })
     .catch((error)=>{console.log(error);})
   }
@@ -85,6 +96,46 @@ function Permissions() {
         console.log(error);
       });
     } 
+  }
+  const handleAddScreen = ()=> {
+    const btnId = document.querySelector('.addSubBtn').getAttribute('id');
+    axios.post(`http://127.0.0.1:8000/permission-api/${btnId}`,{
+      permission_screens:selectedScreens
+    }).then((response)=>{
+      setSelectedScreens(null);
+      setScreenVisible(false);
+      setPermissionScreens(response.data)
+    })
+    .catch((error)=>{console.log(error)})
+    setVisible(false)
+  }
+  const handleEditScreen = async (screenID, screenName)=> {
+    const addPopup = await Swal.fire({
+      title: 'أضافة قسم جديد',
+      html:
+        `<input id="swal-input1" value= '${screenName}' class="swal2-input">` ,
+      focusConfirm: false,
+    })
+    const screen_name = document.getElementById('swal-input1').value;
+    if (screen_name!==""){
+      axios.put(`http://127.0.0.1:8000/permission-screen-api/${screenID}`, {
+        screen_name
+      })
+      .then((response)=>{
+        console.log(response);
+        setPermissionScreens(response.data)
+      })
+      .catch((error)=>{
+        console.log(error);
+      });
+    } 
+  }
+  const handleDeleteScreen = (screenID)=> {
+    axios.delete(`http://127.0.0.1:8000/permission-screen-api/${screenID}`)
+    .then((response)=>{
+      setPermissionScreens(response.data)
+    })
+    .catch((error)=>{console.log(error);})
   }
   const getAllSections = async ()=> {
     try {
@@ -260,11 +311,22 @@ function Permissions() {
             <div className="add-permission-pop">
               <div className="add-permission-inputs">
                 <InputText value={permissionName} placeholder='أسم الصلاحية' onChange={(e) => setPermissionName(e.target.value)} />
-                <MultiSelect value={selectedScreens} onChange={(e) => setSelectedScreens(e.value)} options={screens} optionLabel="name" 
+                <MultiSelect value={selectedScreens} onChange={(e) => setSelectedScreens(e.value)} options={allScreens} optionLabel="screen_name" 
                   placeholder="أختر الشاشة" maxSelectedLabels={3} className="w-full md:w-20rem" />
               </div>
               <div className="add-permission-btn">
                 <button onClick={handleAddPermission}>حسنا</button>
+              </div>
+            </div>
+          </Dialog>
+          <Dialog header="إضافة شاشة" className='permission-dialog' visible={screenVisible}  onHide={() => setScreenVisible(false)}>
+            <div className="add-permission-pop">
+              <div className="add-permission-inputs">
+                <MultiSelect value={selectedScreens} onChange={(e) => setSelectedScreens(e.value)} options={allScreens} optionLabel="screen_name" 
+                  placeholder="أختر الشاشة" maxSelectedLabels={3} className="w-full md:w-20rem" />
+              </div>
+              <div className="add-permission-btn">
+                <button onClick={handleAddScreen}>حسنا</button>
               </div>
             </div>
           </Dialog>
@@ -312,7 +374,7 @@ function Permissions() {
               </table>
             </div>
             <div className='outerTable'>
-              <div onClick={()=>{handleAdd_sub()}} hidden className='addBtn addSubBtn'>
+              <div onClick={()=>{setScreenVisible(true)}} hidden className='addBtn addSubBtn'>
                 <button>
                   <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
                   <span>اضافه</span>
@@ -330,10 +392,10 @@ function Permissions() {
                     <tr key={screen.id}>
                       <td>{screen.screen_name}</td>
                       <td>
-                        <button className='button'onClick={()=>{handleEdit_sub()}}>
+                        <button className='button'onClick={()=>{handleEditScreen(screen.id,screen.screen_name)}}>
                           <i className="pi pi-pencil" style={{'color':'rgb(51, 175, 247)'}}></i>
                         </button>
-                        <button className='button' onClick={()=>handleDeleteSub()}>
+                        <button className='button' onClick={()=>handleDeleteScreen(screen.id)}>
                           <i className="pi pi-trash"style={{'color':'rgb(180, 26, 26)'}} ></i>
                         </button>
                       </td>

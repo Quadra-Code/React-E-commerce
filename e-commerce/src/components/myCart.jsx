@@ -12,7 +12,7 @@ function MyCart() {
     getCartItems()
   },[]);
   const getCartItems = ()=> {
-    axios.get(`http://127.0.0.1:8000/cart-api/6`)
+    axios.get(`http://127.0.0.1:8000/cart-api/5`)
     .then((response) =>{
       setTotalPrice(response.data[0].totalPrice)
       setCartItems(response.data[0].cartItems)
