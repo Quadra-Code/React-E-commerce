@@ -5,16 +5,21 @@ import axios,{Axios} from 'axios';
 import { Dialog } from 'primereact/dialog';
 import { MultiSelect } from 'primereact/multiselect';
 import { InputText } from "primereact/inputtext";
+import { Toast } from 'primereact/toast';
 function Permissions() {
   const selected = useRef()
   const [visible, setVisible] = useState(false);
   const [screenVisible, setScreenVisible] = useState(false);
+  const [editScreenVisible, setEditScreenVisible] = useState(false);
   const [sections , setSections] = useState();
   const [sub_categories,setSub_categories] = useState([]); 
   const [selectedScreens, setSelectedScreens] = useState(null);
+  const [screenID, setScreenID] = useState();
+  const [selectedScreenName, setSelectedScreenName] = useState('');
   const [permissionName, setPermissionName] = useState('');
   const [permissions, setPermissions] = useState();
   const [allScreens, setAllScreens] = useState();
+  const [availableScreens, setAvailableScreens] = useState();
   const [permissionScreens, setPermissionScreens] = useState();
   // const screens = [
   //   { name: 'إضافة اوردر', permission_screen: '2' },
@@ -27,6 +32,7 @@ function Permissions() {
     getAllScreens()
     // console.log(selectedScreens&& selectedScreens.map((code)=>{return(code.slice(1))}));
   },[])
+  const toast = useRef(null);
   // console.log(selectedScreens[0]);
   const getAllPermissions =() =>{
     axios.get(`http://127.0.0.1:8000/permission-api/all`)
@@ -37,7 +43,7 @@ function Permissions() {
     .catch((error)=>{console.log(error);})
   }
   const getAllScreens =() =>{
-    axios.get(`http://127.0.0.1:8000/permission-api/screens`)
+    axios.get(`http://127.0.0.1:8000/permission-screen-api/all`)
     .then((response)=>{
       setAllScreens(response.data);
       console.log(response.data);
@@ -53,8 +59,12 @@ function Permissions() {
       getAllPermissions();
       setPermissionName("");
       setSelectedScreens(null);
+      toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
     })
-    .catch((error)=>{console.log(error)})
+    .catch((error)=>{
+      console.log(error);
+      toast.current.show({severity:'error', summary: 'Error', detail:'Message Content', life: 3000});
+    })
     setVisible(false)
   }
   const handleViewPermission = (permissionID)=> {
@@ -73,8 +83,12 @@ function Permissions() {
     .then((response)=>{
       console.log(response.data);
       getAllPermissions()
+      toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
     })
-    .catch((error)=>{console.log(error);})
+    .catch((error)=>{
+      console.log(error);
+      toast.current.show({severity:'error', summary: 'Error', detail:'Message Content', life: 3000});
+    })
   }
   const handleEditPermission = async (permissionID, permissionName)=> {
     const addPopup = await Swal.fire({
@@ -91,45 +105,52 @@ function Permissions() {
       .then((res)=>{
         console.log(res);
         getAllPermissions()
+        toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
       })
       .catch((error)=>{
         console.log(error);
+        toast.current.show({severity:'error', summary: 'Error', detail:'Message Content', life: 3000});
       });
     } 
   }
+  const handleAddScreenPopUp = ()=> {
+    const btnId = document.querySelector('.addSubBtn').getAttribute('id');
+    setScreenVisible(true)
+    axios.get(`http://127.0.0.1:8000/permission-screen-api/${btnId}`)
+    .then((response)=>{
+      console.log(response.data);
+      setAvailableScreens(response.data);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  }
   const handleAddScreen = ()=> {
     const btnId = document.querySelector('.addSubBtn').getAttribute('id');
-    axios.post(`http://127.0.0.1:8000/permission-api/${btnId}`,{
+    axios.post(`http://127.0.0.1:8000/permission-screen-api/${btnId}`,{
       permission_screens:selectedScreens
     }).then((response)=>{
       setSelectedScreens(null);
       setScreenVisible(false);
-      setPermissionScreens(response.data)
+      setAvailableScreens();
+      setPermissionScreens(response.data);
+      toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
     })
-    .catch((error)=>{console.log(error)})
+    .catch((error)=>{
+      console.log(error);
+      toast.current.show({severity:'error', summary: 'Error', detail:'Message Content', life: 3000});
+    })
     setVisible(false)
   }
-  const handleEditScreen = async (screenID, screenName)=> {
-    const addPopup = await Swal.fire({
-      title: 'أضافة قسم جديد',
-      html:
-        `<input id="swal-input1" value= '${screenName}' class="swal2-input">` ,
-      focusConfirm: false,
-    })
-    const screen_name = document.getElementById('swal-input1').value;
-    if (screen_name!==""){
-      axios.put(`http://127.0.0.1:8000/permission-screen-api/${screenID}`, {
-        screen_name
-      })
-      .then((response)=>{
-        console.log(response);
-        setPermissionScreens(response.data)
-      })
-      .catch((error)=>{
-        console.log(error);
-      });
-    } 
-  }
+  // const handleEditScreenPopUp = async (screenID)=> {
+  //   setEditScreenVisible(true);
+  //   setScreenID(screenID);
+  //   setSelectedScreenName(permissionScreens.find(screen_name=>screen_name.id === screenID).screen_name);
+  // }
+  // const handleEditScreen = async ()=> {
+  //   console.log(screenID);
+  //   console.log(selectedScreenName);
+  // }
   const handleDeleteScreen = (screenID)=> {
     axios.delete(`http://127.0.0.1:8000/permission-screen-api/${screenID}`)
     .then((response)=>{
@@ -306,6 +327,7 @@ function Permissions() {
   }
   return (
     <Fragment>
+      <Toast ref={toast} />
         <div className="card flex justify-content-center permissions">
           <Dialog header="إضافة صلاحية" className='permission-dialog' visible={visible}  onHide={() => setVisible(false)}>
             <div className="add-permission-pop">
@@ -322,7 +344,7 @@ function Permissions() {
           <Dialog header="إضافة شاشة" className='permission-dialog' visible={screenVisible}  onHide={() => setScreenVisible(false)}>
             <div className="add-permission-pop">
               <div className="add-permission-inputs">
-                <MultiSelect value={selectedScreens} onChange={(e) => setSelectedScreens(e.value)} options={allScreens} optionLabel="screen_name" 
+                <MultiSelect style={{width:'100%'}} value={selectedScreens} onChange={(e) => setSelectedScreens(e.value)} options={availableScreens} optionLabel="screen_name" 
                   placeholder="أختر الشاشة" maxSelectedLabels={3} className="w-full md:w-20rem" />
               </div>
               <div className="add-permission-btn">
@@ -330,6 +352,23 @@ function Permissions() {
               </div>
             </div>
           </Dialog>
+          {/* <Dialog header="تعديل شاشة" className='permission-dialog' visible={editScreenVisible}  onHide={() => setEditScreenVisible(false)}>
+            <div className="add-permission-pop">
+              <div className="add-permission-inputs">
+                <select name="" id="" className='screen-select' onChange={(e) => setSelectedScreenName(e.target.value)}>
+                  <option  value={selectedScreenName}>{selectedScreenName}</option>
+                  {allScreens&& allScreens.map((screen)=>{
+                    return(
+                      <option key={screen.permission_screen} value={screen.permission_screen}>{screen.screen_name}</option>
+                    )
+                  })}
+                </select>
+              </div>
+              <div className="add-permission-btn">
+                <button onClick={handleEditScreen}>حسنا</button>
+              </div>
+            </div>
+          </Dialog> */}
         </div>
         <section className="topSec">
           <div className="topSec-content" >
@@ -342,7 +381,7 @@ function Permissions() {
             <div className='outerTable'>
               <div className='addBtn'>
                 <button onClick={() => setVisible(true)}>
-                  <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
+                  <i className="fa-solid fa-plus" ></i>
                   <span>اضافه</span>
                 </button>
               </div>
@@ -374,9 +413,9 @@ function Permissions() {
               </table>
             </div>
             <div className='outerTable'>
-              <div onClick={()=>{setScreenVisible(true)}} hidden className='addBtn addSubBtn'>
+              <div onClick={()=>{handleAddScreenPopUp()}} hidden className='addBtn addSubBtn'>
                 <button>
-                  <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
+                  <i className="fa-solid fa-plus" ></i>
                   <span>اضافه</span>
                 </button>
               </div>
@@ -392,9 +431,9 @@ function Permissions() {
                     <tr key={screen.id}>
                       <td>{screen.screen_name}</td>
                       <td>
-                        <button className='button'onClick={()=>{handleEditScreen(screen.id,screen.screen_name)}}>
+                        {/* <button className='button'onClick={()=>{handleEditScreenPopUp(screen.id)}}>
                           <i className="pi pi-pencil" style={{'color':'rgb(51, 175, 247)'}}></i>
-                        </button>
+                        </button> */}
                         <button className='button' onClick={()=>handleDeleteScreen(screen.id)}>
                           <i className="pi pi-trash"style={{'color':'rgb(180, 26, 26)'}} ></i>
                         </button>

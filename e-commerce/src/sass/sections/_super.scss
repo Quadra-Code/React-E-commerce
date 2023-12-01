@@ -4,6 +4,7 @@
 main{
   height: 100vh;
   direction: rtl;
+  background-color: #1f2b3e;
   // display: flex;
   // justify-content: center;
   // align-items: center;
@@ -27,7 +28,7 @@ main{
       align-items: center;
       gap: 100px;
       // border-radius: 40px 0px 0px 40px;
-      border-left: 1px solid $text-200-shadow;
+      border-left: 1px solid #374357;
       .navLinks{
         width: 100%;
         ul{
@@ -171,6 +172,7 @@ main{
           gap: 10px;
           h1{
             font-size: 25px;
+            color: #fff;
           }
         }
         .botSec-content {
@@ -332,9 +334,9 @@ main{
             width: 100%;
           }
           .outerTable{
-            background-color: $bg-200;
-            padding: 0 20px 20px 20px;
-            border-radius: 6px;
+            background-color: #374357;
+            padding:10px 20px;
+            border-radius: 15px;
             min-width: 48%;
             max-height: 650px;
             overflow-y: auto;
@@ -395,18 +397,20 @@ main{
               th {
                 position: sticky;
                 top :0;
-                background-color: $bg-200;
+                background-color: transparent;
                 padding: 10px;
+                color: #fff;
               }
               tbody{
                 tr {
-                  background-color: #fff;
+                  background-color: #0F1C2E;
                   &.selected{
                     background-color: #dcdcdc;
                   }
                   td {
                     padding: 15px 10px;
                     gap: 10px;
+                    color: #e0e0e0;
                     &:first-child {
                       border-top-right-radius: 10px; 
                       border-bottom-right-radius: 10px;
@@ -497,9 +501,10 @@ main{
                 border-radius: 6px;
                 border: none;
                 outline: none;
-                background-color: $text-100;
-                color: #fff;
+                background-color: #0F1C2E;
+                color: #e0e0e0;
                 cursor: pointer;
+                font-weight: 600;
                 a {
                   display: flex;
                   align-items: center;

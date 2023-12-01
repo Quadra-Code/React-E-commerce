@@ -97,7 +97,7 @@ export default function AllMenu() {
   }
   const addToCart = (itemID)=> {
     axios.post(`http://127.0.0.1:8000/cart-api/post`,{
-      client_fk:5,
+      client_fk:6,
       product_fk:itemID,
       item_quantity:quantity
     })
