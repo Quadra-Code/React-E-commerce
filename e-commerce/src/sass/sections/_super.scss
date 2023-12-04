@@ -1,7 +1,7 @@
 @import '../variables/colors' ;
 
 
-main{
+.super-user-main{
   height: 100vh;
   direction: rtl;
   background-color: #1f2b3e;
@@ -369,6 +369,19 @@ main{
               gap: 10px;
               // width: max-content;
               align-items: center;
+              .p-input-icon-left{
+                i{
+                  color: #fff;
+                }
+                input{
+                  background-color: #4d648d;
+                  border: none;
+                  outline: none;
+                  &::placeholder{
+                    color: #fff;
+                  }
+                }
+              }
               .button{
                 outline: 0;
                 border: 0;

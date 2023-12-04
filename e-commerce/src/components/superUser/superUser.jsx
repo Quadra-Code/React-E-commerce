@@ -33,7 +33,7 @@ function SuperUser() {
       cssOverride={override}
       />
       :
-      <main>
+      <main className='super-user-main'>
         <div className="container">
           <div className="sideNav ">
             <div className="navLogo"><img src="../static/NEW QC/لوجو qc-12.png" alt="" className="navLogo" style={{width:'200px'}}/></div>

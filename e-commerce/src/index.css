@@ -1519,17 +1519,17 @@ a {
 
 /* full side nav */
 /* end full side nav */
-main {
+.super-user-main {
   height: 100vh;
   direction: rtl;
   background-color: #1f2b3e;
 }
-main .container {
+.super-user-main .container {
   height: 100%;
   display: flex;
   justify-content: space-between;
 }
-main .container .sideNav {
+.super-user-main .container .sideNav {
   height: 100%;
   width: 15%;
   position: fixed;
@@ -1543,22 +1543,22 @@ main .container .sideNav {
   border-left: 1px solid #374357;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
-  main .container .sideNav {
+  .super-user-main .container .sideNav {
     width: 18%;
   }
 }
-main .container .sideNav .navLinks {
+.super-user-main .container .sideNav .navLinks {
   width: 100%;
 }
-main .container .sideNav .navLinks ul {
+.super-user-main .container .sideNav .navLinks ul {
   display: flex;
   flex-direction: column;
   gap: 50px;
 }
-main .container .sideNav .navLinks ul li {
+.super-user-main .container .sideNav .navLinks ul li {
   list-style: none;
 }
-main .container .sideNav .navLinks ul li a {
+.super-user-main .container .sideNav .navLinks ul li a {
   position: relative;
   display: flex;
   align-items: center;
@@ -1570,12 +1570,12 @@ main .container .sideNav .navLinks ul li a {
   cursor: pointer;
   border-radius: 12px;
 }
-main .container .sideNav .navLinks ul li a.active, main .container .sideNav .navLinks ul li a:hover {
+.super-user-main .container .sideNav .navLinks ul li a.active, .super-user-main .container .sideNav .navLinks ul li a:hover {
   background-color: #195775;
   border-radius: 12px;
   color: #fffff0;
 }
-main .container .sideNav .navLinks ul li a::before {
+.super-user-main .container .sideNav .navLinks ul li a::before {
   content: "";
   position: absolute;
   right: 6px;
@@ -1585,7 +1585,7 @@ main .container .sideNav .navLinks ul li a::before {
   height: 28px;
   background-color: #fffff0;
 }
-main .container .mainContent {
+.super-user-main .container .mainContent {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -1596,30 +1596,30 @@ main .container .mainContent {
   padding-left: 10px;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
-  main .container .mainContent {
+  .super-user-main .container .mainContent {
     width: 81%;
   }
 }
-main .container .mainContent nav {
+.super-user-main .container .mainContent nav {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   padding: 10px;
 }
-main .container .mainContent nav .navLinks {
+.super-user-main .container .mainContent nav .navLinks {
   display: flex;
   align-items: center;
   gap: 30px;
 }
-main .container .mainContent nav .navLinks .iconsCont .bellCont {
+.super-user-main .container .mainContent nav .navLinks .iconsCont .bellCont {
   position: relative;
 }
-main .container .mainContent nav .navLinks .iconsCont .bellCont i {
+.super-user-main .container .mainContent nav .navLinks .iconsCont .bellCont i {
   color: #5443c3;
   font-size: 25px;
   padding: 5px;
 }
-main .container .mainContent nav .navLinks .iconsCont .bellCont span {
+.super-user-main .container .mainContent nav .navLinks .iconsCont .bellCont span {
   font-size: 15px;
   font-weight: bold;
   position: absolute;
@@ -1634,7 +1634,7 @@ main .container .mainContent nav .navLinks .iconsCont .bellCont span {
   align-items: center;
   justify-content: center;
 }
-main .container .mainContent nav .navLinks .User span i {
+.super-user-main .container .mainContent nav .navLinks .User span i {
   color: #5443c3;
   font-size: 20px;
   background-color: #ffffff;
@@ -1642,10 +1642,10 @@ main .container .mainContent nav .navLinks .User span i {
   padding: 5px;
   border: 1px solid #5443c3;
 }
-main .container .mainContent .infoCont {
+.super-user-main .container .mainContent .infoCont {
   margin-bottom: 20px;
 }
-main .container .mainContent .infoCont button {
+.super-user-main .container .mainContent .infoCont button {
   outline: 0;
   border: 0;
   padding: 8px;
@@ -1659,13 +1659,13 @@ main .container .mainContent .infoCont button {
   gap: 10px;
   background-color: #c2c2aa;
 }
-main .container .mainContent .infoCont button i {
+.super-user-main .container .mainContent .infoCont button i {
   background-color: #195775;
   padding: 8px;
   border-radius: 20px;
   color: #ffffff;
 }
-main .container .mainContent .topSec {
+.super-user-main .container .mainContent .topSec {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -1675,43 +1675,43 @@ main .container .mainContent .topSec {
   padding: 15px 0;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
-  main .container .mainContent .topSec {
+  .super-user-main .container .mainContent .topSec {
     width: 100%;
     justify-content: flex-end;
   }
 }
-main .container .mainContent .topSec .topSec-content {
+.super-user-main .container .mainContent .topSec .topSec-content {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   gap: 10px;
 }
-main .container .mainContent .topSec .topSec-content h1 {
+.super-user-main .container .mainContent .topSec .topSec-content h1 {
   font-size: 25px;
   color: #fff;
 }
-main .container .mainContent .topSec .botSec-content {
+.super-user-main .container .mainContent .topSec .botSec-content {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
 }
-main .container .mainContent .topSec .botSec-content .outer-wrapper {
+.super-user-main .container .mainContent .topSec .botSec-content .outer-wrapper {
   border-radius: 8px;
   width: 100%;
   padding: 0 0 10px 0;
   direction: rtl;
 }
-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper {
+.super-user-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper {
   max-height: 600px;
   overflow-y: auto;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.0705882353);
 }
-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table {
+.super-user-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table {
   border-collapse: separate;
   border-spacing: 0px;
   min-width: -moz-max-content;
@@ -1720,12 +1720,12 @@ main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapp
   background-color: transparent;
   border-radius: 8px;
 }
-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table thead {
+.super-user-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table thead {
   position: sticky;
   top: 0;
   background-color: #ffffff;
 }
-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table th {
+.super-user-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table th {
   color: black;
   font-size: 18px;
   font-weight: 700;
@@ -1733,14 +1733,14 @@ main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapp
   padding: 18px;
   text-align: center;
 }
-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td {
+.super-user-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td {
   color: rgb(0, 0, 0);
   font-size: 18px;
 }
-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td a {
+.super-user-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td a {
   margin: 0;
 }
-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td a i {
+.super-user-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td a i {
   transition: 0.2s;
   font-size: 20px;
   color: #5443c3;
@@ -1749,10 +1749,10 @@ main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapp
   width: 100px;
   border-radius: 8px;
 }
-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td a i:hover {
+.super-user-main .container .mainContent .topSec .botSec-content .outer-wrapper .table-wrapper table td a i:hover {
   transform: translateY(-2px);
 }
-main .container .mainContent .topSec .addSec .addSectionCont {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1763,11 +1763,11 @@ main .container .mainContent .topSec .addSec .addSectionCont {
   position: relative;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
-  main .container .mainContent .topSec .addSec .addSectionCont {
+  .super-user-main .container .mainContent .topSec .addSec .addSectionCont {
     padding: 15px;
   }
 }
-main .container .mainContent .topSec .addSec .addSectionCont::before {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1778,21 +1778,21 @@ main .container .mainContent .topSec .addSec .addSectionCont::before {
   background-color: #5443c3;
   border-radius: 0 0 5px 5px;
 }
-main .container .mainContent .topSec .addSec .addSectionCont .col {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont .col {
   display: flex;
   justify-content: center;
 }
-main .container .mainContent .topSec .addSec .addSectionCont .col form {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont .col form {
   display: flex;
   gap: 20px;
   align-items: center;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
-  main .container .mainContent .topSec .addSec .addSectionCont .col form {
+  .super-user-main .container .mainContent .topSec .addSec .addSectionCont .col form {
     gap: 15px;
   }
 }
-main .container .mainContent .topSec .addSec .addSectionCont .col input, main .container .mainContent .topSec .addSec .addSectionCont .col select {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont .col input, .super-user-main .container .mainContent .topSec .addSec .addSectionCont .col select {
   outline: none;
   border: none;
   background-color: #f1f2f3;
@@ -1801,12 +1801,12 @@ main .container .mainContent .topSec .addSec .addSectionCont .col input, main .c
   border-radius: 8px;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
-  main .container .mainContent .topSec .addSec .addSectionCont .col input, main .container .mainContent .topSec .addSec .addSectionCont .col select {
+  .super-user-main .container .mainContent .topSec .addSec .addSectionCont .col input, .super-user-main .container .mainContent .topSec .addSec .addSectionCont .col select {
     padding: 5px 3px;
     font-size: 16px;
   }
 }
-main .container .mainContent .topSec .addSec .addSectionCont .col .button {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont .col .button {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -1823,30 +1823,30 @@ main .container .mainContent .topSec .addSec .addSectionCont .col .button {
   cursor: pointer;
 }
 @media (min-width: 992px) and (max-width: 1599px) {
-  main .container .mainContent .topSec .addSec .addSectionCont .col .button {
+  .super-user-main .container .mainContent .topSec .addSec .addSectionCont .col .button {
     padding: 4px 3px;
     font-size: 15px;
     min-width: 80px;
   }
 }
-main .container .mainContent .topSec .addSec .addSectionCont .col .button i {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont .col .button i {
   transition: 0.4s;
 }
-main .container .mainContent .topSec .addSec .addSectionCont .col .button:hover {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont .col .button:hover {
   transform: translateY(-2px);
   background-color: #4a4a4a;
 }
-main .container .mainContent .topSec .addSec .addSectionCont .col .button:hover i {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont .col .button:hover i {
   transform: translateX(-2px);
 }
-main .container .mainContent .topSec .addSec .addSectionCont .col .button:last-of-type:hover {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont .col .button:last-of-type:hover {
   transform: translateY(2px);
   background-color: #4a4a4a;
 }
-main .container .mainContent .topSec .addSec .addSectionCont .col .button:last-of-type:hover i {
+.super-user-main .container .mainContent .topSec .addSec .addSectionCont .col .button:last-of-type:hover i {
   transform: translateY(2px);
 }
-main .container .mainContent .topSec .allElements {
+.super-user-main .container .mainContent .topSec .allElements {
   width: 97%;
   display: flex;
   justify-content: center;
@@ -1854,10 +1854,10 @@ main .container .mainContent .topSec .allElements {
   flex-wrap: wrap;
   gap: 15px;
 }
-main .container .mainContent .topSec .allElements .last-child {
+.super-user-main .container .mainContent .topSec .allElements .last-child {
   width: 100%;
 }
-main .container .mainContent .topSec .allElements .outerTable {
+.super-user-main .container .mainContent .topSec .allElements .outerTable {
   background-color: #374357;
   padding: 10px 20px;
   border-radius: 15px;
@@ -1866,7 +1866,7 @@ main .container .mainContent .topSec .allElements .outerTable {
   overflow-y: auto;
   text-align: center;
 }
-main .container .mainContent .topSec .allElements .outerTable .finishOrder {
+.super-user-main .container .mainContent .topSec .allElements .outerTable .finishOrder {
   padding: 8px;
   background: rgb(0, 59, 89);
   background: linear-gradient(90deg, rgb(0, 93, 140) 0%, rgb(13, 110, 188) 48%, rgb(0, 165, 199) 100%);
@@ -1878,20 +1878,34 @@ main .container .mainContent .topSec .allElements .outerTable .finishOrder {
   margin-left: 60px;
   cursor: pointer;
 }
-main .container .mainContent .topSec .allElements .outerTable .totalPrice {
+.super-user-main .container .mainContent .topSec .allElements .outerTable .totalPrice {
   background-color: #ffffff;
   padding: 8px;
   width: 150px;
   border-radius: 5px;
 }
-main .container .mainContent .topSec .allElements .outerTable .search-add {
+.super-user-main .container .mainContent .topSec .allElements .outerTable .search-add {
   display: flex;
   padding: 10px;
   justify-content: space-between;
   gap: 10px;
   align-items: center;
 }
-main .container .mainContent .topSec .allElements .outerTable .search-add .button {
+.super-user-main .container .mainContent .topSec .allElements .outerTable .search-add .p-input-icon-left i {
+  color: #fff;
+}
+.super-user-main .container .mainContent .topSec .allElements .outerTable .search-add .p-input-icon-left input {
+  background-color: #4d648d;
+  border: none;
+  outline: none;
+}
+.super-user-main .container .mainContent .topSec .allElements .outerTable .search-add .p-input-icon-left input::-moz-placeholder {
+  color: #fff;
+}
+.super-user-main .container .mainContent .topSec .allElements .outerTable .search-add .p-input-icon-left input::placeholder {
+  color: #fff;
+}
+.super-user-main .container .mainContent .topSec .allElements .outerTable .search-add .button {
   outline: 0;
   border: 0;
   padding: 8px;
@@ -1905,44 +1919,44 @@ main .container .mainContent .topSec .allElements .outerTable .search-add .butto
   gap: 10px;
   background-color: #c2c2aa;
 }
-main .container .mainContent .topSec .allElements .outerTable .search-add .button i {
+.super-user-main .container .mainContent .topSec .allElements .outerTable .search-add .button i {
   background-color: #195775;
   padding: 8px;
   border-radius: 20px;
   color: #ffffff;
 }
-main .container .mainContent .topSec .allElements .outerTable table {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table {
   width: 100%;
   text-align: center;
   border-spacing: 0 15px;
 }
-main .container .mainContent .topSec .allElements .outerTable table th {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table th {
   position: sticky;
   top: 0;
   background-color: transparent;
   padding: 10px;
   color: #fff;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr {
   background-color: #0F1C2E;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr.selected {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr.selected {
   background-color: #dcdcdc;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td {
   padding: 15px 10px;
   gap: 10px;
   color: #e0e0e0;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td:first-child {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td:first-child {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td:last-child {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td:last-child {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td select {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td select {
   border-radius: 4px;
   outline: 0;
   border: 0;
@@ -1951,7 +1965,7 @@ main .container .mainContent .topSec .allElements .outerTable table tbody tr td 
   padding: 5px;
   font-size: 16px;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .button {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .button {
   background-color: transparent;
   border: none;
   outline: none;
@@ -1962,44 +1976,44 @@ main .container .mainContent .topSec .allElements .outerTable table tbody tr td 
   border-radius: 50%;
   line-height: 1;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .button:hover {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .button:hover {
   background-color: rgba(255, 0, 0, 0.127);
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .edit {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .edit {
   margin-left: 15px;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .edit i {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .edit i {
   color: rgb(82, 206, 114);
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .view {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .view {
   margin-left: 15px;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .view i {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .view i {
   color: rgb(51, 175, 247);
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .view a {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .view a {
   width: 100%;
   padding: 4px 10px;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .delete {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td .delete {
   color: rgb(180, 26, 26);
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td input {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td input {
   text-align: center;
   font-size: 18px;
   background-color: transparent;
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td input::-moz-placeholder {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td input::-moz-placeholder {
   color: rgb(0, 0, 0);
 }
-main .container .mainContent .topSec .allElements .outerTable table tbody tr td input::placeholder {
+.super-user-main .container .mainContent .topSec .allElements .outerTable table tbody tr td input::placeholder {
   color: rgb(0, 0, 0);
 }
-main .container .mainContent .topSec .allElements .outerTable .addBtn {
+.super-user-main .container .mainContent .topSec .allElements .outerTable .addBtn {
   border-radius: 5px;
   margin: 10px 0;
 }
-main .container .mainContent .topSec .allElements .outerTable .addBtn button {
+.super-user-main .container .mainContent .topSec .allElements .outerTable .addBtn button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2014,16 +2028,16 @@ main .container .mainContent .topSec .allElements .outerTable .addBtn button {
   cursor: pointer;
   font-weight: 600;
 }
-main .container .mainContent .topSec .allElements .outerTable .addBtn button a {
+.super-user-main .container .mainContent .topSec .allElements .outerTable .addBtn button a {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-main .container .mainContent .topSec .allElements .container {
+.super-user-main .container .mainContent .topSec .allElements .container {
   width: 100%;
 }
-main .container .mainContent .topSec .allElements .container form {
+.super-user-main .container .mainContent .topSec .allElements .container form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -2031,24 +2045,24 @@ main .container .mainContent .topSec .allElements .container form {
   gap: 10px;
   padding: 15px;
 }
-main .container .mainContent .topSec .allElements .container form .section:nth-child(1) .inp-container .input-cont {
+.super-user-main .container .mainContent .topSec .allElements .container form .section:nth-child(1) .inp-container .input-cont {
   min-width: 32%;
 }
-main .container .mainContent .topSec .allElements .container form .section:nth-child(2) .inp-container {
+.super-user-main .container .mainContent .topSec .allElements .container form .section:nth-child(2) .inp-container {
   gap: 0;
 }
-main .container .mainContent .topSec .allElements .container form .section:nth-child(2) .inp-container .input-cont {
+.super-user-main .container .mainContent .topSec .allElements .container form .section:nth-child(2) .inp-container .input-cont {
   min-width: 46%;
 }
-main .container .mainContent .topSec .allElements .container form .section:nth-child(3) .inp-container .input-cont {
+.super-user-main .container .mainContent .topSec .allElements .container form .section:nth-child(3) .inp-container .input-cont {
   min-width: 23%;
 }
-main .container .mainContent .topSec .allElements .container form .submit-section {
+.super-user-main .container .mainContent .topSec .allElements .container form .submit-section {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-main .container .mainContent .topSec .allElements .container form .submit-section button {
+.super-user-main .container .mainContent .topSec .allElements .container form .submit-section button {
   padding: 5px 10px;
   font-size: 18px;
   border: none;
@@ -2060,10 +2074,10 @@ main .container .mainContent .topSec .allElements .container form .submit-sectio
   cursor: pointer;
   transition: 0.3s;
 }
-main .container .mainContent .topSec .allElements .container form .submit-section button:hover {
+.super-user-main .container .mainContent .topSec .allElements .container form .submit-section button:hover {
   background-color: #333333;
 }
-main .container .mainContent .topSec .allElements .container form .section {
+.super-user-main .container .mainContent .topSec .allElements .container form .section {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -2072,25 +2086,25 @@ main .container .mainContent .topSec .allElements .container form .section {
   padding: 10px;
   border-radius: 15px;
 }
-main .container .mainContent .topSec .allElements .container form .section .label {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .label {
   font-weight: 600;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .muirtl-1ff8729-MuiInputBase-root-MuiFilledInput-root,
-main .container .mainContent .topSec .allElements .container form .section .inp-container .muirtl-llrb4p-MuiInputBase-root-MuiFilledInput-root-MuiSelect-root {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .muirtl-1ff8729-MuiInputBase-root-MuiFilledInput-root,
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .muirtl-llrb4p-MuiInputBase-root-MuiFilledInput-root-MuiSelect-root {
   background-color: rgba(0, 0, 0, 0) !important;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .textField {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .textField {
   width: 100%;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont input, main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont textarea, main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont select {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont input, .super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont textarea, .super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont select {
   font-size: 18px;
   padding: 3px 6px;
   border: 1px solid #e6e6e6;
@@ -2098,7 +2112,7 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   outline: none;
   width: 100%;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2106,25 +2120,25 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   width: 100%;
   gap: 10px;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .p-button {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .p-button {
   padding: 5px 10px;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .p-button .p-button-icon-left {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .p-button .p-button-icon-left {
   margin-left: 0.5rem;
   margin-right: 0;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col {
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col button {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col button {
   background-color: transparent;
   border: none;
   outline: none;
@@ -2137,24 +2151,24 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   padding: 2px;
   border-radius: 50%;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col button:hover {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col button:hover {
   background-color: rgba(255, 0, 0, 0.127);
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col button i {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col button i {
   font-size: 1.5rem;
   color: red;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col img {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .col img {
   width: 70px;
   height: 70px;
   border-radius: 10px;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .cont {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .cont {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .image-view {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .image-view {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2164,16 +2178,16 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   padding: 8px 20px;
   border-radius: 20px;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .image-view span {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .image-view span {
   font-size: 12px;
   color: rgba(92, 92, 92, 0.59);
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images {
   display: flex;
   justify-content: space-between;
   gap: 20px;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .image {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .image {
   border-radius: 10px;
   width: 70px;
   height: 70px;
@@ -2181,11 +2195,11 @@ main .container .mainContent .topSec .allElements .container form .section .inp-
   align-items: center;
   justify-content: center;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .image img {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .selected-images .image img {
   width: 100%;
   border-radius: 10px;
 }
-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .select-btn button {
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .image-container .select-btn button {
   padding: 5px 10px;
   font-size: 15px;
   border: none;

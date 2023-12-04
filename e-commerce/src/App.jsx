@@ -17,6 +17,7 @@ import Login from './components/login';
 import SignUp from './components/signUp';
 import Checkout from './components/checkout';
 import Permissions from './components/superUser/permissions';
+import Users from './components/superUser/users';
 
 // const initState = {
 //   product_data : null
@@ -35,7 +36,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path ='/home' exact element= {<Home/>}/>
+        <Route path ='/' exact element= {<Home/>}/>
         <Route path ='/login' exact element= {<Login/>}/>
         <Route path ='/sign-up' exact element= {<SignUp/>}/>
         <Route path ='/all-menu' exact element= {<AllMenu/>}/>
@@ -43,6 +44,7 @@ function App() {
         <Route path ='/checkout' exact element= {<Checkout/>}/>
         <Route path='/super-user' exact element={<SuperUser/>}>
           <Route path='permissions' exact element={<Permissions/>}/>
+          <Route path='users' exact element={<Users/>}/>
           <Route path='add-product/:productID' exact element={<AddProduct/>}/>
           <Route path='view-products' exact element={<ViewProducts/>}/>
           <Route path='view-product/:productID' exact element={<ViewProduct/>}/>
