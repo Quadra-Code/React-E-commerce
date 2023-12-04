@@ -50,7 +50,7 @@
               cursor: pointer;
               border-radius:12px ;
               &.active, &:hover{
-                background-color: $primary-300;
+                background-color: #374357;
                 border-radius:12px ;
                 color: $bg-100-shadow;
               }
@@ -62,7 +62,7 @@
                 transform: translateY(-50%);
                 width: 5px;
                 height: 28px;
-                background-color: $bg-100-shadow;
+                background-color: #1f2b3e;
               }
             }
           }

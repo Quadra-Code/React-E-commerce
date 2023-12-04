@@ -1571,7 +1571,7 @@ a {
   border-radius: 12px;
 }
 .super-user-main .container .sideNav .navLinks ul li a.active, .super-user-main .container .sideNav .navLinks ul li a:hover {
-  background-color: #195775;
+  background-color: #374357;
   border-radius: 12px;
   color: #fffff0;
 }
@@ -1583,7 +1583,7 @@ a {
   transform: translateY(-50%);
   width: 5px;
   height: 28px;
-  background-color: #fffff0;
+  background-color: #1f2b3e;
 }
 .super-user-main .container .mainContent {
   display: flex;
