@@ -122,7 +122,7 @@ import { Toast } from 'primereact/toast';
     <>
       <section className="topSec callCenterTop">
         <div className='allElements' style={{"flexDirection":"column"}}>
-          <div className='outerTable'>
+          <div className='outerTable users-table' >
             <div className='search-add'>
               <button className='button' onClick={handleClient_add}>
                 <i className="pi pi-plus" ></i>
@@ -136,8 +136,9 @@ import { Toast } from 'primereact/toast';
             <table>
               <thead>
                 <tr>
-                  <th>اسم العميل</th>
+                  <th>اسم المستخدم</th>
                   <th>رقم الهاتف</th>
+                  <th>الصلاحية </th>
                   <th>خيارات</th>
                 </tr>
               </thead>
@@ -149,6 +150,7 @@ import { Toast } from 'primereact/toast';
                 }).map((customer)=>
                   <tr id={`tr${customer.id}`} key={customer.id}>
                     <td >{customer.client_name}</td>
+                    <td >{customer.client_main_phone}</td>
                     <td >{customer.client_main_phone}</td>
                     <td>
                       <button className='button' onClick={()=>handleAdd_order(customer.id, `#tr${customer.id}`)}>
@@ -165,12 +167,8 @@ import { Toast } from 'primereact/toast';
               </tbody>
             </table>
           </div>
-          <div className='outerTable'>
+          {/* <div className='outerTable'>
             <div className='search-add'>
-              {/* <button>
-                <i className="pi pi-plus" ></i>
-                <span>اضافة عميل</span>
-              </button> */}
               <span className="p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText placeholder="بحث برقم الهاتف" />
@@ -211,18 +209,12 @@ import { Toast } from 'primereact/toast';
                           <i className="fa-regular fa-eye" style={{color:'rgb(72 197 128)'}}></i>
                         </NavLink>
                       </button>
-                      {/* <button className='button' onClick={()=>handleView_order(order.id, `#tr${order.order_id}`)}>
-                        <i className="pi pi-eye" style={{"color":"rgb(51, 175, 247)"}}></i>
-                      </button> */}
-                      {/* <button className='delete' onClick={()=>handleDelete(order)}>
-                        <i className="fa-regular fa-trash-can" style={{color:'#ffffff'}}></i>
-                      </button> */}
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
-          </div>
+          </div> */}
         </div>
       </section>
     </>

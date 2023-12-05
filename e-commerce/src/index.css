@@ -3561,6 +3561,10 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
   transform: translateY(2px);
 }
 
+.users-table {
+  max-height: 840px !important;
+}
+
 .add-permission-pop {
   width: 100%;
   display: flex;
