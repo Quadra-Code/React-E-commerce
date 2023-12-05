@@ -3564,6 +3564,11 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
 .users-table {
   max-height: 840px !important;
 }
+@media (min-width: 992px) and (max-width: 1599px) {
+  .users-table {
+    max-height: 620px !important;
+  }
+}
 
 .add-permission-pop {
   width: 100%;
