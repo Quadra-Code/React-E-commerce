@@ -9,6 +9,12 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
+    gap: 20px;
+    .inputs-container{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
   }
   .add-permission-btn{
     button{
@@ -29,7 +35,7 @@
   }
 }
   .permission-dialog{
-    width: 30rem !important;
+    width: min-content !important;
   }
 .screen-select{
   width: 100%;

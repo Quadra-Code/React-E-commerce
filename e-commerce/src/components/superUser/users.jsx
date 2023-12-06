@@ -1,48 +1,113 @@
 import React ,{Fragment,useState,useEffect,useRef }from 'react'
 import Swal from 'sweetalert2'
 import axios,{Axios} from 'axios';
-import { NavLink, Outlet } from 'react-router-dom';
-import { Dropdown } from 'primereact/dropdown';
 import { InputText } from "primereact/inputtext";
-import { Tag } from 'primereact/tag';
 import { Toast } from 'primereact/toast';
+import { Dropdown } from 'primereact/dropdown';
+import { Dialog } from 'primereact/dialog';
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
   export default function Users() {
   const [search, setSearch] = useState('');
-  const [customers,setCustomers] = useState(); 
-  const [orders,setOrders] = useState([]); 
+  const [employees,setEmployees] = useState(); 
   const toast  = useRef(null);
-  const [addID, setAddID] =useState('')
-  useEffect (()=>{
-    getAll_customers()
-    // getAll_orders()
-  },[])
-  const getAll_customers = async ()=> {
-    try {
-      const response = await axios.get('http://localhost:8000/client-api');
-      setCustomers(response.data)
-      console.log(response.data)
-    } catch (error) {
-      console.error(error);
-    } 
+  const [addID, setAddID] =useState('');
+  const [visible, setVisible] = useState(false);
+  const [editVisible, setEditVisible] = useState(false);
+  const [selectedScreens, setSelectedScreens] = useState(null);
+  const [selectedScreenFk, setSelectedScreenFk] = useState(null);
+  const [employeeID, setEmployeeID] = useState();
+  const [employeeName, setEmployeeName] = useState('');
+  const [employeeNumber, setEmployeeNumber] = useState('');
+  const [allScreens, setAllScreens] = useState();
+  const [pwd, setPwd] =useState('');
+  const [validPwd, setValidPwd] =useState(false);
+  const [pwdFocus, setPwdFocus] =useState(false);
+  const [matchPwd, setMatchPwd] =useState('');
+  const [validMatch, setValidMatch] =useState(false);
+  useEffect(() => {
+    getAllScreens()
+    getAllEmployee()
+    const result = PWD_REGEX.test(pwd);
+    console.log(result);
+    console.log(pwd);
+    setValidPwd(result);
+    const match = pwd ===matchPwd;
+    setValidMatch(match)
+  },[pwd,matchPwd])
+  const getAllScreens =() =>{
+    axios.get(`http://127.0.0.1:8000/permission-api/all`)
+    .then((response)=>{
+      setAllScreens(response.data);
+      console.log(response.data);
+    })
+    .catch((error)=>{console.log(error);})
   }
-  const getAll_orders = async ()=> {
-    try {
-      const response = await axios.get('http://localhost:8000/order-master-api');//this link gets data from database that exists in your pc not pythonanywhere database 
-      setOrders(response.data)
-      // console.log(response.data)
-    } catch (error) {
-      console.error(error);
-    } 
+  const getAllEmployee =() =>{
+    axios.get(`http://127.0.0.1:8000/employee-api/all`)
+    .then((response)=>{
+      setEmployees(response.data);
+      console.log(response.data);
+    })
+    .catch((error)=>{console.log(error);})
   }
-  const handleAdd_order=(id, trClass)=>{
-    const selectedTr= document.querySelector(trClass);
-    const childNodes= Array.from(selectedTr.parentNode.children);
-    // console.log(childNodes);
-    childNodes.map((child)=>child.classList.remove(`selected`));
-    selectedTr.classList.toggle('selected');
-    axios.get(`http://127.0.0.1:8000/client-with-address-api/client${id}`)
+  const handleUser_add = ()=> {
+    axios.post(`http://127.0.0.1:8000/users/employee-register-api`,{
+      first_name:employeeName,
+      password:pwd,
+      username:employeeNumber,
+      permission_fk:selectedScreens.id
+    })
+    .then((res)=>{
+      setEmployees(res.data);
+      toast.current.show({severity:'success', summary: 'تم', detail:'تمت الاضافه بنجاح', life: 3000});
+      console.log(res);
+      setVisible(false);
+    })
+    .catch((error)=>{
+      toast.current.show({severity:'error', summary: 'خطأ', detail:error.response.data.error, life: 3000});
+      console.log(error.response.data.error);
+    });
   }
-
+  const handleUser_edit_pop = (employee)=> {
+    console.log(employee);
+    setEditVisible(true)
+    setEmployeeID(employee.id)
+    setEmployeeName(employee.employee_name)
+    setEmployeeNumber(employee.employee_main_phone)
+    setSelectedScreens(employee.permission_name)
+    setSelectedScreenFk(employee.permission_fk)
+  }
+  const hideEditPop = ()=> {
+    setEditVisible(false)
+    setEmployeeID();
+    setEmployeeName('');
+    setEmployeeNumber('');
+    setSelectedScreens(null);
+    setSelectedScreenFk(null);
+}
+  const handleUser_edit =()=> {
+    axios.put(`http://127.0.0.1:8000/employee-api/${employeeID}`,{
+      employee_name:employeeName,
+      employee_main_phone:employeeNumber,
+      permission_fk:selectedScreenFk
+    })
+    .then((res)=>{
+      setEmployees(res.data);
+      toast.current.show({severity:'success', summary: 'تم', detail:'تمت التعديل بنجاح', life: 3000});
+      console.log(res);
+      setVisible(false);
+      setEditVisible(false);
+      setEmployeeID();
+      setEmployeeName('');
+      setEmployeeNumber('');
+      setSelectedScreens(null);
+      setSelectedScreenFk(null);
+    })
+    .catch((error)=>{
+      toast.current.show({severity:'error', summary: 'خطأ', detail:error.response.data.error, life: 3000});
+      console.log(error.response.data.error);
+    });
+  }
   const handleView_clientOrders = async (id, trClass)=> {
     const selectedTr= document.querySelector(trClass);
     const childNodes= Array.from(selectedTr.parentNode.children);
@@ -51,82 +116,105 @@ import { Toast } from 'primereact/toast';
     selectedTr.classList.toggle('selected');
     setAddID(id)
     console.log(addID);
-    axios.get (`http://localhost:8000/order-master-api/${id}`)
-    .then((res)=>{
-      setOrders(res.data)
-      console.log(res);
-    })
-    .catch((error)=>{
-      console.log(error);
-    });
   }
-  // const handleView_order = async (id, trClass)=> {
-  //   const selectedTr= document.querySelector(trClass);
-  //   const childNodes= Array.from(selectedTr.parentNode.children);
-  //   // console.log(childNodes);
-  //   childNodes.map((child)=>child.classList.remove(`selected`));
-  //   selectedTr.classList.toggle('selected');
-  //   console.log(id);
-  //   axios.get(`http://localhost:8000/order-master-api/master${id}`)
-  //   .then((res)=>{
-  //     console.log(id);
-  //     console.log(res);
-  //   })
-  //   .catch((error)=>{
-  //     console.log(error);
-  //   });
-  // }
-  const handleDelete = (product)=> {
+  const handleDelete = (employeeID,employeeName,trClass)=> {
+    const selectedTr= document.querySelector(trClass);
+    const childNodes= Array.from(selectedTr.parentNode.children);
+    // console.log(childNodes);
+    childNodes.map((child)=>child.classList.remove(`selected`));
+    selectedTr.classList.toggle('selected');
+    console.log(employeeID);
     Swal.fire({
-      title: `Are you sure you want to delete ${product.product_name}?`,
+      title: `هل انت متأكد من حذف ${employeeName}؟`,
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        // axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/crud-products/p${product.id}`)
-        // .then ((res)=>{
-          
-        //   // console.log(res);
-        //   setCustomers(res.data)
-        // })
-      }
-    })
-  }
-  const handleClient_add = ()=>{
-    Swal.fire({
-      title: 'أضافة عميل جديد',
-      html:
-        '<input id="swal-input1" required placeholder="أسم العميل" class="swal2-input"><input id="swal-input2" required placeholder="رقم الهاتف " class="swal2-input">' ,
-      focusConfirm: false,
-    })
-    .then((data)=>{
-      const client_name = document.getElementById('swal-input1').value;
-      const client_main_phone = document.getElementById('swal-input2').value;
-      if (client_name!=="" && client_main_phone!=="" && data.isConfirmed){
-        axios.post('http://localhost:8000/client-api', {
-          client_name,
-          client_main_phone
-        })
+        axios.delete(`http://127.0.0.1:8000/employee-api/${employeeID}`)
         .then((res)=>{
-          setCustomers(res.data)
-          toast.current.show({severity:'success', summary: 'تم', detail:'تمت الاضافه بنجاح', life: 3000});
+          setEmployees(res.data);
+          toast.current.show({severity:'success', summary: 'تم', detail:'تم الحذف بنجاح', life: 3000});
           console.log(res);
         })
         .catch((error)=>{
-          toast.current.show({severity:'error', summary: 'خطأ', detail:'أدخل البيانات بشكل صحيح', life: 3000});
-          console.log(error);
+          toast.current.show({severity:'error', summary: 'خطأ', detail:'', life: 3000});
+          console.log(error.response.data.error);
         });
-      } 
+      }
+      else{childNodes.map((child)=>child.classList.remove(`selected`));}
     })
   }
   return(
     <>
+      <Toast ref={toast} />
+      <Dialog header="إضافة مستخدم" className='permission-dialog' visible={visible}  onHide={() => setVisible(false)}>
+        <div className="add-permission-pop">
+          <div className="add-permission-inputs">
+            <div className='inputs-container'>
+              <InputText value={employeeName} placeholder='أسم المستخدم' onChange={(e) => setEmployeeName(e.target.value)} />
+              <InputText value={employeeNumber} keyfilter="int" placeholder=' رقم الهاتف' onChange={(e) => setEmployeeNumber(e.target.value)} />
+            </div>
+            <div className='inputs-container'>
+              <div className="password-cont">
+                <InputText
+                  type='password' id="username"
+                  placeholder='كمة السر'
+                  value={pwd} onChange={(e) => setPwd(e.target.value)} 
+                  required
+                  aria-invalid = {validPwd?'false':"true"}
+                  aria-describedby = "pwdnote"
+                  onFocus={()=>setPwdFocus(true)}
+                  onBlur={()=>setPwdFocus(false)}
+                  />
+                <p id='pwdnote' className={pwdFocus && !validPwd?"instructions":"offscreen" }>
+                  <i className='pi pi-info'></i>
+                  <br/>
+                  8 to 24 characters. 
+                  <br/>
+                  Must include uppercase and lowercase letters, a number and a special character. <br/>  
+                  Allowed special characters : <span aria-label='exclamation mark'>!</span>  
+                  <span aria-label='at symbol'>@</span> <span aria-label='hashtag'>#</span>
+                  <span aria-label='dollar sign'>$</span> <span aria-label='percent'>%</span>
+                </p>
+              </div>
+              <Dropdown value={selectedScreens} onChange={(e) => setSelectedScreens(e.value)} options={allScreens} optionLabel="permission_name" 
+                placeholder="أختر الصلاحية" className="w-full md:w-20rem" />
+            </div>
+          </div>
+          <div className="add-permission-btn">
+            <button onClick={handleUser_add}>حسنا</button>
+          </div>
+        </div>
+      </Dialog>
+      <Dialog header="تعديل بيانات المستخدم" className='permission-dialog' visible={editVisible}  onHide={hideEditPop}>
+        <div className="add-permission-pop">
+          <div className="add-permission-inputs">
+            <div className='inputs-container'>
+              <InputText value={employeeName} placeholder='أسم المستخدم' onChange={(e) => setEmployeeName(e.target.value)} />
+              <InputText value={employeeNumber} keyfilter="int" placeholder=' رقم الهاتف' onChange={(e) => setEmployeeNumber(e.target.value)} />
+            </div>
+            <div className='inputs-container'>
+              <select className='screen-selection' name="" id="" value={selectedScreenFk} onChange={(e) => setSelectedScreenFk(e.target.value)}>
+                <option disabled value={selectedScreens}selected hidden>{selectedScreens}</option>
+                {allScreens&& allScreens.map((screen)=>{
+                  return(
+                    <option key={screen.id} value={screen.id}>{screen.permission_name}</option>
+                  )
+                })}
+              </select>
+            </div>
+          </div>
+          <div className="add-permission-btn">
+            <button onClick={handleUser_edit}>حسنا</button>
+          </div>
+        </div>
+      </Dialog>
       <section className="topSec callCenterTop">
         <div className='allElements' style={{"flexDirection":"column"}}>
           <div className='outerTable users-table' >
             <div className='search-add'>
-              <button className='button' onClick={handleClient_add}>
+              <button className='button' onClick={()=>setVisible(true)}>
                 <i className="pi pi-plus" ></i>
-                <span>اضافة عميل</span>
+                <span>اضافة مستخدم</span>
               </button>
               <span className="p-input-icon-left">
                 <i className="pi pi-search" />
@@ -143,23 +231,24 @@ import { Toast } from 'primereact/toast';
                 </tr>
               </thead>
               <tbody>
-                {customers&& customers.filter((item)=>{
+                {employees&& employees.filter((item)=>{
                   return search&& search.toLowerCase() === ''
                   ? item
-                  : item.client_main_phone.toLowerCase().includes(search);
-                }).map((customer)=>
-                  <tr id={`tr${customer.id}`} key={customer.id}>
-                    <td >{customer.client_name}</td>
-                    <td >{customer.client_main_phone}</td>
-                    <td >{customer.client_main_phone}</td>
+                  : item.employee_main_phone.toLowerCase().includes(search);
+                }).map((employee)=>
+                  <tr id={`tr${employee.id}`} key={employee.id}>
+                    <td >{employee.employee_name}</td>
+                    <td >{employee.employee_main_phone}</td>
+                    <td >{employee.permission_name}</td>
                     <td>
-                      <button className='button' onClick={()=>handleAdd_order(customer.id, `#tr${customer.id}`)}>
-                        <NavLink style={{color:'#000'}} to={`/admin/add-new-order/${customer.id}`}>
-                          <i className="pi pi-plus" style={{"color":"rgb(21, 81, 185)"}} ></i>
-                        </NavLink>
+                      <button className='button' onClick={()=>handleUser_edit_pop(employee, `#tr${employee.id}`)}>
+                        <i className="pi pi-pencil" style={{"color":"rgb(21, 81, 185)"}} ></i>
                       </button>
-                      <button className='button' onClick={()=>handleView_clientOrders(customer.id, `#tr${customer.id}`)}>
+                      <button className='button' onClick={()=>handleView_clientOrders(employee.id, `#tr${employee.id}`)}>
                         <i className="pi pi-eye" style={{"color":"rgb(72 197 128)"}} ></i>
+                      </button>
+                      <button className='button' onClick={()=>handleDelete(employee.id,employee.employee_name, `#tr${employee.id}`)}>
+                        <i className="pi pi-trash" style={{"color":"rgb(197 72 72)"}} ></i>
                       </button>
                     </td>
                   </tr>
@@ -167,54 +256,6 @@ import { Toast } from 'primereact/toast';
               </tbody>
             </table>
           </div>
-          {/* <div className='outerTable'>
-            <div className='search-add'>
-              <span className="p-input-icon-left">
-                <i className="pi pi-search" />
-                <InputText placeholder="بحث برقم الهاتف" />
-              </span>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>اسم العميل</th>
-                  <th>رقم الهاتف</th>
-                  <th>العنوان</th>
-                  <th>تاريخ الاوردر</th>
-                  <th>الاجمالي</th>
-                  <th>حالة الاوردر</th>
-                  <th>خيارات</th>
-                </tr>
-              </thead>
-              <tbody id='subCategory_body'>
-                {orders&& orders.map((order)=>
-                  <tr id={`tr${order.id}`} key={order.id}>
-                    <td >{order.client_name}</td>
-                    <td >{order.client_main_phone}</td>
-                    <td >{order.client_address}</td>
-                    <td >{order.order_master_date_time}</td>
-                    <td >{order.order_master_total}</td>
-                    <td>
-                      <Tag 
-                        severity={
-                        order.order_master_state==='0'? 'danger' : order.order_master_state==='2 || 3'? 'warning': order.order_master_state==='4'? 'success':order.order_master_state==='1'? 'info':'danger'}
-                        value={
-                          order.order_master_state==='0'? 'غير مكتمل' : order.order_master_state==='2 || 3'? 'قيد الانتظار': order.order_master_state==='4'? 'تم':order.order_master_state==='1'? 'بإنتظار الموافقة':'danger'
-                        }
-                        ></Tag>
-                    </td>
-                    <td>
-                      <button className='button'>
-                        <NavLink style={{color:'#000'}} to={`/admin/view-order/${order.id}`}>
-                          <i className="fa-regular fa-eye" style={{color:'rgb(72 197 128)'}}></i>
-                        </NavLink>
-                      </button>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div> */}
         </div>
       </section>
     </>
