@@ -12,7 +12,7 @@ function AddSections() {
   })
   const getAllSections = async ()=> {
     try {
-      const response = await axios.get('https://reactdjangoecommerce.pythonanywhere.com/add-show-categories-api');
+      const response = await axios.get('https://badil.pythonanywhere.com/add-show-categories-api');
       setSections(response.data)
       // console.log(response.data)
     } catch (error) {
@@ -30,7 +30,7 @@ function AddSections() {
     addBtn.setAttribute('id', `${id}`)
     addBtn.removeAttribute('hidden')
     // console.log(addBtn);
-    axios.get (`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${id}`,{})
+    axios.get (`https://badil.pythonanywhere.com/sub-categories-api/${id}`,{})
     .then((res)=>{
       // getSub_sections()
       setSub_categories(res.data)
@@ -50,7 +50,7 @@ function AddSections() {
     .then((data)=>{
       const category_name = document.getElementById('swal-input1').value;
       if (category_name!=="" && data.isConfirmed){
-        axios.post('https://reactdjangoecommerce.pythonanywhere.com/add-show-categories-api', {
+        axios.post('https://badil.pythonanywhere.com/add-show-categories-api', {
           category_name:category_name
         })
         .then((res)=>{
@@ -74,7 +74,7 @@ function AddSections() {
     })
     const category_name = document.getElementById('swal-input1').value;
     if (category_name!==""){
-      axios.put(`https://reactdjangoecommerce.pythonanywhere.com/rud-categories-api/${id}`, {
+      axios.put(`https://badil.pythonanywhere.com/rud-categories-api/${id}`, {
         category_name
       })
       .then((res)=>{
@@ -99,7 +99,7 @@ function AddSections() {
       const id = btnId;
       const sub_name = document.getElementById('swal-input2').value;
       if (sub_name!==""){
-        axios.post(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${id}`, {
+        axios.post(`https://badil.pythonanywhere.com/sub-categories-api/${id}`, {
           sub_category_name: sub_name,
           category_fk: id
         })
@@ -126,7 +126,7 @@ function AddSections() {
       const sub_name = document.getElementById('swal-input2').value;
       console.log(name);
       if (sub_name!==""){
-        axios.put(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${id}`, {
+        axios.put(`https://badil.pythonanywhere.com/sub-categories-api/${id}`, {
           sub_category_name: sub_name,
           category_fk
         })
@@ -147,11 +147,11 @@ function AddSections() {
     }).then((data)=>{
       console.log(section.id);
       if(data.isConfirmed){
-        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/rud-categories-api/${section.id}`)
+        axios.delete(`https://badil.pythonanywhere.com/rud-categories-api/${section.id}`)
         .then ((res)=>{
           console.log(res);
           setSections(res.data)
-          axios.get(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${section.id}`,{})
+          axios.get(`https://badil.pythonanywhere.com/sub-categories-api/${section.id}`,{})
           .then((res)=>{
             setSub_categories(res.data)
             console.log(res);
@@ -169,7 +169,7 @@ function AddSections() {
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${id}`)
+        axios.delete(`https://badil.pythonanywhere.com/sub-categories-api/${id}`)
         .then ((res)=>{
           console.log(res);
           setSub_categories(res.data)

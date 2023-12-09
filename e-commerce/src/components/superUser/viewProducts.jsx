@@ -14,7 +14,7 @@ function ViewProducts() {
   },[])
   const getAllSub_sections = async ()=> {
     try {
-      const response = await axios.get('https://reactdjangoecommerce.pythonanywhere.com/sub-categories-list');
+      const response = await axios.get('https://badil.pythonanywhere.com/sub-categories-list');
       setSub_categories(response.data)
       // console.log(response.data)
     } catch (error) {
@@ -31,7 +31,7 @@ function ViewProducts() {
     addBtn.removeAttribute('hidden')
     setAddID(id)
     console.log(addID);
-    axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/s${id}`)
+    axios.get (`https://badil.pythonanywhere.com/crud-products-api/s${id}`)
     .then((res)=>{
       setProducts(res.data)
       console.log(res);
@@ -46,7 +46,7 @@ function ViewProducts() {
     // console.log(childNodes);
     childNodes.map((child)=>child.classList.remove(`selected`));
     selectedTr.classList.toggle('selected');
-    // axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/${id}`)
+    // axios.get (`https://badil.pythonanywhere.com/crud-products/${id}`)
     // .then((res)=>{
     //   setProduct(res.data)
     //   console.log(res);
@@ -61,7 +61,7 @@ function ViewProducts() {
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/crud-products/p${product.id}`)
+        axios.delete(`https://badil.pythonanywhere.com/crud-products-api/p${product.id}`)
         .then ((res)=>{
           // console.log(res);
           setProducts(res.data)

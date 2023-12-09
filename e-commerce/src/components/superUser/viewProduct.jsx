@@ -3,7 +3,8 @@ import React, {Fragment,useState,useEffect,useRef  } from 'react';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import TextField from '@mui/material/TextField';
+import { InputText } from "primereact/inputtext";
+import { Dropdown } from 'primereact/dropdown';
 import { styled } from '@mui/system';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,7 +28,8 @@ import "primereact/resources/primereact.min.css";
 export default function ViewProduct() {
 
   const [categoryName, setCategoryName] = useState('');
-  const [categoryPrice, setCategoryPrice] = useState('');
+  const [categorySellPrice, setCategorySellPrice] = useState();
+  const [categoryPurchasePrice, setCategoryPurchasePrice] = useState();
   const [categoryUnit, setCategoryUnit] = useState('');
   const [categoryDisc, setCategoryDisc] = useState('');
   const [categoryCal, setCategoryCal] = useState('');
@@ -44,10 +46,11 @@ export default function ViewProduct() {
 let {productID} = useParams()
 useEffect (()=>{
   // setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])})
-  axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/p${productID}`)
+  axios.get (`https://badil.pythonanywhere.com/crud-products-api/p${productID}`)
   .then((res)=>{
     setCategoryName(res.data.product_name)
-    setCategoryPrice(res.data.product_price)
+    setCategoryPurchasePrice(res.data.product_purchase_price)
+    setCategorySellPrice(res.data.product_sell_price)
     setCategoryUnit(res.data.product_unit)
     setCategoryDisc(res.data.product_description)
     setCategoryCal(res.data.product_calories)
@@ -68,6 +71,12 @@ useEffect (()=>{
     clearInterval(formReloading);
   };
 },[productID,photos])
+
+  const Unites = [
+    { name: 'الكيلو', code: 'NY' },
+    { name: 'الوحدة', code: 'RM' },
+    { name: 'القطعه', code: 'LDN' },
+  ];
 
   const handleOptionChange = (event) => {
     setCategoryUnit(event.target.value);
@@ -218,7 +227,7 @@ useEffect (()=>{
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        axios.delete(`https://reactdjangoecommerce.pythonanywhere.com/crud-products/i${id}`)
+        axios.delete(`https://badil.pythonanywhere.com/crud-products-api/i${id}`)
         .then((res)=>{
           setProductImages([res.data])
         })
@@ -239,15 +248,16 @@ useEffect (()=>{
       });
     }
     formData.append('product_name', categoryName);
-    formData.append('product_price', categoryPrice);
-    formData.append('product_unit', categoryUnit);
+    formData.append('product_sell_price', categorySellPrice);
+    formData.append('product_purchase_price', categoryPurchasePrice);
+    formData.append('product_unit', categoryUnit.name);
     formData.append('product_description', categoryDisc);
     formData.append('product_calories', categoryCal);
     formData.append('product_protein', categoryProtein);
     formData.append('product_fat', categoryFat);
     formData.append('product_carbohydrates', categoryCarb);
     formData.append('sub_category_fk', category_fk);
-      axios.put(`https://reactdjangoecommerce.pythonanywhere.com/crud-products/${productID}`,formData)
+      axios.put(`https://badil.pythonanywhere.com/crud-products/${productID}`,formData)
       .then ((res)=>{
         console.log(res);
       })
@@ -272,24 +282,11 @@ useEffect (()=>{
                   معلومات اساسيه
                 </div>
                 <div className='inp-container' dir='rtl'>
-                  <TextField id="filled-basic" value={categoryName} onChange={(e)=>setCategoryName(e.target.value)} className='textField' label="أسم المنتج" variant="filled" />
-                  <TextField id="filled-number" value={categoryPrice} className='textField' onChange={(e)=>setCategoryPrice(e.target.value)} type="number" label='سعر المنتج' variant="filled" />
-                  <FormControl variant="filled" className='textField' sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-filled-label"> وحدة القياس</InputLabel>
-                    <Select 
-                      labelId="demo-simple-select-filled-label"
-                      id="demo-simple-select-filled"
-                      value={categoryUnit}
-                      onChange={handleOptionChange}
-                    >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                  </FormControl>
+                  <InputText value={categoryName} onChange={(e)=>setCategoryName(e.targget.value)}  placeholder="أسم المنتج"  />
+                  <InputText value={categoryPurchasePrice} keyfilter="int" type='number' onChange={(e)=>setCategoryPurchasePrice(e.target.value)}  placeholder='سعر شراء المنتج'  />
+                  <InputText value={categorySellPrice} keyfilter="int" type='number' onChange={(e)=>setCategorySellPrice(e.target.value)}  placeholder='سعر بيع المنتج'  />
+                  <Dropdown value={categoryUnit} onChange={(e) => setCategoryUnit(e.value)} options={Unites} optionLabel="name" 
+                    placeholder="أختر الوحده" className="w-full md:w-14rem" />
                 </div>
               </div>
               <div className="section">
@@ -305,7 +302,7 @@ useEffect (()=>{
                       {productImages[0]&& productImages[0].map((image)=>{
                         return(
                           <div className='col' key={image.id}>
-                            <Image src={`https://reactdjangoecommerce.pythonanywhere.com${image.product_image}`} zoomSrc={`https://reactdjangoecommerce.pythonanywhere.com${image.product_image}`} alt="Image" width="80" height="60" preview />
+                            <Image src={`https://badil.pythonanywhere.com${image.product_image}`} zoomSrc={`https://badil.pythonanywhere.com${image.product_image}`} alt="Image" width="80" height="60" preview />
                             <button type='button' onClick={(e)=>{handleDelImage(image.id)}}>
                               <i className="pi pi-trash" ></i>
                             </button>
@@ -332,10 +329,10 @@ useEffect (()=>{
                   معلومات صحيه
                 </div>
                 <div className='inp-container'>
-                  <TextField id="filled-basic" value={categoryCal} onChange={(e)=>{setCategoryCal(e.target.value)}} className='textField' label="السعرات الحراريه" variant="filled" />
-                  <TextField id="filled-basic" value={categoryProtein} onChange={(e)=>{setCategoryProtein(e.target.value)}} className='textField' label="البروتين" variant="filled" />
-                  <TextField id="filled-basic" value={categoryFat} onChange={(e)=>{setCategoryFat(e.target.value)}} className='textField' label="الدهون" variant="filled" />
-                  <TextField id="filled-basic" value={categoryCarb} onChange={(e)=>{setCategoryCarb(e.target.value)}} className='textField' label="الكربوهيدرات" variant="filled" />
+                  <InputText value={categoryCal} onChange={(e)=>{setCategoryCal(e.target.value)}} placeholder="السعرات الحراريه" />
+                  <InputText value={categoryProtein} onChange={(e)=>{setCategoryProtein(e.target.value)}} placeholder="البروتين" />
+                  <InputText value={categoryFat} onChange={(e)=>{setCategoryFat(e.target.value)}} placeholder="الدهون" />
+                  <InputText value={categoryCarb} onChange={(e)=>{setCategoryCarb(e.target.value)}} placeholder="الكربوهيدرات" />
                 </div>
               </div>
               <div className="submit-section section">

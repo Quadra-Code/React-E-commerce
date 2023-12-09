@@ -12,7 +12,7 @@ function MyCart() {
     getCartItems()
   },[]);
   const getCartItems = ()=> {
-    axios.get(`http://127.0.0.1:8000/cart-api/5`)
+    axios.get(`https://badil.pythonanywhere.com/cart-api/1`)
     .then((response) =>{
       setTotalPrice(response.data[0].totalPrice)
       setCartItems(response.data[0].cartItems)
@@ -20,7 +20,7 @@ function MyCart() {
     .catch((error)=>console.log(error))
   }
   const handleQuantity_increment = (item,itemID,itemQuantity)=> {
-    axios.put(`http://127.0.0.1:8000/cart-api/${itemID}`,{
+    axios.put(`https://badil.pythonanywhere.com/cart-api/${itemID}`,{
       action_type:'increment'
     })
     .then((response) =>{
@@ -30,7 +30,7 @@ function MyCart() {
     .catch((error)=>console.log(error))
   }
   const handleQuantity_decrement = (item,itemID,itemQuantity)=> {
-    axios.put(`http://127.0.0.1:8000/cart-api/${itemID}`,{
+    axios.put(`https://badil.pythonanywhere.com/cart-api/${itemID}`,{
       action_type:'decrement'
     })
     .then((response) =>{
@@ -40,7 +40,7 @@ function MyCart() {
     .catch((error)=>console.log(error))
   }
   const handleDelete = (itemID) => {
-    axios.delete(`http://127.0.0.1:8000/cart-api/${itemID}`)
+    axios.delete(`https://badil.pythonanywhere.com/cart-api/${itemID}`)
     .then((response) =>{
       setCartItems(response.data[0].cartItems)
       setTotalPrice(response.data[0].totalPrice)

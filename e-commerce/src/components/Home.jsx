@@ -23,7 +23,7 @@ function Home() {
     setLoading(true);
     setTimeout(()=>{
     setLoading(false);
-    },900)
+    },1500)
   },[])
   const animation = () => {
     scrollreveal({ 

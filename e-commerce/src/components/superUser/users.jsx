@@ -35,7 +35,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     setValidMatch(match)
   },[pwd,matchPwd])
   const getAllScreens =() =>{
-    axios.get(`http://127.0.0.1:8000/permission-api/all`)
+    axios.get(`https://badil.pythonanywhere.com/permission-api/all`)
     .then((response)=>{
       setAllScreens(response.data);
       console.log(response.data);
@@ -43,7 +43,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     .catch((error)=>{console.log(error);})
   }
   const getAllEmployee =() =>{
-    axios.get(`http://127.0.0.1:8000/employee-api/all`)
+    axios.get(`https://badil.pythonanywhere.com/employee-api/all`)
     .then((response)=>{
       setEmployees(response.data);
       console.log(response.data);
@@ -51,7 +51,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     .catch((error)=>{console.log(error);})
   }
   const handleUser_add = ()=> {
-    axios.post(`http://127.0.0.1:8000/users/employee-register-api`,{
+    axios.post(`https://badil.pythonanywhere.com/employee-api/post`,{
       first_name:employeeName,
       password:pwd,
       username:employeeNumber,
@@ -59,6 +59,10 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     })
     .then((res)=>{
       setEmployees(res.data);
+      setEmployeeName('');
+      setEmployeeNumber('');
+      setSelectedScreens(null);
+      setPwd('');
       toast.current.show({severity:'success', summary: 'تم', detail:'تمت الاضافه بنجاح', life: 3000});
       console.log(res);
       setVisible(false);
@@ -86,7 +90,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     setSelectedScreenFk(null);
 }
   const handleUser_edit =()=> {
-    axios.put(`http://127.0.0.1:8000/employee-api/${employeeID}`,{
+    axios.put(`https://badil.pythonanywhere.com/employee-api/${employeeID}`,{
       employee_name:employeeName,
       employee_main_phone:employeeNumber,
       permission_fk:selectedScreenFk
@@ -129,7 +133,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
       showCancelButton:true,
     }).then((data)=>{
       if(data.isConfirmed){
-        axios.delete(`http://127.0.0.1:8000/employee-api/${employeeID}`)
+        axios.delete(`https://badil.pythonanywhere.com/employee-api/${employeeID}`)
         .then((res)=>{
           setEmployees(res.data);
           toast.current.show({severity:'success', summary: 'تم', detail:'تم الحذف بنجاح', life: 3000});

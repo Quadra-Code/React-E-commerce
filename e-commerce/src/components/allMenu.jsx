@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Dialog } from 'primereact/dialog';
 import { Galleria } from 'primereact/galleria';
 import { PhotoService } from '../service/PhotoService';
+import { Image } from 'primereact/image';
 import image1 from '../NEW QC/New folder/Pro1.jpg';
 import image2 from '../NEW QC/New folder/Pro2.jpg';
 import image3 from '../NEW QC/New folder/Pro3.jpg';
@@ -15,7 +16,7 @@ export default function AllMenu() {
   const [visible, setVisible] = useState(false);
   const [images, setImages] = useState(null);
   const [categories,setCategories] = useState();
-  const [activeCategory,setActiveCategory] = useState(42);
+  const [activeCategory,setActiveCategory] = useState();
   const [items_subCategories,setItems_subCategories] = useState();
   const [position, setPosition] = useState('bottom');
   const [quantity, setQuantity] = useState(1);
@@ -48,43 +49,37 @@ export default function AllMenu() {
       numVisible: 1
     }
   ];
+  useEffect(() => {
+    // PhotoService.getImages().then(data => setImages(data));
+    getCategories()
+  }, [])
   const getCategories =() =>{
-    axios.get (`http://127.0.0.1:8000/categories-api`,{})
+    axios.get (`https://badil.pythonanywhere.com/categories-api`,{})
     .then(response=>{
       setCategories(response.data);
-      console.log(response.data);
+      // console.log(response.data[0].productsList[0].productImagesLinks[0]);
+      getItems_subCategories(response.data[0].id)
+      setActiveCategory(response.data[0].id)
     })
     .catch(error=>{
       console.log(error);
     });
   }
   const getItems_subCategories =(id) =>{
-    axios.get (`http://127.0.0.1:8000/sub-categories-products-tree/${id}`,{})
+    axios.get (`https://badil.pythonanywhere.com/sub-categories-products-tree/${id}`,{})
     .then(response=>{
       setItems_subCategories(response.data);
+      console.log(response.data[0].productsList[0].productImagesLinks[0]);
       console.log(response.data);
     })
     .catch(error=>{
       console.log(error);
     });
   }
-  const getDefaultItems =() =>{
-    axios.get (`http://127.0.0.1:8000/sub-categories-products-tree/41`,{})
-    .then(response=>{
-      setItems_subCategories(response.data);
-      console.log(response.data);
-    })
-    .catch(error=>{
-      console.log(error);
-    });
-  }
-  useEffect(() => {
-    PhotoService.getImages().then(data => setImages(data));
-    getDefaultItems()
-    getCategories()
-  }, [])
   const getItemPopupData = (itemID,itemName,itemPrice,itemDesc,itemImages)=> {
+    console.log(itemImages);
     setItemPopupData({itemID,name: itemName,price:itemPrice,desc:itemDesc,images:itemImages});
+    PhotoService.getImages(itemImages).then(data => setImages(data));
     setVisible(true);
     console.log(itemID);
     console.log(itemPopupData);
@@ -96,8 +91,8 @@ export default function AllMenu() {
     setQuantity(quantity > 1? quantity - 1 : 1);  
   }
   const addToCart = (itemID)=> {
-    axios.post(`http://127.0.0.1:8000/cart-api/post`,{
-      client_fk:6,
+    axios.post(`https://badil.pythonanywhere.com/cart-api/post`,{
+      client_fk:1,
       product_fk:itemID,
       item_quantity:quantity
     })
@@ -173,10 +168,10 @@ export default function AllMenu() {
                       {sub&& sub.productsList.map((item)=>
                         <div className="features cart1">
                           <div className='eye-container'>
-                            <img  src={image1} alt=""/>
+                            <img  src={`https://badil.pythonanywhere.com/images/${item.productImagesLinks[0]}`} alt=""/>
                             <div className='opacity'>
                               <button className='view-item-popup' 
-                                onClick={() => getItemPopupData(item.productID,item.productName,item.productPrice,item.productDesc,item.productImagesLink)}>
+                                onClick={() => getItemPopupData(item.productID,item.productName,item.productSellPrice,item.productDesc,item.productImagesLinks)}>
                                 <i className='pi pi-eye'></i>
                               </button>
                             </div>
@@ -188,7 +183,7 @@ export default function AllMenu() {
                               <a href="#cart">
                                 <i className="fa-solid fa-cart-shopping"></i>
                               </a>
-                              <span className='item-price'>{item.productPrice}$</span>
+                              <span className='item-price'>{item.productSellPrice}$</span>
                             </div>
                           </div>
                         </div>

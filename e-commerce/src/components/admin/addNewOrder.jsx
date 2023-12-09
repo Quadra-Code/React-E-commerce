@@ -1,5 +1,4 @@
 import React, {Fragment,useState,useEffect,useRef } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import { InputText } from 'primereact/inputtext';
@@ -7,52 +6,25 @@ import { Dropdown } from 'primereact/dropdown';
 import { useParams } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 import 'primeicons/primeicons.css';
-import { InputNumber } from 'primereact/inputnumber';
 export default function AddNewOrder() {
-  const [sub_categories,setSub_categories] = useState([]); 
-  const [value2, setValue2] = useState(10.50);
   const [search , setSearch] = useState('');
-  const [products,setProducts] = useState(); 
-  const [addID, setAddID] =useState('')
-  const [name, setName] = useState('احمد')
-  const [number, setNumber] = useState('015949843');
-  // const [quantity, setQuantity] = useState(1);
   const [allProducts, setAllProducts] = useState();
   const [clientInfo, setClientInfo] = useState();
   const [clientAddresses, setClientAddresses] = useState();
-  const [clientAddress, setClientAddress] = useState();
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [total_quantity, setTotal_quantity] = useState(0);
-  const [put_clientInfo, setPut_ClientInfo] = useState([]);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [clientAddress, setClientAddress] = useState(null);
   const [addProduct,setAddProduct] = useState([])
-  const [total_rowOrder, setTotal_rowOrder] = useState()
   let total_price = 0;
   const toast  = useRef(null);
-  // const addToCart = (product) => {
-  //   setAddProduct([...addProduct, product]);
-  // };
   console.log(clientAddress);
   let {customerID}= useParams()
   useEffect (()=>{
-    // getAllSub_sections()
-    // getAllSections()
     getAllProducts()
     getClientInfo()
-    // handleView()
-    order_total_price()
+    console.log(allProducts);
   },[])
-  const order_total_price = ()=>{
-    const prices = addProduct.map((product)=>product.product_price)
-    const totalPrice = prices.reduce((total, price) => total + price, 0);
-    setTotal_rowOrder(totalPrice)
-  }
-  // const total_orderPrice = order_total_price();
-  // console.log(total_orderPrice);
   const getClientInfo = async ()=> {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/client-with-address-api/client${customerID}`);
+      const response = await axios.get(`https://badil.pythonanywhere.com/client-with-address-api/client${customerID}`);
       setClientInfo(response.data)
       setClientAddresses(response.data.client_addresses)
       console.log(response.data)
@@ -63,59 +35,19 @@ export default function AddNewOrder() {
   }
   const getAllProducts = async ()=> {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/crud-products/all');
+      const response = await axios.get('https://badil.pythonanywhere.com/crud-products-api/all');
       setAllProducts(response.data)
       console.log(response.data)
     } catch (error) {
       console.error(error);
     } 
   }
-  // const handleView = async (id, trClass)=> {
-  //   const selectedTr= document.querySelector(trClass);
-  //   const childNodes= Array.from(selectedTr.parentNode.children);
-  //   console.log(childNodes);
-  //   childNodes.map((child)=>child.classList.remove(`selected`));
-  //   selectedTr.classList.toggle('selected');
-  //   const addBtn = document.querySelector('.addProBtn');
-  //   addBtn.removeAttribute('hidden')
-  //   setAddID(id)
-  //   console.log(addID);
-  //   axios.get (`https://reactdjangoecommerce.pythonanywhere.com/sub-categories-api/${id}`,{})
-  //   .then((res)=>{
-  //     // getSub_sections()
-  //     setSub_categories(res.data)
-  //     console.log(res);
-  //   })
-  //   .catch((error)=>{
-  //     console.log(error);
-  //   });
-  // }
-  // const handleView_products = async (id, trClass)=> {
-  //   const selectedTr= document.querySelector(trClass);
-  //   const childNodes= Array.from(selectedTr.parentNode.children);
-  //   // console.log(childNodes);
-  //   childNodes.map((child)=>child.classList.remove(`selected`));
-  //   selectedTr.classList.toggle('selected');
-  //   const addBtn = document.querySelector('.addProBtn');
-  //   addBtn.removeAttribute('hidden')
-  //   setAddID(id)
-  //   console.log(addID);
-  //   axios.get (`https://reactdjangoecommerce.pythonanywhere.com/crud-products/s${id}`)
-  //   .then((res)=>{
-  //     setProducts(res.data)
-  //     console.log(res);
-  //   })
-  //   .catch((error)=>{
-  //     console.log(error);
-  //   });
-  // }
-
   const handleAdd_pro = async (id, name,price,disc)=> {
     const newProduct = {
       product_description: disc,
       product_fk:id,
       product_name: name,
-      product_price: price,
+      product_sell_price: price,
       quantity:1,
     };
     const existingObj = addProduct.find(obj => obj.product_fk === id);
@@ -127,7 +59,6 @@ export default function AddNewOrder() {
       console.log('Object with ID '+ id + 'lready exists in myArray');
     } else {
       setAddProduct([...addProduct,newProduct])
-      // addProduct.push(newProduct);
       console.log('newObj added to myArray:', addProduct);
     } 
   }
@@ -148,7 +79,7 @@ export default function AddNewOrder() {
     .then((data)=>{
       const client_address = document.getElementById('swal-input1').value;
       if (client_address!=="" && data.isConfirmed){
-        axios.post(`http://127.0.0.1:8000/client-with-address-api/${customerID}`, {
+        axios.post(`https://badil.pythonanywhere.com/client-with-address-api/${customerID}`, {
           client_fk:customerID,
           client_address
         })
@@ -170,63 +101,52 @@ export default function AddNewOrder() {
     const total_masterPrice = document.querySelector('.totalPrice').textContent;
     const order_body = document.querySelector('#order_body');
     order_body.querySelectorAll("tr").forEach((row) => {
-      let price = row.querySelector('#price')
+      let sell_price = row.querySelector('#price')
       let total_detailPrice = row.querySelector('#order_total')
       let product_fk = row.querySelector('#price').getAttribute('product_fk')
-      console.log(price);
+      console.log(sell_price);
       let quantity = row.querySelector('.count').textContent
       let notes = row.querySelector('.notes').getAttribute('id')
-      console.log(price.innerHTML,quantity);
+      console.log(sell_price.innerHTML,quantity);
       const order = 
         {
           product_fk: product_fk,
           order_detail_quantity: quantity,
-          order_item_price: price.innerHTML,
           order_detail_price: total_detailPrice.innerHTML,
+          order_item_purchase_price:sell_price.innerHTML,
+          order_item_sell_price:sell_price.innerHTML,
           order_detail_notes: notes,
         }
       order_details.push(order)
       console.log(order.product_fk);
-      // setTotalOrder([...totalOrder,order_details])
     });
-    
-    axios.post(`http://localhost:8000/order-master-api/post`,{
-      client_fk,
-      order_master_notes:'sss',
-      order_master_address:clientAddress.id,
-      order_master_total:total_masterPrice,
-      order_details
-    })
-    .then((res)=>{
-      console.log(res);
-      toast.current.show({severity:'success', summary: 'تم', detail:'تمت الاضافه بنجاح', life: 3000});
-    })
-    .catch((error)=>{
-      console.log(error);
-      toast.current.show({severity:'error', summary: 'خطأ', detail:'أدخل البيانات بشكل صحيح', life: 3000});
-    })
+    if (clientAddress != null){
+      axios.post(`https://badil.pythonanywhere.com/order-master-api/post`,{
+        client_fk,
+        order_master_notes:'sss',
+        order_master_address:clientAddress.id,
+        order_master_total:total_masterPrice,
+        order_details
+      })
+      .then((res)=>{
+        console.log(res);
+        toast.current.show({severity:'success', summary: 'تم', detail:'تمت الاضافه بنجاح', life: 3000});
+      })
+      .catch((error)=>{
+        console.log(error);
+        toast.current.show({severity:'error', summary: 'خطأ', detail:'أدخل البيانات بشكل صحيح', life: 3000});
+      })
+    }else{toast.current.show({severity:'warn', summary: 'تحذير', detail:'من فضلك إختر العنوان', life: 3000});}
   }
-  // const handleQuantity = (e)=> {
-  //   console.log(e.target);
-  //   e.target.setAttribute("id", e.target.value);
-  //   const quantity = e.target.value;
-  //   const price = parseFloat(e.target.getAttribute('data-price'));
-  //   const newTotalPrice =  quantity * price;
-  //   setTotalPrice(newTotalPrice);
-  //   // console.log(e.target.getAttribute("Quantity"));
-  // }
-  console.log(total_quantity);
   const handleNotes= (e)=> {
     console.log(e.target);
     e.target.setAttribute("id", e.target.value);
-    // console.log(e.target.getAttribute("Quantity"));
   }
   const handleQuantity_increment = (product)=> {
     setAddProduct(addProduct=>
       addProduct.map((item)=>
       product.product_fk === item.product_fk ? {...item,quantity:item.quantity +1} :item
       ))
-    // setTotal_rowOrder(product.quantity*product.product_price)
   }
   const handleQuantity_decrement = (product)=> {
     setAddProduct(addProduct=>
@@ -237,11 +157,11 @@ export default function AddNewOrder() {
   }
   return (
     <Fragment>
-      <Toast ref={toast} position="top-left"/>
+      <Toast ref={toast} position="top-right"/>
       <section className="topSec">
         <div className="topSec-content infoCont" >
-          <InputText disabled value={clientInfo&&clientInfo.client_name} onChange={(e) => setName(e.target.value)} />
-          <InputText disabled value={clientInfo&&clientInfo.client_main_phone} onChange={(e) => setNumber(e.target.value)} />
+          <InputText disabled value={clientInfo&&clientInfo.client_name}/>
+          <InputText disabled value={clientInfo&&clientInfo.client_main_phone}/>
           <Dropdown value={clientAddress} onChange={(e) => setClientAddress(e.value)} options={clientAddresses&&clientAddresses} optionLabel="client_address" 
             placeholder="العنوان" className="w-full md:w-14rem" />
           <button onClick={handle_addNewAddress}>
@@ -265,11 +185,11 @@ export default function AddNewOrder() {
               </thead>
               <tbody id='order_body'>
                 {addProduct.length>0 ? addProduct.map((product)=>{
-                  total_price += product.product_price*product.quantity;
+                  total_price += product.product_sell_price*product.quantity;
                   return(
                     <tr id={`tr${product.product_fk}`} key={product.product_fk}>
                       <td >{product.product_name}</td>
-                      <td id='price' product_fk={product.product_fk} data-price={product.product_price}>{product.product_price}</td>
+                      <td id='price' product_fk={product.product_fk} data-price={product.product_sell_price}>{product.product_sell_price}</td>
                       <td >{product.product_description}</td>
                       <td >
                         <div className='quantityDiv'>
@@ -278,7 +198,7 @@ export default function AddNewOrder() {
                           <button type='button' onClick={()=> handleQuantity_decrement(product)} className='decrement'>-</button>
                         </div>
                       </td>
-                      <td id='order_total'>{product.product_price*product.quantity}</td>
+                      <td id='order_total'>{product.product_sell_price*product.quantity}</td>
                       <td ><InputText className='notes' onChange={(e) => handleNotes(e)} /></td>
                       <td>
                         <button className='button' onClick={()=>handleDelete_row(product.product_fk)}>
@@ -291,19 +211,14 @@ export default function AddNewOrder() {
                 ):console.log(null)}
               </tbody>
             </table>
-            {addProduct.length>0 ?
+            {addProduct.length> 0 &&
               <button className='finishOrder' onClick={finishOrder}>انهاء الطلب</button>
-            :
-              console.log(null)
             }
-            {addProduct.length>0 ?
-              <span  onClick={finishOrder}>
-                إجمالي السعر
+            {addProduct.length> 0 &&
+              <span>
+                <span>إجمالي السعر</span>
                 <span className='totalPrice' style={{'marginRight':'8px'}}>{total_price}</span>
-                
               </span>
-            :
-              console.log(null)
             }
           </div>
           <div className='outerTable last-child'>
@@ -331,10 +246,10 @@ export default function AddNewOrder() {
                 }).map((product)=>
                   <tr id={`tr${product.id}`} key={product.id}>
                     <td >{product.product_name}</td>
-                    <td >{product.product_price}</td>
+                    <td >{product.product_sell_price}</td>
                     <td >{product.product_description}</td>
                     <td>
-                      <button className='button' onClick={()=>handleAdd_pro(product.id,product.product_name,product.product_price,
+                      <button className='button' onClick={()=>handleAdd_pro(product.id,product.product_name,product.product_sell_price,
                         product.product_description)}>
                         <i className="pi pi-plus"></i>
                       </button>

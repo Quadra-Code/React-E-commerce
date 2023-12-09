@@ -3,7 +3,8 @@ import React, {Fragment,useState,useEffect,useRef,useCallback  } from 'react';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import TextField from '@mui/material/TextField';
+import { InputText } from "primereact/inputtext";
+import { Dropdown } from 'primereact/dropdown';
 import { styled } from '@mui/system';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -25,13 +26,14 @@ import "primereact/resources/primereact.min.css";
 
 export default function AddProduct() {
   const [categoryName, setCategoryName] = useState('');
-  const [categoryPrice, setCategoryPrice] = useState('');
+  const [categorySellPrice, setCategorySellPrice] = useState();
+  const [categoryPurchasePrice, setCategoryPurchasePrice] = useState();
   const [categoryUnit, setCategoryUnit] = useState('');
-  const [categoryDisc, setCategoryDisc] = useState('');
-  const [categoryCal, setCategoryCal] = useState('');
-  const [categoryProtein, setCategoryProtein] = useState('');
-  const [categoryFat, setCategoryFat] = useState('');
-  const [categoryCarb, setCategoryCarb] = useState('');
+  const [categoryDisc, setCategoryDisc] = useState();
+  const [categoryCal, setCategoryCal] = useState();
+  const [categoryProtein, setCategoryProtein] = useState();
+  const [categoryFat, setCategoryFat] = useState();
+  const [categoryCarb, setCategoryCarb] = useState();
   const [categoryImages, setCategoryImages] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [formData1, setFormData1] = useState({
@@ -41,7 +43,10 @@ export default function AddProduct() {
 let {productID} = useParams()
 
 useEffect (()=>{
-  console.log('2');
+  console.log(categoryName);
+  console.log(categoryPurchasePrice);
+  console.log(categoryUnit.name);
+  console.log(categoryCal);
   const formReloading = setInterval(() => {
     setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])})
   }, 1000);
@@ -49,7 +54,11 @@ useEffect (()=>{
     clearInterval(formReloading);
   };
 },[photos,formData1])
-
+  const Unites = [
+    { name: 'الكيلو', code: 'NY' },
+    { name: 'الوحدة', code: 'RM' },
+    { name: 'القطعه', code: 'LDN' },
+  ];
   const handleOptionChange = (event) => {
     setCategoryUnit(event.target.value);
   }
@@ -199,6 +208,8 @@ useEffect (()=>{
 // http://localhost:8000/crud-products/1
 // http://localhost:9000/sections
   const handleSubmit = (e)=>{
+    console.log(categoryPurchasePrice);
+    console.log(categorySellPrice);
     e.preventDefault();
     // handlePhoto()
     // setFormData1({...formData1,product_images: photos.map((arr) => arr.slice(-1)[0])});
@@ -209,8 +220,9 @@ useEffect (()=>{
       });
     }
     formData.append('product_name', categoryName);
-    formData.append('product_price', categoryPrice);
-    formData.append('product_unit', categoryUnit);
+    formData.append('product_sell_price', categorySellPrice);
+    formData.append('product_purchase_price', categoryPurchasePrice);
+    formData.append('product_unit', categoryUnit.name);
     formData.append('product_description', categoryDisc);
     formData.append('product_calories', categoryCal);
     formData.append('product_protein', categoryProtein);
@@ -218,7 +230,7 @@ useEffect (()=>{
     formData.append('product_carbohydrates', categoryCarb);
     formData.append('sub_category_fk', productID);
     console.log(formData);
-      axios.post(`https://reactdjangoecommerce.pythonanywhere.com/crud-products/${productID}`,formData)
+      axios.post(`https://badil.pythonanywhere.com/crud-products-api/${productID}`,formData)
       .then ((res)=>{
         console.log(res);
         // const newSection = {id:response.data.id, category_name };
@@ -245,9 +257,12 @@ useEffect (()=>{
                   معلومات اساسيه
                 </div>
                 <div className='inp-container' dir='rtl'>
-                  <TextField id="filled-basic" onChange={(e)=>setCategoryName(e.target.value)} className='textField' label="أسم المنتج" variant="filled" />
-                  <TextField id="filled-number" className='textField' onChange={(e)=>setCategoryPrice(e.target.value)} type="number" label='سعر المنتج' variant="filled" />
-                  <FormControl variant="filled" className='textField' sx={{ m: 1, minWidth: 120 }}>
+                  <InputText value={categoryName} onChange={(e)=>setCategoryName(e.target.value)}  placeholder="أسم المنتج"  />
+                  <InputText value={categoryPurchasePrice} keyfilter="int" type='number' onChange={(e)=>setCategoryPurchasePrice(e.target.value)}  placeholder='سعر شراء المنتج'  />
+                  <InputText value={categorySellPrice} keyfilter="int" type='number' onChange={(e)=>setCategorySellPrice(e.target.value)}  placeholder='سعر بيع المنتج'  />
+                  <Dropdown value={categoryUnit} onChange={(e) => setCategoryUnit(e.value)} options={Unites} optionLabel="name" 
+                    placeholder="أختر الوحده" className="w-full md:w-14rem" />
+                  {/* <FormControl variant="filled"  sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="demo-simple-select-filled-label"> وحدة القياس</InputLabel>
                     <Select 
                       labelId="demo-simple-select-filled-label"
@@ -258,11 +273,11 @@ useEffect (()=>{
                       <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      <MenuItem value={10}>الكيلو</MenuItem>
+                      <MenuItem value={20}>القطعه</MenuItem>
+                      <MenuItem value={30}>الوحده</MenuItem>
                     </Select>
-                  </FormControl>
+                  </FormControl> */}
                 </div>
               </div>
               <div className="section">
@@ -293,10 +308,10 @@ useEffect (()=>{
                   معلومات صحيه
                 </div>
                 <div className='inp-container'>
-                  <TextField id="filled-basic" onChange={(e)=>{setCategoryCal(e.target.value)}} className='textField' label="السعرات الحراريه" variant="filled" />
-                  <TextField id="filled-basic" onChange={(e)=>{setCategoryProtein(e.target.value)}} className='textField' label="البروتين" variant="filled" />
-                  <TextField id="filled-basic" onChange={(e)=>{setCategoryFat(e.target.value)}} className='textField' label="الدهون" variant="filled" />
-                  <TextField id="filled-basic" onChange={(e)=>{setCategoryCarb(e.target.value)}} className='textField' label="الكربوهيدرات" variant="filled" />
+                  <InputText value={categoryCal} onChange={(e)=>{setCategoryCal(e.target.value)}} placeholder="السعرات الحراريه" />
+                  <InputText value={categoryProtein} onChange={(e)=>{setCategoryProtein(e.target.value)}} placeholder="البروتين" />
+                  <InputText value={categoryFat} onChange={(e)=>{setCategoryFat(e.target.value)}} placeholder="الدهون" />
+                  <InputText value={categoryCarb} onChange={(e)=>{setCategoryCarb(e.target.value)}} placeholder="الكربوهيدرات" />
                 </div>
               </div>
               <div className="submit-section section">

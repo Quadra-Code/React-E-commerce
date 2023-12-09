@@ -22,7 +22,7 @@ function Permissions() {
   },[])
   const toast = useRef(null);
   const getAllPermissions =() =>{
-    axios.get(`http://127.0.0.1:8000/permission-api/all`)
+    axios.get(`https://badil.pythonanywhere.com/permission-api/all`)
     .then((response)=>{
       setPermissions(response.data);
       console.log(response.data);
@@ -30,7 +30,7 @@ function Permissions() {
     .catch((error)=>{console.log(error);})
   }
   const getAllScreens =() =>{
-    axios.get(`http://127.0.0.1:8000/permission-screen-api/all`)
+    axios.get(`https://badil.pythonanywhere.com/permission-screen-api/all`)
     .then((response)=>{
       setAllScreens(response.data);
       console.log(response.data);
@@ -39,7 +39,7 @@ function Permissions() {
   }
   const handleAddPermission =async ()=>{
     console.log(selectedScreens);
-    axios.post(`http://127.0.0.1:8000/permission-api/nested`,{
+    axios.post(`https://badil.pythonanywhere.com/permission-api/nested`,{
       permission_name:permissionName,
       permission_screens:selectedScreens
     }).then((response)=>{
@@ -58,7 +58,7 @@ function Permissions() {
     const addBtn = document.querySelector('.addSubBtn');
     addBtn.setAttribute('id', `${permissionID}`)
     addBtn.removeAttribute('hidden')
-    axios.get(`http://127.0.0.1:8000/permission-api/${permissionID}`)
+    axios.get(`https://badil.pythonanywhere.com/permission-api/${permissionID}`)
     .then((response)=>{
       console.log(response.data);
       setPermissionScreens(response.data);
@@ -66,7 +66,7 @@ function Permissions() {
     .catch((error)=>{console.log(error);})
   }
   const handleDeletePermission = (permissionID)=> {
-    axios.delete(`http://127.0.0.1:8000/permission-api/${permissionID}`)
+    axios.delete(`https://badil.pythonanywhere.com/permission-api/${permissionID}`)
     .then((response)=>{
       console.log(response.data);
       getAllPermissions()
@@ -86,7 +86,7 @@ function Permissions() {
     })
     const permission_name = document.getElementById('swal-input1').value;
     if (permission_name!==""){
-      axios.put(`http://127.0.0.1:8000/permission-api/${permissionID}`, {
+      axios.put(`https://badil.pythonanywhere.com/permission-api/${permissionID}`, {
         permission_name
       })
       .then((res)=>{
@@ -103,7 +103,7 @@ function Permissions() {
   const handleAddScreenPopUp = ()=> {
     const btnId = document.querySelector('.addSubBtn').getAttribute('id');
     setScreenVisible(true)
-    axios.get(`http://127.0.0.1:8000/permission-screen-api/${btnId}`)
+    axios.get(`https://badil.pythonanywhere.com/permission-screen-api/${btnId}`)
     .then((response)=>{
       console.log(response.data);
       setAvailableScreens(response.data);
@@ -114,7 +114,7 @@ function Permissions() {
   }
   const handleAddScreen = ()=> {
     const btnId = document.querySelector('.addSubBtn').getAttribute('id');
-    axios.post(`http://127.0.0.1:8000/permission-screen-api/${btnId}`,{
+    axios.post(`https://badil.pythonanywhere.com/permission-screen-api/${btnId}`,{
       permission_screens:selectedScreens
     }).then((response)=>{
       setSelectedScreens(null);
@@ -130,7 +130,7 @@ function Permissions() {
     setVisible(false)
   }
   const handleDeleteScreen = (screenID)=> {
-    axios.delete(`http://127.0.0.1:8000/permission-screen-api/${screenID}`)
+    axios.delete(`https://badil.pythonanywhere.com/permission-screen-api/${screenID}`)
     .then((response)=>{
       setPermissionScreens(response.data)
     })

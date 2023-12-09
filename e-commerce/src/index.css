@@ -2082,12 +2082,13 @@ a {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  background-color: #ebebd2;
+  background-color: #374357;
   padding: 10px;
   border-radius: 15px;
 }
 .super-user-main .container .mainContent .topSec .allElements .container form .section .label {
   font-weight: 600;
+  color: #fff;
 }
 .super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container {
   display: flex;
@@ -2104,10 +2105,21 @@ a {
 .super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .textField {
   width: 100%;
 }
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .p-inputtext {
+  background-color: #4d648d;
+  border: none;
+  outline: none;
+}
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .p-inputtext::-moz-placeholder {
+  color: #fff;
+}
+.super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .p-inputtext::placeholder {
+  color: #fff;
+}
 .super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont input, .super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont textarea, .super-user-main .container .mainContent .topSec .allElements .container form .section .inp-container .input-cont select {
   font-size: 18px;
   padding: 3px 6px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #cee8ff !important;
   border-radius: 10px;
   outline: none;
   width: 100%;
@@ -2305,6 +2317,7 @@ a {
 .quantityDiv .count {
   width: 120px;
   padding: 5px;
+  color: #000;
   background-color: #eee;
 }
 .quantityDiv .decrement {
@@ -3650,8 +3663,8 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
 }
 
 .permission-dialog {
-  width: -moz-min-content !important;
-  width: min-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
 }
 
 .screen-select {
