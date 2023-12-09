@@ -1,5 +1,5 @@
-import React ,{Fragment,useState,useEffect,useRef }from 'react'
-import Swal from 'sweetalert2'
+import React ,{Fragment,useState,useEffect,useRef }from 'react';
+import Swal from 'sweetalert2';
 import axios,{Axios} from 'axios';
 import { InputText } from "primereact/inputtext";
 import { Toast } from 'primereact/toast';

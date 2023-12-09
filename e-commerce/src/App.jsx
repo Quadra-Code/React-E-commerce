@@ -18,6 +18,7 @@ import SignUp from './components/signUp';
 import Checkout from './components/checkout';
 import Permissions from './components/superUser/permissions';
 import Users from './components/superUser/users';
+import Procurements from './components/superUser/procurements';
 
 // const initState = {
 //   product_data : null
@@ -43,6 +44,7 @@ function App() {
         <Route path ='/my-cart' exact element= {<MyCart/>}/>
         <Route path ='/checkout' exact element= {<Checkout/>}/>
         <Route path='/super-user' exact element={<SuperUser/>}>
+        <Route path ='procurements' exact element= {<Procurements/>}/>
           <Route path='permissions' exact element={<Permissions/>}/>
           <Route path='users' exact element={<Users/>}/>
           <Route path='add-product/:productID' exact element={<AddProduct/>}/>
