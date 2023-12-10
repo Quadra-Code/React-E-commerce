@@ -55,7 +55,7 @@ function Home() {
       <Fragment>
         <Navbar/>
         <Landing/>
-        <Information/>
+        {/* <Information/> */}
         <MenuSec/>
         <Clients/>
         <Footer/>

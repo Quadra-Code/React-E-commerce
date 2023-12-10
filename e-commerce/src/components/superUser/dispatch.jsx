@@ -9,12 +9,12 @@ import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-function Procurements() {
+function Dispatch() {
   const toast  = useRef(null);
   const [search, setSearch] = useState('');
   const [employees,setEmployees] = useState(); 
-  const [purchaseEmployee,setPurchaseEmployee] = useState(); 
-  const [purchaseEmployeesList,setPurchaseEmployeesList] = useState(); 
+  const [dispatchEmployee,setDispatchEmployee] = useState(); 
+  const [dispatchEmployeesList,setDispatchEmployeesList] = useState(); 
   const [purchaseOrders,setPurchaseOrders] = useState(); 
   const [addID, setAddID] =useState('');
   const [orderID, setOrderID] =useState();
@@ -36,7 +36,7 @@ function Procurements() {
   useEffect(() => {
     // getAllScreens()
     // getAllEmployee()
-    getPurchaseEmployees();
+    getDispatchEmployees();
     getPurchaseOrders();
     const result = PWD_REGEX.test(pwd);
     // console.log(result);
@@ -45,10 +45,10 @@ function Procurements() {
     const match = pwd ===matchPwd;
     setValidMatch(match)
   },[pwd,matchPwd])
-  const getPurchaseEmployees = ()=>{
+  const getDispatchEmployees = ()=>{
     axios.get(`https://badil.pythonanywhere.com/purchase-dispatch-api/purchase`)
     .then((response)=>{
-      setPurchaseEmployeesList(response.data);
+      setDispatchEmployeesList(response.data);
       // console.log(response.data);
     })
     .catch((error)=>{console.log(error);})
@@ -61,15 +61,14 @@ function Procurements() {
     })
     .catch((error)=>{console.log(error);})
   }
-  const handleViewPurchaseOrder = (orderID,trClass)=> {
+  const handleViewPurchaseOrder = (trClass)=> {
     const selectedTr= document.querySelector(trClass);
     const childNodes= Array.from(selectedTr.parentNode.children);
     // console.log(childNodes);
     childNodes.map((child)=>child.classList.remove(`selected`));
     selectedTr.classList.toggle('selected');
-    axios.get(`https://badil.pythonanywhere.com/order-master-api/master${orderID}`)
+    axios.get(``)
     .then((response)=>{
-      setOrderDetails(response.data.order_details)
       console.log(response.data)
     })
     .catch((error)=>{
@@ -86,14 +85,14 @@ function Procurements() {
     setOrderID(orderID)
   }
   const handlePrintRequest = ()=> {
-    // console.log(purchaseEmployee);
+    // console.log(dispatchEmployee);
     axios.put(`https://badil.pythonanywhere.com/purchase-dispatch-api/${orderID}`,{
       purchase:true,
-      purchase_employee:purchaseEmployee.id
+      purchase_employee:dispatchEmployee.id
     })
     .then((response)=>{
       setPrintPopupVisible(false);
-      setPurchaseEmployee(null);
+      setDispatchEmployee(null);
       setOrderID(null);
       setPurchaseOrders(response.data)
       toast.current.show({severity:'success', summary: 'تم', detail:'تمت العملية بنجاح', life: 3000});
@@ -227,7 +226,7 @@ function Procurements() {
             <InputText value={employeeNumber} keyfilter="int" placeholder=' رقم الهاتف' onChange={(e) => setEmployeeNumber(e.target.value)} />
           </div> */}
           <div className='inputs-container'>
-            <Dropdown value={purchaseEmployee} onChange={(e) => setPurchaseEmployee(e.value)} options={purchaseEmployeesList} optionLabel="employee_name" 
+            <Dropdown value={dispatchEmployee} onChange={(e) => setDispatchEmployee(e.value)} options={dispatchEmployeesList} optionLabel="employee_name" 
                 placeholder="إختر موظف الشراء" className="w-full md:w-14rem" />
             {/* <select className='screen-selection' name="" id="" value={selectedScreenFk} onChange={(e) => setSelectedScreenFk(e.target.value)}>
               <option disabled value={selectedScreens}selected hidden>{selectedScreens}</option>
@@ -286,8 +285,11 @@ function Procurements() {
                     {order.order_status}
                   </td>
                   <td>
-                    <button className='button' onClick={()=>handleViewPurchaseOrder(order.id,`#tr${order.id}`)}>
+                    <button className='button' onClick={()=>handleViewPurchaseOrder(`#tr${order.id}`)}>
                       <i className="pi pi-eye" style={{"color":"rgb(72 197 128)"}} ></i>
+                    </button>
+                    <button className='button' onClick={()=>handleViewPurchaseOrder(`#tr${order.id}`)}>
+                      <i className="pi pi-sync" style={{"color":"rgb(255 180 0)"}} ></i>
                     </button>
                     <button className='button' onClick={()=>handlePrintPurchaseOrder(order.id,`#tr${order.id}`)}>
                       <i className="pi pi-print" style={{"color":"rgb(113 138 247)"}} ></i>
@@ -310,4 +312,4 @@ function Procurements() {
   )
 }
 
-export default Procurements
+export default Dispatch

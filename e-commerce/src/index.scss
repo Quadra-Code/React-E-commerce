@@ -45,6 +45,8 @@
 @import './sass/sections/procurements';
 // import permissions style
 @import './sass/sections/permissions';
+// import permissions style
+@import './sass/sections/treasury';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -60,6 +62,7 @@ html{
 }
 body{
   background-color:$bg-100-shadow;
+  background-color:#1f2b3e;
   overflow-x: hidden !important;
   color: $Dark_color;
   width: 100vw !important;
