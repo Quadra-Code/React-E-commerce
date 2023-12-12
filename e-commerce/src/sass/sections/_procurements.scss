@@ -1,0 +1,39 @@
+.add-procurements-pop{
+  .order-view-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 350px;
+    overflow-x: auto;
+    position: relative;
+    .label{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 2%;
+      span{
+        padding: 12px;
+      }
+    }
+    .row{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: rgb(191, 197, 201);
+      border-radius: 8px;
+      .column{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 12px;
+        gap: 10px;
+        .label{
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
