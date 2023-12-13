@@ -7,8 +7,6 @@ import { Toast } from 'primereact/toast';
 import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-
 function Procurements() {
   const toast  = useRef(null);
   const [search, setSearch] = useState('');

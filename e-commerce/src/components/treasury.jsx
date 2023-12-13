@@ -1,184 +1,196 @@
 /* eslint-disable no-unused-vars */
-import React, {Fragment,useState,useEffect,useRef } from 'react';
-import Swal from 'sweetalert2'
+import React ,{Fragment,useState,useEffect,useRef }from 'react';
+import Swal from 'sweetalert2';
 import axios,{Axios} from 'axios';
+import { InputText } from "primereact/inputtext";
+import { Toast } from 'primereact/toast';
+import { Tag } from 'primereact/tag';
+import { Dropdown } from 'primereact/dropdown';
+import { Dialog } from 'primereact/dialog';
 function Treasury() {
-  const selected = useRef()
-  const [sections , setSections] = useState();
-  const [sub_categories,setSub_categories] = useState([]); 
-  useEffect (()=>{
-    getAllSections()
-    // console.log(btnId);
-  })
-  const getAllSections = async ()=> {
-    try {
-      const response = await axios.get('https://badil.pythonanywhere.com/add-show-categories-api');
-      setSections(response.data)
-      // console.log(response.data)
-    } catch (error) {
-      console.error(error);
-    } 
+  const toast  = useRef(null);
+  const [search, setSearch] = useState('');
+  const [transactionValueState , setTransactionValueState] = useState(true);
+  const [transactions , setTransactions] = useState();
+  const [transactionValue , setTransactionValue] = useState();
+  const [transactionTotal , setTransactionTotal] = useState();
+  const [purchaseEmployee,setPurchaseEmployee] = useState(); 
+  const [purchaseEmployeesList,setPurchaseEmployeesList] = useState(); 
+  const [transactionDescription,setTransactionDescription] = useState(); 
+  const [transactionDescriptionList,setTransactionDescriptionList] = useState(); 
+  const [purchaseOrders,setPurchaseOrders] = useState(); 
+  const [orderID, setOrderID] =useState();
+  const [orderDetails, setOrderDetails] =useState();
+  const [printPopupVisible, setPrintPopupVisible] = useState(false);
+  const [viewAddTransaction,setViewAddTransaction] = useState(false)
+  const [viewOrderVisible, setViewOrderVisible] = useState(false);
+  const [selectedCity, setSelectedCity] = useState(null);
+  useEffect(() => {
+    handleGetTransactions();
+  },[])
+  const cities = [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' }
+  ];
+  const handleGetTransactions = ()=>{
+    axios.get(`https://badil.pythonanywhere.com/treasury-list-api`)
+    .then((response)=>{
+      setTransactions(response.data);
+      console.log(response.data);
+    })
+    .catch((error)=>{console.log(error);})
   }
-  // const category_fk = sub_categories&& sub_categories[0].category_fk
-  const handleView = async (id, trClass)=> {
-    const selectedTr= document.querySelector(trClass);
-    const childNodes= Array.from(selectedTr.parentNode.children);
-    // console.log(childNodes);
-    childNodes.map((child)=>child.classList.remove(`selected`));
-    selectedTr.classList.toggle('selected');
-    const addBtn = document.querySelector('.addSubBtn');
-    addBtn.setAttribute('id', `${id}`)
-    addBtn.removeAttribute('hidden')
-    // console.log(addBtn);
-    axios.get (`https://badil.pythonanywhere.com/sub-categories-api/${id}`,{})
-    .then((res)=>{
-      // getSub_sections()
-      setSub_categories(res.data)
-      console.log(res);
+  const getEmployeesTransactions = ()=>{
+    axios.get(`https://badil.pythonanywhere.com/employee-api/all`)
+    .then((response)=>{
+      setPurchaseEmployeesList(response.data);
+      console.log(response.data);
+      setViewAddTransaction(true);
+    })
+    .catch((error)=>{console.log(error);})
+    axios.get(`https://badil.pythonanywhere.com/treasury-transaction-api/all`)
+    .then((response)=>{
+      setTransactionDescriptionList(response.data);
+      console.log(response.data);
+    })
+    .catch((error)=>{console.log(error);})
+  }
+  const handlePostTransaction = (code,client_fk,total)=> {
+    let transaction_type=transactionDescription.transaction_type
+    console.log(transaction_type);
+    axios.post(`https://badil.pythonanywhere.com/treasury-list-api`,{
+      transaction_type:transaction_type,
+      transaction_entity:client_fk,
+      transaction_value:total,
+      transaction_order:code
+    })
+    .then((response)=>{
+      console.log(response.data);
+      toast.current.show({severity:'success', summary: 'تم', detail:'تمت العملية بنجاح', life: 3000});
     })
     .catch((error)=>{
       console.log(error);
-    });
-  }
-  const handleAdd =async ()=>{
-    const addPopup = await Swal.fire({
-      title: 'أضافة قسم جديد',
-      html:
-        '<input id="swal-input1" required placeholder="أسم القسم" class="swal2-input">' ,
-      focusConfirm: false,
-    })
-    .then((data)=>{
-      const category_name = document.getElementById('swal-input1').value;
-      if (category_name!=="" && data.isConfirmed){
-        axios.post('https://badil.pythonanywhere.com/add-show-categories-api', {
-          category_name:category_name
-        })
-        .then((res)=>{
-          setSections(res.data);
-          console.log(res);
-        })
-        .catch((error)=>{
-          console.log(error);
-        });
-      } 
+      toast.current.show({severity:'error', summary: 'خطأ', detail:error.response.data.error, life: 3000});
     })
   }
-  // http://localhost:9000/sections
-  // https://reactdjangoecommerce.pythonanywhere.com/categories-list
-  const handleEdit =async (id , name)=>{
-    const addPopup = await Swal.fire({
-      title: 'أضافة قسم جديد',
-      html:
-        `<input id="swal-input1" value= '${name}' class="swal2-input">` ,
-      focusConfirm: false,
-    })
-    const category_name = document.getElementById('swal-input1').value;
-    if (category_name!==""){
-      axios.put(`https://badil.pythonanywhere.com/rud-categories-api/${id}`, {
-        category_name
+  const handleGetTransactionValue = (e)=>{
+    console.log(e.transaction_type);
+    setTransactionDescription(e)
+    if(e.transaction_type == 0) {
+      setTransactionValueState(false)
+      axios.get(`https://badil.pythonanywhere.com/order-filtered-state-api/delivered/${purchaseEmployee.id}`)
+      .then((response)=>{
+        console.log(response.data);
+        // setOrderDetails(response.data)
       })
-      .then((res)=>{
-        console.log(res);
-        setSections(res.data)
+      .catch((error)=>{console.log(error);})
+    }else if (e.transaction_type == 1){
+      setTransactionValueState(false)
+      axios.get(`https://badil.pythonanywhere.com/order-filtered-state-api/on_purchace/${purchaseEmployee.id}`)
+      .then((response)=>{
+        console.log(response.data);
+        setOrderDetails(response.data)
       })
-      .catch((error)=>{
-        console.log(error);
-      });
-    } 
-  }
-  const handleAdd_sub =async ()=>{
-    const btnId = document.querySelector('.addSubBtn').getAttribute('id');
-    console.log(btnId);
-    if (btnId!==null) {
-      const addPopup = await Swal.fire({
-        title: 'أضافة قسم فرعي جديد',
-        html:
-          '<input id="swal-input2"  placeholder="أسم القسم" class="swal2-input">' ,
-        focusConfirm: false,
-      })
-      const id = btnId;
-      const sub_name = document.getElementById('swal-input2').value;
-      if (sub_name!==""){
-        axios.post(`https://badil.pythonanywhere.com/sub-categories-api/${id}`, {
-          sub_category_name: sub_name,
-          category_fk: id
-        })
-          .then((res) => {
-          setSub_categories(res.data)
-          console.log(res);
-        })
-        .catch((error)=>{
-          console.log(error);
-        });
-      } 
+      .catch((error)=>{console.log(error);})
     }
+    else{console.log(e.transaction_type);}
   }
-  const handleEdit_sub =async (id,name,category_fk)=>{
-    const subCategory_body = document.getElementById('subCategory_body');
-    console.log(subCategory_body.children);
-    if (subCategory_body.children.length!==0) {
-      const addPopup = await Swal.fire({
-        title: 'أضافة قسم فرعي جديد',
-        html:
-          `<input id="swal-input2" value='${name}' class="swal2-input">` ,
-        focusConfirm: false,
-      })
-      const sub_name = document.getElementById('swal-input2').value;
-      console.log(name);
-      if (sub_name!==""){
-        axios.put(`https://badil.pythonanywhere.com/sub-categories-api/${id}`, {
-          sub_category_name: sub_name,
-          category_fk
-        })
-        .then((res)=>{
-          setSub_categories(res.data)
-          console.log(res);
-        })
-        .catch((error)=>{
-          console.log(error);
-        });
-      } 
-    }
-  }
-  const handleDelete = (section)=> {
-    Swal.fire({
-      title: `Are you sure you want to delete ${section.category_name}?`,
-      showCancelButton:true,
-    }).then((data)=>{
-      console.log(section.id);
-      if(data.isConfirmed){
-        axios.delete(`https://badil.pythonanywhere.com/rud-categories-api/${section.id}`)
-        .then ((res)=>{
-          console.log(res);
-          setSections(res.data)
-          axios.get(`https://badil.pythonanywhere.com/sub-categories-api/${section.id}`,{})
-          .then((res)=>{
-            setSub_categories(res.data)
-            console.log(res);
-          })
-          .catch((error)=>{
-            console.log(error);
-          });
-        })
-      }
+  const handleViewPurchaseOrder = (orderID,trClass)=> {
+    const selectedTr= document.querySelector(trClass);
+    const childNodes= Array.from(selectedTr.parentNode.children);
+    childNodes.map((child)=>child.classList.remove(`selected`));
+    selectedTr.classList.toggle('selected');
+    axios.get(`https://badil.pythonanywhere.com/order-master-api/master${orderID}`)
+    .then((response)=>{
+      setOrderDetails(response.data.order_details)
+      setViewOrderVisible(true);
+    })
+    .catch((error)=>{
+      console.log(error);
     })
   }
-  const handleDeleteSub = (id,name)=> {
-    Swal.fire({
-      title: `Are you sure you want to delete ${name}?`,
-      showCancelButton:true,
-    }).then((data)=>{
-      if(data.isConfirmed){
-        axios.delete(`https://badil.pythonanywhere.com/sub-categories-api/${id}`)
-        .then ((res)=>{
-          console.log(res);
-          setSub_categories(res.data)
-        })
-      }
+  const handlePrintPurchaseOrder = (orderID,trClass)=> {
+    const selectedTr= document.querySelector(trClass);
+    const childNodes= Array.from(selectedTr.parentNode.children);
+    childNodes.map((child)=>child.classList.remove(`selected`));
+    selectedTr.classList.toggle('selected');
+    setPrintPopupVisible(true)
+    setOrderID(orderID)
+  }
+  const handlePrintRequest = ()=> {
+    axios.put(`https://badil.pythonanywhere.com/purchase-dispatch-api/${orderID}`,{
+      purchase:true,
+      purchase_employee:purchaseEmployee.id
+    })
+    .then((response)=>{
+      setPrintPopupVisible(false);
+      setPurchaseEmployee(null);
+      setOrderID(null);
+      setPurchaseOrders(response.data)
+      toast.current.show({severity:'success', summary: 'تم', detail:'تمت العملية بنجاح', life: 3000});
+    })
+    .catch((error)=>{
+      console.log(error);
+      toast.current.show({severity:'error', summary: 'خطأ', detail:error.response.data.error, life: 3000});
     })
   }
   return (
-    <Fragment>
+    <>
+      <Toast ref={toast} />
+      <Dialog header="طباعة الأوردر" className='permission-dialog' visible={printPopupVisible}  onHide={()=>setPrintPopupVisible(false)}>
+        <div className="add-permission-pop">
+          <div className="add-permission-inputs">
+            <div className='inputs-container'>
+              <Dropdown value={purchaseEmployee} onChange={(e) => setPurchaseEmployee(e.value)} options={purchaseEmployeesList} optionLabel="employee_name" 
+                  placeholder="إختر موظف الشراء" className="w-full md:w-14rem" />
+            </div>
+          </div>
+          <div className="add-permission-btn">
+            <button onClick={handlePrintRequest}>حسنا</button>
+          </div>
+        </div>
+      </Dialog>
+      <Dialog header="تفاصيل الأوردر" className='permission-dialog' visible={viewAddTransaction}  onHide={()=>setViewAddTransaction(false)}>
+        <div className="add-procurements-pop">
+          <div className="select-employee">
+            <Dropdown value={purchaseEmployee} onChange={(e) => setPurchaseEmployee(e.value)} options={purchaseEmployeesList} optionLabel="employee_name" 
+              placeholder="إختر الموظف" className="w-full md:w-14rem" />
+            <Dropdown value={transactionDescription} onChange={(e) => handleGetTransactionValue(e.value)} options={transactionDescriptionList} optionLabel="transaction_name" 
+              placeholder="إختر وصف الحركة" className="w-full md:w-14rem" />
+            {
+              transactionValueState === true ? 
+                <InputText keyfilter="int" placeholder="قيمة الحركة" value={transactionValue} onChange={(e) => setTransactionValue(e.value)}/>
+              :
+                <InputText keyfilter="int" disabled placeholder="قيمة الحركة" value={transactionTotal}/>
+            }
+          </div>
+          <div className='order-view-container'>
+            <div className='label'>
+              <span>كود الحركة</span>
+              {/* <span>الجهة</span>
+              <span>وصف الحركة</span>
+              <span>قيمة الحركة</span>
+              <span>خيارات</span> */}
+            </div>
+            {orderDetails&& orderDetails.map((detail)=>{
+              return(
+                <div className='row' key={detail.id}>
+                  <div className='column'>{detail.id}</div>
+                  <button onClick={()=>setTransactionTotal(detail.order_master_total)}>{detail.order_master_total}</button>
+                  <button onClick={()=>handlePostTransaction(detail.id ,detail.client_fk, detail.order_master_total)}>{detail.id}</button>
+                  {/* <div className='column'>{detail.order_detail_quantity}</div>
+                  <div className='column'>{detail.product_unit}</div>
+                  <div className='column'>{detail.order_item_sell_price}</div>
+                  <div className='column'>{detail.order_detail_price}</div> */}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </Dialog>
       <div className='main-treasury-content'>
         <section className="topSec">
           <div className="topSec-content" >
@@ -189,8 +201,8 @@ function Treasury() {
           </div>
           <div className='allElements'>
             <div className='outerTable'>
-              <div onClick={handleAdd} className='addBtn'>
-                <button>
+              <div className='addBtn'>
+                <button onClick={getEmployeesTransactions}>
                   <i className="fa-solid fa-plus" style={{color:'#ffffff'}}></i>
                   <span>اضافه</span>
                 </button>
@@ -199,39 +211,38 @@ function Treasury() {
                 <thead>
                   <tr>
                     <th>تاريخ الحركة</th>
-                    <th>وصف الحركة</th>
                     <th>الجهة</th>
+                    <th>وصف الحركة</th>
                     <th>قيمة الحركة</th>
                     <th>خيارات</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {sections&& sections.map((section)=>
-                    <tr id={`tr${section.id}`} ref={selected} key={section.id}>
-                      <td >{section.category_name}</td>
-                      <td >{section.category_name}</td>
-                      <td >{section.category_name}</td>
-                      <td >{section.category_name}</td>
+                  {/* {transactions&& transactions.filter((item)=>{
+                  return search&& search.toLowerCase() === ''? item
+                  : item.id.toString().toLowerCase().includes(search);
+                  }).map((transaction)=>{
+                    return(
+                    <tr id={`tr${transaction.id}`} key={transaction.id}>
+                      <td>{transaction.id}</td>
+                      <td>{transaction.order_master_date_time}</td>
+                      <td>{transaction.client_name}</td>
+                      <td>{transaction.order_master_total}</td>
                       <td>
-                        <button className='button' onClick={()=>handleEdit(section.id, section.category_name)}>
-                          <i className="pi pi-print" style={{'color':'rgb(82 206 114)'}}></i>
+                        <button className='button' onClick={()=>handlePrintPurchaseOrder(transaction.id,`#tr${transaction.id}`)}>
+                          <i className="pi pi-print" style={{"color":"rgb(113 138 247)"}} ></i>
                         </button>
-                        {/* <button className='button' onClick={()=>handleView(section.id, `#tr${section.id}`)}>
-                          <i className="pi pi-eye"style={{'color':'rgb(51, 175, 247)'}} ></i>
-                        </button>
-                        <button className='button' onClick={()=>handleDelete(section)}>
-                          <i className="pi pi-trash" style={{'color':'rgb(180, 26, 26)'}}></i>
-                        </button> */}
                       </td>
                     </tr>
-                  )}
+                    )
+                  })} */}
                 </tbody>
               </table>
             </div>
           </div>
         </section>
       </div>
-    </Fragment>
+    </>
   )
 }
 

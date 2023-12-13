@@ -146,7 +146,7 @@
 .p-dialog .p-dialog-content {
   background: #ffffff;
   color: #495057;
-  padding: 0 1rem 1rem 1rem !important;
+  padding: 1rem !important;
 }
 
 .cart-container {
@@ -3642,6 +3642,11 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5);
 }
 
+.add-procurements-pop .select-employee {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 .add-procurements-pop .order-view-container {
   width: 100%;
   display: flex;
