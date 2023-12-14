@@ -1547,6 +1547,7 @@ a {
 @media (min-width: 992px) and (max-width: 1599px) {
   .super-user-main .container .sideNav {
     width: 18%;
+    gap: 20px;
   }
 }
 .super-user-main .container .sideNav .navLinks {
@@ -1556,6 +1557,11 @@ a {
   display: flex;
   flex-direction: column;
   gap: 50px;
+}
+@media (min-width: 992px) and (max-width: 1599px) {
+  .super-user-main .container .sideNav .navLinks ul {
+    gap: 20px;
+  }
 }
 .super-user-main .container .sideNav .navLinks ul li {
   list-style: none;

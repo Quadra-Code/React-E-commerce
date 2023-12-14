@@ -169,7 +169,7 @@ export default function AddNewOrder() {
             <span>اضافة عنوان جديد</span>
           </button>
         </div>
-        <div className='allElements addOrder_tables'>
+        <div className='allElements addOrder_tables'style={{"flexDirection":"column"}}>
           <div className='outerTable last-child'>
             <table>
               <thead>
