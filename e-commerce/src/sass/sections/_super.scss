@@ -2,9 +2,10 @@
 
 
 .super-user-main{
-  height: 100vh;
+  min-height: 100vh;
   direction: rtl;
   background-color: #1f2b3e;
+  overflow-y: auto;
   // display: flex;
   // justify-content: center;
   // align-items: center;
@@ -328,7 +329,6 @@
           display: flex;
           justify-content: center;
           align-items: flex-start;
-          flex-wrap: wrap;
           gap: 15px;
           .last-child{
             width: 100%;
@@ -338,7 +338,7 @@
             padding:10px 20px;
             border-radius: 15px;
             min-width: 48%;
-            max-height: 650px;
+            max-height: 720px;
             overflow-y: auto;
             // display: flex;
             // align-items: center;

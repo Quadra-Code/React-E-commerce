@@ -154,7 +154,7 @@ import { Toast } from 'primereact/toast';
             <div className='search-add'>
               <span className="p-input-icon-left">
                 <i className="pi pi-search" />
-                <InputText placeholder="بحث برقم الهاتف" />
+                <InputText placeholder="بحث برقم الهاتف"onChange={(e)=>{setSearch(e.target.value)}} />
               </span>
             </div>
             <table>
@@ -170,7 +170,11 @@ import { Toast } from 'primereact/toast';
                 </tr>
               </thead>
               <tbody id='subCategory_body'>
-                {orders&& orders.map((order)=>
+                {orders&& orders.filter((item)=>{
+                  return search&& search.toLowerCase() === ''
+                  ? item
+                  : item.order_master_date_time.toLowerCase().includes(search);
+                }).map((order)=>
                   <tr id={`tr${order.id}`} key={order.id}>
                     <td >{order.client_name}</td>
                     <td >{order.client_main_phone}</td>

@@ -52,9 +52,39 @@ function SuperUser() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to ='admin'>
+                  <NavLink to ='/admin/orders'>
                     <i className="fa-solid fa-bars"></i>
-                    الطلبات
+                    الكول سنتر
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to ='procurements'>
+                    <i className="fa-solid fa-bars"></i>
+                    المشتريات
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to ='dispatch'>
+                    <i className="fa-solid fa-bars"></i>
+                    الحركة
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to ='/treasury'>
+                    <i className="fa-solid fa-bars"></i>
+                    الخزنة
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to ='users'>
+                    <i className="fa-solid fa-bars"></i>
+                    الموظفين
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to ='permissions'>
+                    <i className="fa-solid fa-bars"></i>
+                    الصلاحيات
                   </NavLink>
                 </li>
               </ul>

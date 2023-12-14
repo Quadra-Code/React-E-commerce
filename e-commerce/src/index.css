@@ -1521,9 +1521,10 @@ a {
 /* full side nav */
 /* end full side nav */
 .super-user-main {
-  height: 100vh;
+  min-height: 100vh;
   direction: rtl;
   background-color: #1f2b3e;
+  overflow-y: auto;
 }
 .super-user-main .container {
   height: 100%;
@@ -1852,7 +1853,6 @@ a {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap;
   gap: 15px;
 }
 .super-user-main .container .mainContent .topSec .allElements .last-child {
@@ -1863,7 +1863,7 @@ a {
   padding: 10px 20px;
   border-radius: 15px;
   min-width: 48%;
-  max-height: 650px;
+  max-height: 720px;
   overflow-y: auto;
   text-align: center;
 }
@@ -3040,7 +3040,9 @@ a {
   gap: 0px;
   width: 100%;
   padding: 18px 0;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.0784313725);
+  box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.03);
+  background-color: #fff;
+  z-index: 9;
 }
 .ChannelI-container .top-header .sign-in {
   margin-left: 50px;
@@ -3067,6 +3069,7 @@ a {
   gap: 0px;
   width: 100%;
   height: 100%;
+  background-color: #fff;
 }
 .ChannelI-container .lg-container .right-section {
   width: 40%;
@@ -3405,7 +3408,6 @@ a {
 }
 
 main {
-  height: 100vh;
   direction: rtl;
 }
 main .topSec {
@@ -3767,8 +3769,10 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
   flex-direction: column;
   position: absolute;
   left: 0;
-  height: 100vh;
   width: 100%;
+  background-color: #1f2b3e;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 .main-treasury-content .topSec {
   width: 100%;
@@ -3985,7 +3989,7 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
   padding: 10px 20px;
   border-radius: 15px;
   width: 100%;
-  max-height: 650px;
+  max-height: 720px;
   overflow-y: auto;
   text-align: center;
 }
@@ -4361,7 +4365,6 @@ html {
 }
 
 body {
-  background-color: #fffff0;
   background-color: #1f2b3e;
   overflow-x: hidden !important;
   color: #222831;

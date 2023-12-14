@@ -45,12 +45,6 @@ function Admin() {
                     الاوردات
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to ='add-new-order' >
-                    <i className="fa-solid fa-bars"></i>
-                    اضافة اوردر
-                  </NavLink>
-                </li>
               </ul>
             </div>
           </div>

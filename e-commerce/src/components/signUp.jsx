@@ -64,9 +64,9 @@ export default function SignUp() {
             <div className='col '>
               <div className='form-header'>
                 <div className='top'>
-                  <h3>شركة و حلواني الأصيل</h3>
+                  <h3>شركة سبريمو لللمنتجات الغذائية</h3>
                 </div>
-                <span className='label'>من فضلك قم بأدخال هذه البيانات لتسجيل الدخول</span>
+                <span className='label'>من فضلك قم بأدخال هذه البيانات  لإنشاء حساب جديد</span>
                 <span className={errMsg?"errmsg":"offscreen"}>{errMsg}</span>
               </div>
               <form className='signUP-form' onSubmit={(e)=>{handleSinUp(e)}}>

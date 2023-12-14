@@ -30,7 +30,7 @@ function Treasury() {
   const [selectedTransactions, setSelectedTransactions] = useState(null);
   useEffect(() => {
     handleGetTransactions();
-    handleGetTotalBalance()
+    handleGetTotalBalance();
   },[])
   const cities = [
     { name: 'New York', code: 'NY' },
@@ -73,18 +73,16 @@ function Treasury() {
   }
   const handlePostTransaction = (code,client_fk,total)=> {
     let transaction_type=transactionDescription.transaction_type
-    console.log(transaction_type);
-    console.log(selectedTransactions);
-    console.log(purchaseEmployee);
-    console.log(transactionsType);
     if(transactionsType != 0 || transactionsType != 1){
+      console.log('!= 0');
       axios.post(`https://badil.pythonanywhere.com/treasury-list-api`,{
         transaction_type:transaction_type,
         transaction_entity:purchaseEmployee.id,
-        transaction_value:transactionValue,
+        transaction_value:transactionValue
       })
       .then((response)=>{
-        console.log(response.data);
+        handleGetTransactions();
+        handleGetTotalBalance();
         toast.current.show({severity:'success', summary: 'تم', detail:'تمت العملية بنجاح', life: 3000});
       })
       .catch((error)=>{
@@ -99,7 +97,8 @@ function Treasury() {
         orders:selectedTransactions
       })
       .then((response)=>{
-        console.log(response.data);
+        handleGetTransactions();
+        handleGetTotalBalance();
         toast.current.show({severity:'success', summary: 'تم', detail:'تمت العملية بنجاح', life: 3000});
       })
       .catch((error)=>{
@@ -198,7 +197,7 @@ function Treasury() {
               placeholder="إختر وصف الحركة" className="w-full md:w-14rem" />
             {
               transactionValueState === true ? 
-                <InputText keyfilter="int" placeholder="قيمة الحركة" value={transactionValue} onChange={(e) => setTransactionValue(e.value)}/>
+                <InputText keyfilter="int" placeholder="قيمة الحركة" value={transactionValue} onChange={(e) => setTransactionValue(e.target.value)}/>
               :
                 <InputText keyfilter="int" disabled placeholder="قيمة الحركة" value={transactionTotal}/>
             }
