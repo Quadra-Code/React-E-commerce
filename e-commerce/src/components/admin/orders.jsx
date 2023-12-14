@@ -184,9 +184,9 @@ import { Toast } from 'primereact/toast';
                     <td>
                       <Tag 
                         severity={
-                        order.order_master_state==='0'? 'danger' : order.order_master_state==='2 || 3'? 'warning': order.order_master_state==='4'? 'success':order.order_master_state==='1'? 'info':'danger'}
+                        order.order_state==='0'? 'danger' : order.order_state==='2 || 3'? 'warning': order.order_state==='4'? 'success':order.order_state==='1'? 'info':'danger'}
                         value={
-                          order.order_master_state==='0'? 'غير مكتمل' : order.order_master_state==='2 || 3'? 'قيد الانتظار': order.order_master_state==='4'? 'تم':order.order_master_state==='1'? 'بإنتظار الموافقة':'danger'
+                          order.order_state==='0'? 'غير مكتمل' : order.order_state==='2 || 3'? 'قيد الانتظار': order.order_state==='4'? 'تم':order.order_state==='1'? 'بإنتظار الموافقة':'جاري التنفيذ'
                         }
                         ></Tag>
                     </td>
