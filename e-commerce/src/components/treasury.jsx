@@ -7,10 +7,13 @@ import { Toast } from 'primereact/toast';
 import { Tag } from 'primereact/tag';
 import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
+import { ListBox } from 'primereact/listbox';
 function Treasury() {
   const toast  = useRef(null);
   const [search, setSearch] = useState('');
+  const [totalBalance, setTotalBalance] = useState();
   const [transactionValueState , setTransactionValueState] = useState(true);
+  const [transactionsType , setTransactionsType] = useState(true);
   const [transactions , setTransactions] = useState();
   const [transactionValue , setTransactionValue] = useState();
   const [transactionTotal , setTransactionTotal] = useState();
@@ -24,9 +27,10 @@ function Treasury() {
   const [printPopupVisible, setPrintPopupVisible] = useState(false);
   const [viewAddTransaction,setViewAddTransaction] = useState(false)
   const [viewOrderVisible, setViewOrderVisible] = useState(false);
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedTransactions, setSelectedTransactions] = useState(null);
   useEffect(() => {
     handleGetTransactions();
+    handleGetTotalBalance()
   },[])
   const cities = [
     { name: 'New York', code: 'NY' },
@@ -35,11 +39,17 @@ function Treasury() {
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' }
   ];
+  const handleGetTotalBalance = ()=>{
+    axios.get(`https://badil.pythonanywhere.com/treasury-value-api`)
+    .then((response)=>{
+      setTotalBalance(response.data.treasury_value);
+    })
+    .catch((error)=>{console.log(error);})
+  }
   const handleGetTransactions = ()=>{
     axios.get(`https://badil.pythonanywhere.com/treasury-list-api`)
     .then((response)=>{
       setTransactions(response.data);
-      console.log(response.data);
     })
     .catch((error)=>{console.log(error);})
   }
@@ -58,23 +68,45 @@ function Treasury() {
     })
     .catch((error)=>{console.log(error);})
   }
+  const handleTransactions = (e)=> {
+    setSelectedTransactions(e)
+  }
   const handlePostTransaction = (code,client_fk,total)=> {
     let transaction_type=transactionDescription.transaction_type
     console.log(transaction_type);
-    axios.post(`https://badil.pythonanywhere.com/treasury-list-api`,{
-      transaction_type:transaction_type,
-      transaction_entity:client_fk,
-      transaction_value:total,
-      transaction_order:code
-    })
-    .then((response)=>{
-      console.log(response.data);
-      toast.current.show({severity:'success', summary: 'تم', detail:'تمت العملية بنجاح', life: 3000});
-    })
-    .catch((error)=>{
-      console.log(error);
-      toast.current.show({severity:'error', summary: 'خطأ', detail:error.response.data.error, life: 3000});
-    })
+    console.log(selectedTransactions);
+    console.log(purchaseEmployee);
+    console.log(transactionsType);
+    if(transactionsType != 0 || transactionsType != 1){
+      axios.post(`https://badil.pythonanywhere.com/treasury-list-api`,{
+        transaction_type:transaction_type,
+        transaction_entity:purchaseEmployee.id,
+        transaction_value:transactionValue,
+      })
+      .then((response)=>{
+        console.log(response.data);
+        toast.current.show({severity:'success', summary: 'تم', detail:'تمت العملية بنجاح', life: 3000});
+      })
+      .catch((error)=>{
+        console.log(error);
+        toast.current.show({severity:'error', summary: 'خطأ', detail:error.response.data.error, life: 3000});
+      })
+    }else(
+      axios.post(`https://badil.pythonanywhere.com/treasury-list-api`,{
+        transaction_type:transaction_type,
+        transaction_entity:purchaseEmployee.id,
+        // transaction_value:total,
+        orders:selectedTransactions
+      })
+      .then((response)=>{
+        console.log(response.data);
+        toast.current.show({severity:'success', summary: 'تم', detail:'تمت العملية بنجاح', life: 3000});
+      })
+      .catch((error)=>{
+        console.log(error);
+        toast.current.show({severity:'error', summary: 'خطأ', detail:error.response.data.error, life: 3000});
+      })
+    )
   }
   const handleGetTransactionValue = (e)=>{
     console.log(e.transaction_type);
@@ -84,7 +116,7 @@ function Treasury() {
       axios.get(`https://badil.pythonanywhere.com/order-filtered-state-api/delivered/${purchaseEmployee.id}`)
       .then((response)=>{
         console.log(response.data);
-        // setOrderDetails(response.data)
+        setOrderDetails(response.data)
       })
       .catch((error)=>{console.log(error);})
     }else if (e.transaction_type == 1){
@@ -96,7 +128,11 @@ function Treasury() {
       })
       .catch((error)=>{console.log(error);})
     }
-    else{console.log(e.transaction_type);}
+    else{
+      setTransactionsType(e.transaction_type)
+      console.log(e.transaction_type)
+      setTransactionValueState(true)
+    }
   }
   const handleViewPurchaseOrder = (orderID,trClass)=> {
     const selectedTr= document.querySelector(trClass);
@@ -166,29 +202,34 @@ function Treasury() {
               :
                 <InputText keyfilter="int" disabled placeholder="قيمة الحركة" value={transactionTotal}/>
             }
+            <button className='confirm' onClick={handlePostTransaction}>تأكيد العملية</button>
           </div>
-          <div className='order-view-container'>
-            <div className='label'>
-              <span>كود الحركة</span>
-              {/* <span>الجهة</span>
-              <span>وصف الحركة</span>
-              <span>قيمة الحركة</span>
-              <span>خيارات</span> */}
+          {transactionValueState === false && 
+            <div className='order-view-container'>
+              <div className='label'>
+                <span> الحركة</span>
+                {/* <span>الجهة</span>
+                <span>وصف الحركة</span>
+                <span>قيمة الحركة</span>
+                <span>خيارات</span> */}
+              </div>
+              <ListBox multiple value={selectedTransactions} onChange={(e) => handleTransactions(e.value)} options={orderDetails} optionLabel="id" className="w-full md:w-14rem" />
+              {/* {orderDetails&& orderDetails.map((detail)=>{
+                return(
+                  <div className='row' style={{cursor:'pointer'}} key={detail.id} onClick={()=>setTransactionTotal(detail.order_master_total)}>
+                    <div className='column'>{detail.id}</div>
+                    <button className='post-transaction' onClick={()=>handlePostTransaction(detail.id ,detail.client_fk, detail.order_master_total)}>
+                      <i className='pi pi-print' style={{"color":"rgb(113 138 247)"}}></i>
+                    </button>
+                    <div className='column'>{detail.order_detail_quantity}</div>
+                    <div className='column'>{detail.product_unit}</div>
+                    <div className='column'>{detail.order_item_sell_price}</div>
+                    <div className='column'>{detail.order_detail_price}</div>
+                  </div>
+                )
+              })} */}
             </div>
-            {orderDetails&& orderDetails.map((detail)=>{
-              return(
-                <div className='row' key={detail.id}>
-                  <div className='column'>{detail.id}</div>
-                  <button onClick={()=>setTransactionTotal(detail.order_master_total)}>{detail.order_master_total}</button>
-                  <button onClick={()=>handlePostTransaction(detail.id ,detail.client_fk, detail.order_master_total)}>{detail.id}</button>
-                  {/* <div className='column'>{detail.order_detail_quantity}</div>
-                  <div className='column'>{detail.product_unit}</div>
-                  <div className='column'>{detail.order_item_sell_price}</div>
-                  <div className='column'>{detail.order_detail_price}</div> */}
-                </div>
-              )
-            })}
-          </div>
+          }
         </div>
       </Dialog>
       <div className='main-treasury-content'>
@@ -196,7 +237,7 @@ function Treasury() {
           <div className="topSec-content" >
             <div className='current-balance-container'>
               <span className='current-balance-text'>الرصيد الحالي</span>
-              <span className='current-balance'>18900349 ج.م</span>
+              <span className='current-balance'>{totalBalance} ج.م</span>
             </div>
           </div>
           <div className='allElements'>
@@ -218,24 +259,27 @@ function Treasury() {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {transactions&& transactions.filter((item)=>{
+                  {transactions&& transactions.filter((item)=>{
                   return search&& search.toLowerCase() === ''? item
-                  : item.id.toString().toLowerCase().includes(search);
+                  : item.employee_name.toLowerCase().includes(search);
                   }).map((transaction)=>{
                     return(
                     <tr id={`tr${transaction.id}`} key={transaction.id}>
-                      <td>{transaction.id}</td>
-                      <td>{transaction.order_master_date_time}</td>
-                      <td>{transaction.client_name}</td>
-                      <td>{transaction.order_master_total}</td>
+                      <td>{transaction.transaction_date}</td>
+                      <td>{transaction.employee_name}</td>
+                      <td>{transaction.transaction_type_display}</td>
+                      <td>{transaction.transaction_value}</td>
                       <td>
-                        <button className='button' onClick={()=>handlePrintPurchaseOrder(transaction.id,`#tr${transaction.id}`)}>
+                        <button className='button'>
                           <i className="pi pi-print" style={{"color":"rgb(113 138 247)"}} ></i>
                         </button>
+                        {/* <button className='button' onClick={()=>handlePrintPurchaseOrder(transaction.id,`#tr${transaction.id}`)}>
+                          <i className="pi pi-print" style={{"color":"rgb(113 138 247)"}} ></i>
+                        </button> */}
                       </td>
                     </tr>
                     )
-                  })} */}
+                  })}
                 </tbody>
               </table>
             </div>

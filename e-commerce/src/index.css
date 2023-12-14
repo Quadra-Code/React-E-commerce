@@ -3647,6 +3647,18 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
   align-items: center;
   gap: 20px;
 }
+.add-procurements-pop .confirm {
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
+  background-color: black;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 17px;
+  color: #fff;
+  cursor: pointer;
+}
 .add-procurements-pop .order-view-container {
   width: 100%;
   display: flex;
@@ -3655,14 +3667,17 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
   max-height: 350px;
   overflow-x: auto;
   position: relative;
+  margin-top: 10px;
 }
 .add-procurements-pop .order-view-container .label {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-around;
   position: sticky;
   top: 2%;
+  background-color: black;
+  color: #fff;
 }
 .add-procurements-pop .order-view-container .label span {
   padding: 12px;
@@ -3670,7 +3685,7 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
 .add-procurements-pop .order-view-container .row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-around;
   background-color: rgb(191, 197, 201);
   border-radius: 8px;
 }
@@ -3683,6 +3698,15 @@ main .topSec .addSec .addSectionCont .col button:last-of-type:hover i {
 }
 .add-procurements-pop .order-view-container .row .column .label {
   font-weight: bold;
+  background-color: bisque;
+}
+.add-procurements-pop .order-view-container .row .post-transaction {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .add-permission-pop {
