@@ -21,6 +21,8 @@ import Users from './components/superUser/users';
 import Procurements from './components/superUser/procurements';
 import Dispatch from './components/superUser/dispatch';
 import Treasury from './components/treasury';
+import LoginForEmployee from './components/loginForEmloyee';
+import EmployeeScreens from './components/employeeScreens';
 
 // const initState = {
 //   product_data : null
@@ -41,11 +43,15 @@ function App() {
       <Routes>
         <Route path ='/' exact element= {<Home/>}/>
         <Route path ='/login' exact element= {<Login/>}/>
+        <Route path ='/employee-login' exact element= {<LoginForEmployee/>}/>
         <Route path ='/sign-up' exact element= {<SignUp/>}/>
         <Route path ='/all-menu' exact element= {<AllMenu/>}/>
         <Route path ='/treasury' exact element= {<Treasury/>}/>
         <Route path ='/my-cart' exact element= {<MyCart/>}/>
         <Route path ='/checkout' exact element= {<Checkout/>}/>
+        <Route path ='/employee-screens' exact element= {<EmployeeScreens/>}>
+          
+        </Route>
         <Route path='/super-user' exact element={<SuperUser/>}>
           <Route path ='procurements' exact element= {<Procurements/>}/>
           <Route path ='dispatch' exact element= {<Dispatch/>}/>
