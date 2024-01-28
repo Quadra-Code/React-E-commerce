@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/React_E-commerce/static/css/main.541f93ce.css",
+    "main.js": "/React_E-commerce/static/js/main.313184a7.js",
+    "static/js/787.46493d11.chunk.js": "/React_E-commerce/static/js/787.46493d11.chunk.js",
+    "static/media/img4.webP": "/React_E-commerce/static/media/img4.3de67d71e124538341fc.webP",
+    "static/media/img1.webP": "/React_E-commerce/static/media/img1.08e729ff07c6af6b713e.webP",
+    "static/media/img2.webP": "/React_E-commerce/static/media/img2.c5fd3908f4dc1bdbeda5.webP",
+    "static/media/img3.webP": "/React_E-commerce/static/media/img3.ae05363f479c511b1aeb.webP",
+    "static/media/Pro5.jpg": "/React_E-commerce/static/media/Pro5.923381685489b109642c.jpg",
+    "static/media/Pro3.jpg": "/React_E-commerce/static/media/Pro3.8f33de0c803616241733.jpg",
+    "static/media/Pro2.jpg": "/React_E-commerce/static/media/Pro2.42d6f5b51a88bf3aa698.jpg",
+    "static/media/Pro1.jpg": "/React_E-commerce/static/media/Pro1.875660753e8f12b497a7.jpg",
+    "static/media/Pro4.jpg": "/React_E-commerce/static/media/Pro4.9eaec91171750a234d36.jpg",
+    "static/media/primeicons.svg": "/React_E-commerce/static/media/primeicons.e1441b135b3ca9ad643c.svg",
+    "static/media/لوجو qc 2-01.png": "/React_E-commerce/static/media/لوجو qc 2-01.6e1416d40896bd333f8d.png",
+    "static/media/Illustration-PNG-Images.png": "/React_E-commerce/static/media/Illustration-PNG-Images.59a190bf6dfac003a5f2.png",
+    "static/media/primeicons.eot": "/React_E-commerce/static/media/primeicons.d44157bdfa026dc877af.eot",
+    "static/media/primeicons.woff": "/React_E-commerce/static/media/primeicons.10d3152104f2208ac82a.woff",
+    "static/media/primeicons.ttf": "/React_E-commerce/static/media/primeicons.ea5358601d0a3fd6670b.ttf",
+    "static/media/لوجو qc-12.png": "/React_E-commerce/static/media/لوجو qc-12.983a6f0135b4f2c57e78.png",
+    "static/media/primeicons.woff2": "/React_E-commerce/static/media/primeicons.78172950b335ccdb94e2.woff2",
+    "static/media/color.png": "/React_E-commerce/static/media/color.6441e63a57ccc5105bad.png",
+    "index.html": "/React_E-commerce/index.html",
+    "main.541f93ce.css.map": "/React_E-commerce/static/css/main.541f93ce.css.map",
+    "main.313184a7.js.map": "/React_E-commerce/static/js/main.313184a7.js.map",
+    "787.46493d11.chunk.js.map": "/React_E-commerce/static/js/787.46493d11.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.541f93ce.css",
+    "static/js/main.313184a7.js"
+  ]
+}
