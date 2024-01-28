@@ -41,7 +41,7 @@ function App() {
   return (
     <Router basename= "/React-E-commerce">
       <Routes>
-        <Route path ='/' exact element= {<Home/>}/>
+        <Route path ='/React-E-commerce' exact element= {<Home/>}/>
         <Route path ='/login' exact element= {<Login/>}/>
         <Route path ='/employee-login' exact element= {<LoginForEmployee/>}/>
         <Route path ='/sign-up' exact element= {<SignUp/>}/>
