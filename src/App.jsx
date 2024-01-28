@@ -39,7 +39,7 @@ function App() {
   // const [state, dispatch] = useReducer(reducer,initState)
   
   return (
-    <Router>
+    <Router basename= "/React-E-commerce">
       <Routes>
         <Route path ='/' exact element= {<Home/>}/>
         <Route path ='/login' exact element= {<Login/>}/>
