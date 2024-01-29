@@ -41,7 +41,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path ='/React-E-commerce' exact element= {<Home/>}/>
+        <Route path ='/' exact element= {<Home/>}/>
         <Route path ='/login' exact element= {<Login/>}/>
         <Route path ='/employee-login' exact element= {<LoginForEmployee/>}/>
         <Route path ='/sign-up' exact element= {<SignUp/>}/>
@@ -52,7 +52,7 @@ function App() {
         <Route path ='/employee-screens' exact element= {<EmployeeScreens/>}>
           
         </Route>
-        <Route path='React-E-commerce/super-user' exact element={<SuperUser/>}>
+        <Route path='/super-user' exact element={<SuperUser/>}>
           <Route path ='procurements' exact element= {<Procurements/>}/>
           <Route path ='dispatch' exact element= {<Dispatch/>}/>
           <Route path='permissions' exact element={<Permissions/>}/>
@@ -63,7 +63,7 @@ function App() {
           <Route path='add-sections' element={<AddSections/>}/>
           <Route path='admin' element={<Admin/>}/>
         </Route>
-        <Route path='React-E-commerce/admin' exact element={<Admin/>}>
+        <Route path='/admin' exact element={<Admin/>}>
           <Route path='add-new-order/:customerID' element={<AddNewOrder/>}/>
           <Route path='view-order/:customerID' element={<ViewOrder/>}/>
           <Route path='orders' element={<Orders/>}/>
